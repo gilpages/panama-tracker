@@ -89,16 +89,28 @@
 
   /* details expander */
   details.more{border-top:1px solid var(--line);margin-top:2px}
-  details.more summary{cursor:pointer;list-style:none;font-size:12.5px;font-weight:600;color:var(--bay);padding:9px 0 2px;display:flex;align-items:center;gap:5px}
+  details.more{margin-top:0}
+  details.more summary{cursor:pointer;list-style:none;display:flex;flex-direction:column;gap:4px}
   details.more summary::-webkit-details-marker{display:none}
-  details.more summary .chev{transition:transform .15s ease}
-  details.more[open] summary .chev{transform:rotate(90deg)}
-  details.more .more-inner{display:flex;flex-direction:column;gap:10px;padding:8px 0 2px}
+  details.more summary .summary{margin:0}
+  .more-toggle{font-size:12.5px;font-weight:600;color:var(--bay);display:inline-flex;align-items:center;gap:5px;padding-top:1px}
+  details.more[open] .more-toggle .more-label::after{content:" \2014 less"}
+  details.more .chev{transition:transform .15s ease;display:inline-block}
+  details.more[open] .chev{transform:rotate(90deg)}
+  details.more .more-inner{display:flex;flex-direction:column;gap:10px;padding:10px 0 2px;border-top:1px solid var(--line);margin-top:9px}
   .v-great{background:var(--green)} .v-solid{background:#3f8a5f}
   .v-fair{background:var(--amber)} .v-over{background:#9a4f36} .v-caution{background:var(--red)}
   .v-none{background:#8a948f}
 
   .thumb{height:160px;background:#dfe6e2 center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
+  /* compact hero strip (used when there is no photo) */
+  .hero{position:relative;padding:14px 16px 13px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;color:#fff;overflow:hidden}
+  .hero .h-area{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.9}
+  .hero .h-price{font-family:'Fraunces',serif;font-size:26px;font-weight:600;line-height:1.05;margin-top:2px}
+  .hero .h-ppm{font-size:11.5px;opacity:.85;margin-top:1px}
+  .hero .h-fresh{font-size:10.5px;font-weight:600;background:rgba(255,255,255,.18);border-radius:99px;padding:3px 9px;white-space:nowrap;flex:0 0 auto}
+  .hero .photolink{position:absolute;right:14px;bottom:11px;font-size:11px;font-weight:600;color:#fff;opacity:.9;text-decoration:none}
+  .hero .photolink:hover{opacity:1;text-decoration:underline}
   .freshness{position:absolute;top:10px;left:10px;background:rgba(255,253,248,.95);border-radius:99px;padding:4px 10px;font-size:11.5px;font-weight:600;display:flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
   .fdot{width:7px;height:7px;border-radius:50%}
   .f-fresh .fdot{background:var(--green)} .f-aging .fdot{background:#c79a2e} .f-stale .fdot{background:var(--red)} .f-unknown .fdot{background:#aaa}
@@ -134,6 +146,8 @@
   .facts{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;padding:8px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .facts b{font-weight:600}
   .summary{font-size:13.5px;color:#3a443f;flex:1}
+  .summary.clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  details[open] .summary.clamp{-webkit-line-clamp:unset;overflow:visible}
   .flags-line{font-size:12.5px;color:var(--red);background:var(--red-bg);padding:6px 9px;border-radius:8px}
   /* worth-checking panel: plain-language considerations for family */
   .consider{background:#fbf4e4;border:1px solid #ecdcb5;border-radius:9px;padding:9px 11px;font-size:12.5px;color:#5a4a22}
@@ -149,6 +163,17 @@
   .walk-label{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
 
   .card-foot{display:flex;gap:14px;align-items:center;margin-top:2px}
+
+  /* reactions row */
+  .reactions{display:flex;align-items:center;gap:7px;padding-top:10px;margin-top:2px;border-top:1px solid var(--line);flex-wrap:wrap}
+  .react-btn{font:inherit;font-size:13px;font-weight:500;border:1px solid var(--line);background:#fff;border-radius:99px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--ink);transition:all .12s ease}
+  .react-btn:hover{border-color:var(--bay);background:#f6faf8}
+  .react-btn .rc{font-weight:600;color:var(--muted);min-width:8px}
+  .react-btn.mine{background:var(--green-bg);border-color:#8fc7a5;color:var(--green)}
+  .react-btn.mine .rc{color:var(--green)}
+  .react-btn.r-pass.mine{background:var(--red-bg);border-color:#d99;color:var(--red)} .react-btn.r-pass.mine .rc{color:var(--red)}
+  .react-btn.r-maybe.mine{background:var(--amber-bg);border-color:#d8b15e;color:var(--amber)} .react-btn.r-maybe.mine .rc{color:var(--amber)}
+  .react-mode{font-size:10.5px;color:var(--muted);margin-left:auto;letter-spacing:.02em}
   .card-foot a{font-size:13px;font-weight:600;text-decoration:none}
   .card-foot a:hover{text-decoration:underline}
   .verified{font-size:11.5px;color:var(--muted);margin-left:auto}
@@ -222,6 +247,16 @@
 <!--   topPick        true  -> features it in Top Picks              -->
 <!-- ============================================================= -->
 <script>
+/* =============================================================
+   SHARED VOTING SETUP (optional)
+   Leave both blank to run in personal mode (votes save only in
+   each person's own browser). To let the whole family see each
+   other's votes, follow the setup steps I gave you, then paste
+   your two Supabase values here:
+   ============================================================= */
+const SUPABASE_URL = "https://ojdaxdzeorchlcaotzxc.supabase.co";   // e.g. "https://abcd1234.supabase.co"
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qZGF4ZHplb3JjaGxjYW90enhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzMTM4MzEsImV4cCI6MjA5Njg4OTgzMX0.NIyUfai7GXAonQBeHtdN5bxX_Sjnwl6ia1muQhUiEW4";   // your project's public anon key
+
 const PROPERTIES = [
   {
     id:"P-001", building:"PH Royal Princess (7A)", area:"Punta Paitilla",
@@ -573,22 +608,38 @@ function walkList(p){
   return `<div class="walk"><div class="walk-label">Walk to</div>${items}</div>`;
 }
 
+function areaColor(area){
+  const m={
+    "Punta Paitilla":"#1f6f78","Punta Pacifica":"#1f6f78","Punta Pac\u00edfica":"#1f6f78",
+    "Avenida Balboa":"#216c8a","Obarrio":"#3a6b57","El Cangrejo":"#7a5a3a",
+    "San Francisco":"#2f7d4f","Coco del Mar":"#256b6b","Multiplaza area":"#5a5a7a"
+  };
+  return m[area]||"#3a5566";
+}
 function cardHTML(p){
   const v=verdictOf(p);
   const f=freshness(p);
   const score=getScore(p);
   const banner=v?`<div class="verdict ${verdictCls[v]||"v-none"}">${v}${score>=0?` \u00b7 ${score}/10`:""}</div>`:"";
-  const photoBtn=p.listingUrl
-    ? `<a class="viewphotos" href="${p.listingUrl}" target="_blank" rel="noopener"><i class="ti"></i>View photos \u2197</a>`
-    : "";
-  const thumb=p.thumbnail
-    ? `<div class="thumb" style="background-image:url('${p.thumbnail}')"><span class="freshness ${f.cls}"><span class="fdot"></span>${f.label}</span>${photoBtn}</div>`
-    : `<div class="thumb"><span class="freshness ${f.cls}"><span class="fdot"></span>${f.label}</span><span class="ph-hint">Photos on the listing</span>${photoBtn}</div>`;
+  const pm=ppm(p);
+  // hero strip replaces the empty photo box: area + price + freshness, tinted by area
+  const heroBg=areaColor(p.area);
+  const photoLink=p.listingUrl?`<a class="photolink" href="${p.listingUrl}" target="_blank" rel="noopener">Photos on listing \u2197</a>`:"";
+  const hero=p.thumbnail
+    ? `<div class="thumb" style="background-image:url('${p.thumbnail}')"><span class="freshness ${f.cls}"><span class="fdot"></span>${f.label}</span></div>`
+    : `<div class="hero" style="background:${heroBg}">
+         <div>
+           <div class="h-area">${p.area||"Area unknown"}</div>
+           <div class="h-price">${num(p.price)?fmt(p.price):"Price unknown"}</div>
+           ${pm!=null?`<div class="h-ppm">${fmt(pm)} / m\u00b2</div>`:""}
+         </div>
+         <span class="h-fresh">${f.label}</span>
+         ${photoLink}
+       </div>`;
   const badges=(p.badges||[]).map(b=>`<span class="badge ${badgeClass(b)}">${b}</span>`).join("");
   const statusBadge=p.status?`<span class="badge b-status">${p.status}</span>`:"";
   const g=p.grades||{};
   const grades=`<div class="grades">${gradeBox(g.neighborhood,"Neighborhood")}${gradeBox(g.home,"Home")}${gradeBox(g.value,"Value")}</div>`;
-  const pm=ppm(p);
   const facts=[
     num(p.beds)?`<span><b>${p.beds}</b> bd</span>`:"",
     num(p.baths)?`<span><b>${p.baths}</b> ba</span>`:"",
@@ -596,11 +647,7 @@ function cardHTML(p){
     num(p.size_m2)?`<span><b>${p.size_m2}</b> m\u00b2</span>`:"",
     pm!=null?`<span><b>${fmt(pm)}</b>/m\u00b2</span>`:""
   ].filter(Boolean).join("");
-  // short summary: first sentence (or ~140 chars) up top; full summary in details if longer
-  const fullSummary=p.summary||"";
-  const firstSentence=fullSummary.split(/(?<=[.!?])\s/)[0]||fullSummary;
-  const shortSummary=firstSentence.length>160?firstSentence.slice(0,157).trim()+"\u2026":firstSentence;
-  const summaryTruncated=fullSummary.length>shortSummary.length;
+  const fullSummary=p.summary||"No summary yet.";
 
   const flags=(p.redFlags&&!/^none|^unknown/i.test(p.redFlags.trim()))?`<div class="flags-line">\u2691 ${p.redFlags}</div>`:"";
   const considers=(Array.isArray(p.considerations)&&p.considerations.length)
@@ -611,30 +658,42 @@ function cardHTML(p){
     : "";
   const verified=p.lastVerified?`<span class="verified">Checked ${p.lastVerified}</span>`:"";
 
-  // detail section content (only render the expander if there's something inside)
-  const detailBits=[
-    summaryTruncated?`<p class="summary">${fullSummary}</p>`:"",
-    flags, considers, mapImg(p), walkList(p), bq
-  ].filter(Boolean).join("");
-  const moreSection=detailBits
-    ? `<details class="more"><summary><span class="chev">\u203A</span>More details</summary><div class="more-inner">${detailBits}</div></details>`
-    : "";
+  // extra detail (everything EXCEPT the summary, which lives above and just un-clamps)
+  const detailBits=[flags, considers, mapImg(p), walkList(p), bq].filter(Boolean).join("");
+  const hasExtra=detailBits.length>0;
+  // summary is long enough to clamp if it's over ~150 chars
+  const longSummary=fullSummary.length>150;
+
+  // Build the body. If there's extra detail OR a long summary, make it expandable.
+  // The summary text appears exactly ONCE (inside the toggle), clamped when closed,
+  // full when open. Only the extra detail lives in the expanded region.
+  const needsToggle=hasExtra||longSummary;
+  const body=needsToggle
+    ? `<details class="more">
+         <summary><p class="summary clamp">${fullSummary}</p><span class="more-toggle"><span class="chev">\u203A</span><span class="more-label">More details</span></span></summary>
+         ${hasExtra?`<div class="more-inner">${detailBits}</div>`:""}
+       </details>`
+    : `<p class="summary">${fullSummary}</p>`;
 
   return `<article class="card ${p.archived?"archived":""}">
-    ${banner}${thumb}
+    ${banner}${hero}
     <div class="card-body">
       <div class="badges">${badges}${statusBadge}</div>
       <h3>${p.building||"Unknown building"}</h3>
       <div class="area">${p.area||"Area unknown"}${p.view?` \u00b7 ${p.view}`:""}</div>
-      <div class="price">${num(p.price)?fmt(p.price):"Price unknown"}</div>
       ${grades}
       ${buildingLine(p)}
       <div class="facts">${facts||'<span style="color:var(--muted)">Details unknown</span>'}</div>
-      <p class="summary">${shortSummary||"No summary yet."}</p>
-      ${moreSection}
+      ${body}
       <div class="card-foot">
         ${p.listingUrl?`<a href="${p.listingUrl}" target="_blank" rel="noopener">View listing \u2197</a>`:""}
         ${verified}
+      </div>
+      <div class="reactions" data-id="${p.id}">
+        <button class="react-btn r-love" data-vote="love" aria-label="Love it"><span>\u2764 Love</span><span class="rc" data-c="love">0</span></button>
+        <button class="react-btn r-maybe" data-vote="maybe" aria-label="Maybe"><span>\u2014 Maybe</span><span class="rc" data-c="maybe">0</span></button>
+        <button class="react-btn r-pass" data-vote="pass" aria-label="Pass"><span>\u2715 Pass</span><span class="rc" data-c="pass">0</span></button>
+        <span class="react-mode" id="rmode-${p.id}"></span>
       </div>
     </div>
   </article>`;
@@ -764,7 +823,123 @@ $("#clear").addEventListener("click",()=>{
   render();
 });
 
+// ---------- Reactions / voting ----------
+const VOTE_SHARED = !!(SUPABASE_URL && SUPABASE_KEY);
+let myVotes = {};      // {propertyId: "love"|"maybe"|"pass"}  (this person's choices)
+let voteCounts = {};   // {propertyId: {love:n, maybe:n, pass:n}}
+let voterId = null;
+
+function ensureVoterId(){
+  // a stable per-person id; asks once for a name so shared votes are attributable
+  if(voterId) return voterId;
+  if(VOTE_SHARED){
+    let name = prompt("Your name (so the family knows whose vote is whose):","");
+    voterId = (name && name.trim()) ? name.trim().slice(0,40) : "Guest-"+Math.random().toString(36).slice(2,7);
+  } else {
+    voterId = "local";
+  }
+  return voterId;
+}
+
+async function sbFetch(path, opts){
+  return fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    ...opts,
+    headers:{ "apikey":SUPABASE_KEY, "Authorization":`Bearer ${SUPABASE_KEY}`,
+      "Content-Type":"application/json", "Prefer":"resolution=merge-duplicates,return=minimal", ...(opts&&opts.headers||{}) }
+  });
+}
+
+let voteStatus = VOTE_SHARED ? "connecting" : "personal";
+
+async function loadVotes(){
+  if(!VOTE_SHARED) return;
+  try{
+    const r = await sbFetch("votes?select=property_id,voter,choice", {method:"GET"});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    const rows = await r.json();
+    voteCounts = {};
+    myVotes = {};
+    rows.forEach(row=>{
+      const c = voteCounts[row.property_id] || (voteCounts[row.property_id]={love:0,maybe:0,pass:0});
+      if(c[row.choice]!=null) c[row.choice]++;
+      if(voterId && row.voter===voterId) myVotes[row.property_id]=row.choice;
+    });
+    voteStatus = "connected";
+  }catch(e){ voteStatus = "error"; }
+}
+
+async function castVote(pid, choice){
+  const prev = myVotes[pid];
+  if(prev===choice){ // toggle off
+    delete myVotes[pid];
+  } else {
+    myVotes[pid]=choice;
+  }
+  // optimistic local counts
+  recountLocal();
+  paintVotes();
+  if(VOTE_SHARED){
+    const v = ensureVoterId();
+    try{
+      if(!myVotes[pid]){
+        await sbFetch(`votes?property_id=eq.${encodeURIComponent(pid)}&voter=eq.${encodeURIComponent(v)}`,{method:"DELETE"});
+      }else{
+        await sbFetch("votes",{method:"POST",
+          headers:{Prefer:"resolution=merge-duplicates,return=minimal"},
+          body:JSON.stringify({property_id:pid,voter:v,choice:myVotes[pid]})});
+      }
+      await loadVotes(); paintVotes();
+    }catch(e){ /* keep optimistic state */ }
+  }
+}
+
+function recountLocal(){
+  // personal mode: counts reflect only this browser's choices
+  if(VOTE_SHARED) return;
+  voteCounts={};
+  Object.entries(myVotes).forEach(([pid,ch])=>{
+    const c=voteCounts[pid]||(voteCounts[pid]={love:0,maybe:0,pass:0}); c[ch]=1;
+  });
+}
+
+function paintVotes(){
+  document.querySelectorAll(".reactions").forEach(row=>{
+    const pid=row.dataset.id;
+    const counts=voteCounts[pid]||{love:0,maybe:0,pass:0};
+    const mine=myVotes[pid];
+    row.querySelectorAll(".react-btn").forEach(btn=>{
+      const ch=btn.dataset.vote;
+      btn.querySelector(".rc").textContent=counts[ch]||0;
+      btn.classList.toggle("mine", mine===ch);
+    });
+    const modeEl=row.querySelector(".react-mode");
+    if(modeEl){
+      if(!VOTE_SHARED) modeEl.textContent="your picks only \u2014 sharing not set up";
+      else if(voteStatus==="connected") modeEl.textContent="family votes \u00b7 shared";
+      else if(voteStatus==="connecting") modeEl.textContent="connecting\u2026";
+      else modeEl.textContent="\u26A0 couldn't reach the votes database";
+    }
+  });
+}
+
+function wireVotes(){
+  document.querySelectorAll(".reactions .react-btn").forEach(btn=>{
+    if(btn._wired) return; btn._wired=true;
+    btn.addEventListener("click",()=>{
+      const pid=btn.closest(".reactions").dataset.id;
+      ensureVoterId();
+      castVote(pid, btn.dataset.vote);
+    });
+  });
+}
+
+// re-wire & paint after every render
+const _origRender=render;
+render=function(){ _origRender(); wireVotes(); paintVotes(); };
+
 renderStats();initFilters();renderTop();render();renderBQ();
+// load shared votes on startup if configured
+if(VOTE_SHARED){ loadVotes().then(paintVotes); }
 </script>
 </body>
 </html>
