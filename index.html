@@ -71,7 +71,6 @@
   .tp-bldg.unknown{color:var(--muted)} .tp-bldg.unknown .d{background:#b3b9b5}
   .card{background:var(--sand-card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .15s ease,box-shadow .15s ease}
   .card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(18,40,38,.12)}
-  .card.archived{opacity:.72}
 
   .verdict{font-size:13px;font-weight:700;letter-spacing:.02em;padding:9px 16px;color:#fff}
 
@@ -93,7 +92,8 @@
   details.more summary{cursor:pointer;list-style:none;display:flex;flex-direction:column;gap:4px}
   details.more summary::-webkit-details-marker{display:none}
   details.more summary .summary{margin:0}
-  .more-toggle{font-size:12.5px;font-weight:600;color:var(--bay);display:inline-flex;align-items:center;gap:5px;padding-top:1px}
+  .more-toggle{font-size:12.5px;font-weight:600;color:var(--bay);display:inline-flex;align-items:center;gap:6px;padding:6px 12px;margin-top:8px;border:1px solid var(--line);border-radius:8px;background:#fff;align-self:flex-start;transition:all .12s ease}
+  details.more summary:hover .more-toggle{border-color:var(--bay);background:#f6faf8}
   details.more[open] .more-toggle .more-label::after{content:" \2014 less"}
   details.more .chev{transition:transform .15s ease;display:inline-block}
   details.more[open] .chev{transform:rotate(90deg)}
@@ -104,12 +104,13 @@
 
   .thumb{height:160px;background:#dfe6e2 center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
   /* compact hero strip (used when there is no photo) */
-  .hero{position:relative;padding:14px 16px 13px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;color:#fff;overflow:hidden}
-  .hero .h-area{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.9}
+  .hero{position:relative;padding:13px 16px 30px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;color:#fff;overflow:hidden}
+  .hero .h-verdict{font-size:12px;font-weight:700;letter-spacing:.02em;opacity:.95;margin-bottom:5px}
+  .hero .h-area{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
   .hero .h-price{font-family:'Fraunces',serif;font-size:26px;font-weight:600;line-height:1.05;margin-top:2px}
   .hero .h-ppm{font-size:11.5px;opacity:.85;margin-top:1px}
   .hero .h-fresh{font-size:10.5px;font-weight:600;background:rgba(255,255,255,.18);border-radius:99px;padding:3px 9px;white-space:nowrap;flex:0 0 auto}
-  .hero .photolink{position:absolute;right:14px;bottom:11px;font-size:11px;font-weight:600;color:#fff;opacity:.9;text-decoration:none}
+  .hero .photolink{position:absolute;right:14px;bottom:10px;font-size:11px;font-weight:600;color:#fff;opacity:.9;text-decoration:none}
   .hero .photolink:hover{opacity:1;text-decoration:underline}
   .freshness{position:absolute;top:10px;left:10px;background:rgba(255,253,248,.95);border-radius:99px;padding:4px 10px;font-size:11.5px;font-weight:600;display:flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
   .fdot{width:7px;height:7px;border-radius:50%}
@@ -162,10 +163,21 @@
   .walk .wt{font-weight:600;color:var(--bay-deep)}
   .walk-label{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
 
-  .card-foot{display:flex;gap:14px;align-items:center;margin-top:2px}
+  /* remove / restore controls */
+  .card-remove{margin-left:auto;font-size:12px;font-weight:600;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px 6px;border-radius:6px}
+  .card-remove:hover{color:var(--red);background:var(--red-bg)}
+  .card.archived{opacity:.78}
+  .card.archived h3{text-decoration:line-through;text-decoration-color:rgba(163,54,54,.5)}
+  .card-restore{margin-left:auto;font-size:12px;font-weight:600;color:var(--bay);background:none;border:none;cursor:pointer;padding:4px 6px;border-radius:6px}
+  .card-restore:hover{background:#f6faf8}
 
   /* reactions row */
-  .reactions{display:flex;align-items:center;gap:7px;padding-top:10px;margin-top:2px;border-top:1px solid var(--line);flex-wrap:wrap}
+  .reactions{padding-top:11px;margin-top:4px;border-top:1px solid var(--line)}
+  .react-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .react-names{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.5;display:flex;flex-direction:column;gap:2px}
+  .react-names .rn-line b{font-weight:600;color:#3a443f}
+  .react-mode{display:block;font-size:10.5px;color:var(--muted);margin-top:6px;letter-spacing:.02em}
+  .card-foot{display:flex;gap:14px;align-items:center;margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
   .react-btn{font:inherit;font-size:13px;font-weight:500;border:1px solid var(--line);background:#fff;border-radius:99px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--ink);transition:all .12s ease}
   .react-btn:hover{border-color:var(--bay);background:#f6faf8}
   .react-btn .rc{font-weight:600;color:var(--muted);min-width:8px}
@@ -173,7 +185,6 @@
   .react-btn.mine .rc{color:var(--green)}
   .react-btn.r-pass.mine{background:var(--red-bg);border-color:#d99;color:var(--red)} .react-btn.r-pass.mine .rc{color:var(--red)}
   .react-btn.r-maybe.mine{background:var(--amber-bg);border-color:#d8b15e;color:var(--amber)} .react-btn.r-maybe.mine .rc{color:var(--amber)}
-  .react-mode{font-size:10.5px;color:var(--muted);margin-left:auto;letter-spacing:.02em}
   .card-foot a{font-size:13px;font-weight:600;text-decoration:none}
   .card-foot a:hover{text-decoration:underline}
   .verified{font-size:11.5px;color:var(--muted);margin-left:auto}
@@ -256,6 +267,11 @@
    ============================================================= */
 const SUPABASE_URL = "https://ojdaxdzeorchlcaotzxc.supabase.co";   // e.g. "https://abcd1234.supabase.co"
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qZGF4ZHplb3JjaGxjYW90enhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzMTM4MzEsImV4cCI6MjA5Njg4OTgzMX0.NIyUfai7GXAonQBeHtdN5bxX_Sjnwl6ia1muQhUiEW4";   // your project's public anon key
+
+/* Passcode required to remove/restore listings. Change "panama2026" to
+   something only you know. Family can view and vote without it; only
+   someone with this code can set listings aside. */
+const REMOVE_CODE = "1234";
 
 const PROPERTIES = [
   {
@@ -608,27 +624,26 @@ function walkList(p){
   return `<div class="walk"><div class="walk-label">Walk to</div>${items}</div>`;
 }
 
-function areaColor(area){
-  const m={
-    "Punta Paitilla":"#1f6f78","Punta Pacifica":"#1f6f78","Punta Pac\u00edfica":"#1f6f78",
-    "Avenida Balboa":"#216c8a","Obarrio":"#3a6b57","El Cangrejo":"#7a5a3a",
-    "San Francisco":"#2f7d4f","Coco del Mar":"#256b6b","Multiplaza area":"#5a5a7a"
-  };
-  return m[area]||"#3a5566";
+function heroColor(v){
+  // hero matches the verdict so the card reads as one clean color-block
+  return {"Great Find":"#2f7d4f","Solid Option":"#3f8a5f","Fair":"#9a6a16",
+          "Overpriced":"#9a4f36","Caution":"#a33636"}[v]||"#3a5566";
 }
+function cardHTML_unused_areaColor(area){return "#3a5566";}
 function cardHTML(p){
   const v=verdictOf(p);
   const f=freshness(p);
   const score=getScore(p);
-  const banner=v?`<div class="verdict ${verdictCls[v]||"v-none"}">${v}${score>=0?` \u00b7 ${score}/10`:""}</div>`:"";
   const pm=ppm(p);
-  // hero strip replaces the empty photo box: area + price + freshness, tinted by area
-  const heroBg=areaColor(p.area);
-  const photoLink=p.listingUrl?`<a class="photolink" href="${p.listingUrl}" target="_blank" rel="noopener">Photos on listing \u2197</a>`:"";
+  const heroBg=heroColor(v);
+  const photoLink=p.listingUrl?`<a class="photolink" href="${p.listingUrl}" target="_blank" rel="noopener">View photos &amp; listing \u2197</a>`:"";
+  // verdict now lives INSIDE the hero so the card reads as one clean color-block
+  const verdictLine=v?`<div class="h-verdict">${v}${score>=0?` \u00b7 ${score}/10`:""}</div>`:"";
   const hero=p.thumbnail
     ? `<div class="thumb" style="background-image:url('${p.thumbnail}')"><span class="freshness ${f.cls}"><span class="fdot"></span>${f.label}</span></div>`
     : `<div class="hero" style="background:${heroBg}">
-         <div>
+         <div class="hero-main">
+           ${verdictLine}
            <div class="h-area">${p.area||"Area unknown"}</div>
            <div class="h-price">${num(p.price)?fmt(p.price):"Price unknown"}</div>
            ${pm!=null?`<div class="h-ppm">${fmt(pm)} / m\u00b2</div>`:""}
@@ -658,15 +673,9 @@ function cardHTML(p){
     : "";
   const verified=p.lastVerified?`<span class="verified">Checked ${p.lastVerified}</span>`:"";
 
-  // extra detail (everything EXCEPT the summary, which lives above and just un-clamps)
   const detailBits=[flags, considers, mapImg(p), walkList(p), bq].filter(Boolean).join("");
   const hasExtra=detailBits.length>0;
-  // summary is long enough to clamp if it's over ~150 chars
   const longSummary=fullSummary.length>150;
-
-  // Build the body. If there's extra detail OR a long summary, make it expandable.
-  // The summary text appears exactly ONCE (inside the toggle), clamped when closed,
-  // full when open. Only the extra detail lives in the expanded region.
   const needsToggle=hasExtra||longSummary;
   const body=needsToggle
     ? `<details class="more">
@@ -676,7 +685,7 @@ function cardHTML(p){
     : `<p class="summary">${fullSummary}</p>`;
 
   return `<article class="card ${p.archived?"archived":""}">
-    ${banner}${hero}
+    ${hero}
     <div class="card-body">
       <div class="badges">${badges}${statusBadge}</div>
       <h3>${p.building||"Unknown building"}</h3>
@@ -685,15 +694,21 @@ function cardHTML(p){
       ${buildingLine(p)}
       <div class="facts">${facts||'<span style="color:var(--muted)">Details unknown</span>'}</div>
       ${body}
-      <div class="card-foot">
-        ${p.listingUrl?`<a href="${p.listingUrl}" target="_blank" rel="noopener">View listing \u2197</a>`:""}
-        ${verified}
-      </div>
       <div class="reactions" data-id="${p.id}">
-        <button class="react-btn r-love" data-vote="love" aria-label="Love it"><span>\u2764 Love</span><span class="rc" data-c="love">0</span></button>
-        <button class="react-btn r-maybe" data-vote="maybe" aria-label="Maybe"><span>\u2014 Maybe</span><span class="rc" data-c="maybe">0</span></button>
-        <button class="react-btn r-pass" data-vote="pass" aria-label="Pass"><span>\u2715 Pass</span><span class="rc" data-c="pass">0</span></button>
-        <span class="react-mode" id="rmode-${p.id}"></span>
+        <div class="react-row">
+          <button class="react-btn r-love" data-vote="love" aria-label="Love it"><span>\u2764 Love</span><span class="rc" data-c="love">0</span></button>
+          <button class="react-btn r-maybe" data-vote="maybe" aria-label="Maybe"><span>\u2014 Maybe</span><span class="rc" data-c="maybe">0</span></button>
+          <button class="react-btn r-pass" data-vote="pass" aria-label="Pass"><span>\u2715 Pass</span><span class="rc" data-c="pass">0</span></button>
+        </div>
+        <div class="react-names" data-names="${p.id}"></div>
+        <span class="react-mode"></span>
+      </div>
+      <div class="card-foot">
+        ${p.listingUrl?`<a class="foot-listing" href="${p.listingUrl}" target="_blank" rel="noopener">View listing \u2197</a>`:""}
+        ${verified}
+        ${p.archived
+          ? `<button class="card-restore" data-restore="${p.id}">Restore</button>`
+          : `<button class="card-remove" data-remove="${p.id}">\u2715 Remove</button>`}
       </div>
     </div>
   </article>`;
@@ -850,6 +865,7 @@ async function sbFetch(path, opts){
 }
 
 let voteStatus = VOTE_SHARED ? "connecting" : "personal";
+let voteNames = {};   // {propertyId: {love:[names], maybe:[names], pass:[names]}}
 
 async function loadVotes(){
   if(!VOTE_SHARED) return;
@@ -857,11 +873,11 @@ async function loadVotes(){
     const r = await sbFetch("votes?select=property_id,voter,choice", {method:"GET"});
     if(!r.ok) throw new Error("HTTP "+r.status);
     const rows = await r.json();
-    voteCounts = {};
-    myVotes = {};
+    voteCounts = {}; myVotes = {}; voteNames = {};
     rows.forEach(row=>{
       const c = voteCounts[row.property_id] || (voteCounts[row.property_id]={love:0,maybe:0,pass:0});
-      if(c[row.choice]!=null) c[row.choice]++;
+      const nm = voteNames[row.property_id] || (voteNames[row.property_id]={love:[],maybe:[],pass:[]});
+      if(c[row.choice]!=null){ c[row.choice]++; nm[row.choice].push(row.voter); }
       if(voterId && row.voter===voterId) myVotes[row.property_id]=row.choice;
     });
     voteStatus = "connected";
@@ -869,17 +885,27 @@ async function loadVotes(){
 }
 
 async function castVote(pid, choice){
+  const v = ensureVoterId();
   const prev = myVotes[pid];
   if(prev===choice){ // toggle off
     delete myVotes[pid];
   } else {
     myVotes[pid]=choice;
   }
-  // optimistic local counts
-  recountLocal();
+  // optimistic update of counts + names so the vote shows instantly
+  if(VOTE_SHARED){
+    const c = voteCounts[pid] || (voteCounts[pid]={love:0,maybe:0,pass:0});
+    const nm = voteNames[pid] || (voteNames[pid]={love:[],maybe:[],pass:[]});
+    // remove this voter's previous mark
+    ["love","maybe","pass"].forEach(k=>{
+      const i=nm[k].indexOf(v); if(i>-1){nm[k].splice(i,1); c[k]=Math.max(0,c[k]-1);}
+    });
+    if(myVotes[pid]){ nm[choice].push(v); c[choice]++; }
+  } else {
+    recountLocal();
+  }
   paintVotes();
   if(VOTE_SHARED){
-    const v = ensureVoterId();
     try{
       if(!myVotes[pid]){
         await sbFetch(`votes?property_id=eq.${encodeURIComponent(pid)}&voter=eq.${encodeURIComponent(v)}`,{method:"DELETE"});
@@ -896,9 +922,10 @@ async function castVote(pid, choice){
 function recountLocal(){
   // personal mode: counts reflect only this browser's choices
   if(VOTE_SHARED) return;
-  voteCounts={};
+  voteCounts={}; voteNames={};
   Object.entries(myVotes).forEach(([pid,ch])=>{
     const c=voteCounts[pid]||(voteCounts[pid]={love:0,maybe:0,pass:0}); c[ch]=1;
+    const nm=voteNames[pid]||(voteNames[pid]={love:[],maybe:[],pass:[]}); nm[ch].push("You");
   });
 }
 
@@ -906,12 +933,22 @@ function paintVotes(){
   document.querySelectorAll(".reactions").forEach(row=>{
     const pid=row.dataset.id;
     const counts=voteCounts[pid]||{love:0,maybe:0,pass:0};
+    const names=voteNames[pid]||{love:[],maybe:[],pass:[]};
     const mine=myVotes[pid];
     row.querySelectorAll(".react-btn").forEach(btn=>{
       const ch=btn.dataset.vote;
       btn.querySelector(".rc").textContent=counts[ch]||0;
       btn.classList.toggle("mine", mine===ch);
     });
+    // names line
+    const namesEl=row.querySelector(".react-names");
+    if(namesEl){
+      const labels={love:"\u2764",maybe:"\u2014",pass:"\u2715"};
+      const lines=["love","maybe","pass"]
+        .filter(ch=>names[ch]&&names[ch].length)
+        .map(ch=>`<span class="rn-line"><b>${labels[ch]}</b> ${names[ch].join(", ")}</span>`);
+      namesEl.innerHTML=lines.join("");
+    }
     const modeEl=row.querySelector(".react-mode");
     if(modeEl){
       if(!VOTE_SHARED) modeEl.textContent="your picks only \u2014 sharing not set up";
@@ -933,13 +970,65 @@ function wireVotes(){
   });
 }
 
+// ---------- Remove / archive (passcode-gated, Supabase-synced) ----------
+function hasRemoveAuth(){ return window.__removeAuthed===true; }
+function checkRemoveCode(){
+  if(hasRemoveAuth()) return true;
+  const entry=prompt("Enter the remove passcode (only you should know this):","");
+  if(entry===REMOVE_CODE){ window.__removeAuthed=true; return true; }
+  if(entry!==null) alert("Incorrect passcode \u2014 listing not changed.");
+  return false;
+}
+async function setArchived(pid, val){
+  // optimistic
+  const prop=PROPERTIES.find(x=>x.id===pid); if(prop) prop.archived=val;
+  renderTop(); render(); renderBQ(); renderStats();
+  if(VOTE_SHARED){
+    try{
+      await sbFetch("archived",{method:"POST",
+        headers:{Prefer:"resolution=merge-duplicates,return=minimal"},
+        body:JSON.stringify({property_id:pid,archived:val,updated_at:new Date().toISOString()})});
+    }catch(e){ /* keep optimistic */ }
+  }
+}
+async function loadArchived(){
+  if(!VOTE_SHARED) return;
+  try{
+    const r=await sbFetch("archived?select=property_id,archived",{method:"GET"});
+    if(!r.ok) return;
+    const rows=await r.json();
+    const map={}; rows.forEach(x=>map[x.property_id]=x.archived);
+    PROPERTIES.forEach(p=>{ if(p.id in map) p.archived=map[p.id]; });
+  }catch(e){ /* ignore */ }
+}
+function wireRemove(){
+  document.querySelectorAll("[data-remove]").forEach(btn=>{
+    if(btn._wired) return; btn._wired=true;
+    btn.addEventListener("click",()=>{
+      const pid=btn.dataset.remove;
+      const prop=PROPERTIES.find(x=>x.id===pid);
+      if(!checkRemoveCode()) return;
+      if(confirm(`Set "${prop&&prop.building||pid}" aside? It moves to the archive and can be restored.`)) setArchived(pid,true);
+    });
+  });
+  document.querySelectorAll("[data-restore]").forEach(btn=>{
+    if(btn._wired) return; btn._wired=true;
+    btn.addEventListener("click",()=>{
+      if(!checkRemoveCode()) return;
+      setArchived(btn.dataset.restore,false);
+    });
+  });
+}
+
 // re-wire & paint after every render
 const _origRender=render;
-render=function(){ _origRender(); wireVotes(); paintVotes(); };
+render=function(){ _origRender(); wireVotes(); wireRemove(); paintVotes(); };
 
 renderStats();initFilters();renderTop();render();renderBQ();
-// load shared votes on startup if configured
-if(VOTE_SHARED){ loadVotes().then(paintVotes); }
+// load shared state on startup if configured
+if(VOTE_SHARED){
+  Promise.all([loadArchived(),loadVotes()]).then(()=>{ renderTop(); render(); renderBQ(); renderStats(); paintVotes(); });
+}
 </script>
 </body>
 </html>
