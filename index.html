@@ -30,7 +30,7 @@
   .stat .n{font-family:'Fraunces',serif;font-size:24px;line-height:1}
   .stat .l{font-size:10.5px;opacity:.78;letter-spacing:.03em;margin-top:2px;white-space:nowrap}
 
-  .controls{background:var(--sand-card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:12px 14px;margin:16px auto 22px;position:sticky;top:8px;z-index:20}
+  .controls{background:var(--sand-card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:12px 14px;margin:16px auto 22px;position:relative;z-index:2}
   .controls-row{display:flex;gap:10px 12px;flex-wrap:wrap;align-items:flex-end}
   .field{display:flex;flex-direction:column;gap:4px}
   .field label{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
@@ -73,9 +73,7 @@
   .card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(18,40,38,.12)}
   .card.archived{opacity:.72}
 
-  .verdict{font-size:13px;font-weight:700;letter-spacing:.02em;padding:9px 16px;display:flex;align-items:center;gap:9px;color:#fff}
-  .verdict .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.9);flex:0 0 auto}
-  .verdict .vtext{flex:1 1 auto}
+  .verdict{font-size:13px;font-weight:700;letter-spacing:.02em;padding:9px 16px;color:#fff}
 
   /* view-photos placeholder */
   .thumb .viewphotos{position:absolute;bottom:10px;right:10px;background:rgba(255,253,248,.95);border-radius:8px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--bay);box-shadow:var(--shadow);text-decoration:none;display:inline-flex;align-items:center;gap:5px}
@@ -579,7 +577,7 @@ function cardHTML(p){
   const v=verdictOf(p);
   const f=freshness(p);
   const score=getScore(p);
-  const banner=v?`<div class="verdict ${verdictCls[v]||"v-none"}"><span class="dot"></span><span class="vtext">${v}${score>=0?` \u00b7 ${score}/10`:""}</span></div>`:"";
+  const banner=v?`<div class="verdict ${verdictCls[v]||"v-none"}">${v}${score>=0?` \u00b7 ${score}/10`:""}</div>`:"";
   const photoBtn=p.listingUrl
     ? `<a class="viewphotos" href="${p.listingUrl}" target="_blank" rel="noopener"><i class="ti"></i>View photos \u2197</a>`
     : "";
