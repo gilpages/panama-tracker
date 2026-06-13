@@ -54,23 +54,18 @@
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
 
-  /* compact top-picks strip */
-  .topstrip{display:flex;gap:12px;flex-wrap:wrap}
-  .tp{flex:1 1 220px;min-width:200px;background:var(--sand-card);border:1px solid var(--line);border-radius:11px;box-shadow:var(--shadow);padding:12px 13px;display:flex;flex-direction:column;gap:6px;cursor:pointer;text-decoration:none;color:inherit;transition:transform .12s ease,box-shadow .12s ease}
-  .tp:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(18,40,38,.12)}
-  .tp-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-  .tp-vd{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:99px;color:#fff;white-space:nowrap}
-  .tp-score{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--bay-deep)}
-  .tp-name{font-family:'Fraunces',serif;font-size:15px;font-weight:500;line-height:1.15}
-  .tp-meta{font-size:12px;color:var(--muted)}
-  .tp-price{font-weight:600;color:var(--bay-deep);font-size:13.5px}
-  .tp-bldg{font-size:11px;font-weight:600;display:flex;align-items:center;gap:5px}
-  .tp-bldg .d{width:6px;height:6px;border-radius:50%;flex:0 0 auto}
-  .tp-bldg.good{color:var(--green)} .tp-bldg.good .d{background:var(--green)}
-  .tp-bldg.caution{color:var(--red)} .tp-bldg.caution .d{background:var(--red)}
-  .tp-bldg.unknown{color:var(--muted)} .tp-bldg.unknown .d{background:#b3b9b5}
+  /* most-loved chips */
+  .topstrip{display:flex;gap:8px;flex-wrap:wrap}
+  .tp{display:inline-flex;align-items:center;gap:8px;background:var(--sand-card);border:1px solid var(--line);border-radius:99px;padding:6px 13px;cursor:pointer;text-decoration:none;color:var(--ink);font-size:13px;transition:transform .1s ease,box-shadow .1s ease,border-color .1s ease}
+  .tp:hover{transform:translateY(-1px);box-shadow:var(--shadow);border-color:var(--bay)}
+  .tp .tp-loves{display:inline-flex;align-items:center;gap:3px;font-weight:700;color:#c2456b}
+  .tp .tp-name{font-weight:600}
+  .tp .tp-price{color:var(--muted);font-weight:500}
   .card{background:var(--sand-card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .15s ease,box-shadow .15s ease}
   .card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(18,40,38,.12)}
+  /* brief highlight when a card is scrolled to from a chip */
+  .card.flash{animation:cardflash 1.6s ease}
+  @keyframes cardflash{0%,100%{box-shadow:var(--shadow)}25%{box-shadow:0 0 0 3px rgba(194,69,107,.45)}}
 
   .verdict{font-size:13px;font-weight:700;letter-spacing:.02em;padding:9px 16px;color:#fff}
 
@@ -504,6 +499,7 @@ const PROPERTIES = [
       </select></div>
       <div class="field"><label for="f-sort">Sort by</label><select id="f-sort">
         <option value="score">Overall score</option>
+        <option value="loved">Most loved</option>
         <option value="price">Price (low&ndash;high)</option>
         <option value="ppm">Price / m&sup2;</option>
         <option value="date">Date posted</option>
@@ -513,7 +509,7 @@ const PROPERTIES = [
   </div>
 
   <section id="top-section" hidden>
-    <div class="sec-head"><h2>Top picks</h2><span class="meta">Our strongest fits so far</span><span class="rule"></span></div>
+    <div class="sec-head"><h2>Most loved</h2><span class="meta">Family favourites — tap to jump to the listing</span><span class="rule"></span></div>
     <div class="topstrip" id="top-strip"></div>
   </section>
 
@@ -684,7 +680,7 @@ function cardHTML(p){
        </details>`
     : `<p class="summary">${fullSummary}</p>`;
 
-  return `<article class="card ${p.archived?"archived":""}">
+  return `<article class="card ${p.archived?"archived":""}" id="card-${p.id}">
     ${hero}
     <div class="card-body">
       <div class="badges">${badges}${statusBadge}</div>
@@ -731,6 +727,7 @@ function applyFilters(src){
     return true;
   });
   list.sort((a,b)=>{
+    if(sortKey==="loved")return (loveCount(b)-loveCount(a)) || (getScore(b)-getScore(a));
     if(sortKey==="price")return (a.price||1e12)-(b.price||1e12);
     if(sortKey==="ppm")return (ppm(a)||1e9)-(ppm(b)||1e9);
     if(sortKey==="date")return (b.datePosted||"").localeCompare(a.datePosted||"");
@@ -770,23 +767,33 @@ function render(){
   } else cmp.hidden=true;
 }
 
+function loveCount(p){ return (voteCounts[p.id]&&voteCounts[p.id].love)||0; }
 function renderTop(){
-  const picks=PROPERTIES.filter(p=>p.topPick&&!p.archived).sort((a,b)=>getScore(b)-getScore(a));
-  $("#top-section").hidden=picks.length===0;
-  $("#top-strip").innerHTML=picks.map(p=>{
-    const v=verdictOf(p),s=getScore(p),pm=ppm(p),r=p.building_rating||"unknown";
-    const bldgTxt={good:"Building looks good",caution:"Building concern",unknown:"Building unrated"}[r];
-    return `<a class="tp" href="${p.listingUrl||'#'}" target="_blank" rel="noopener">
-      <div class="tp-top">
-        <span class="tp-vd ${verdictCls[v]||'v-none'}">${v||'\u2014'}</span>
-        <span class="tp-score">${s>=0?s:'\u2014'}<span style="font-size:11px;font-family:Inter;color:var(--muted)">/10</span></span>
-      </div>
-      <div class="tp-name">${p.building||'Unknown'}</div>
-      <div class="tp-meta">${p.area||''}${num(p.beds)?` \u00b7 ${p.beds}bd`:''}${num(p.size_m2)?` \u00b7 ${p.size_m2}m\u00b2`:''}</div>
-      <div class="tp-price">${num(p.price)?fmt(p.price):'\u2014'}${pm!=null?` <span style="font-weight:400;color:var(--muted)">\u00b7 ${fmt(pm)}/m\u00b2</span>`:''}</div>
-      <div class="tp-bldg ${r}"><span class="d"></span>${bldgTxt}</div>
+  const loved=PROPERTIES
+    .filter(p=>!p.archived && loveCount(p)>0)
+    .sort((a,b)=> (loveCount(b)-loveCount(a)) || (getScore(b)-getScore(a)) );
+  $("#top-section").hidden = loved.length===0;
+  $("#top-strip").innerHTML = loved.map(p=>{
+    const loves=loveCount(p), pm=ppm(p);
+    return `<a class="tp" href="#card-${p.id}" data-jump="${p.id}">
+      <span class="tp-loves">\u2764 ${loves}</span>
+      <span class="tp-name">${p.building||'Unknown'}</span>
+      <span class="tp-price">${num(p.price)?fmt(p.price):''}</span>
     </a>`;
   }).join("");
+}
+function wireJumps(){
+  document.querySelectorAll(".tp[data-jump]").forEach(a=>{
+    if(a._wired) return; a._wired=true;
+    a.addEventListener("click",e=>{
+      e.preventDefault();
+      const card=document.getElementById("card-"+a.dataset.jump);
+      if(card){
+        card.scrollIntoView({behavior:"smooth",block:"center"});
+        card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash");
+      }
+    });
+  });
 }
 function renderBQ(){
   const groups=PROPERTIES.filter(p=>(p.brokerQuestions||[]).length&&!p.archived);
@@ -797,12 +804,12 @@ function renderBQ(){
 }
 function renderStats(){
   const active=PROPERTIES.filter(p=>!p.archived);
-  const shortlisted=active.filter(p=>(p.badges||[]).includes("Shortlist")||p.status==="Shortlist").length;
-  const great=active.filter(p=>verdictOf(p)==="Great Find").length;
+  const loved=active.filter(p=>loveCount(p)>0).length;
+  const strong=active.filter(p=>getScore(p)>=7 && (p.building_rating||"unknown")!=="caution").length;
   $("#stats").innerHTML=`
     <div class="stat"><div class="n">${active.length}</div><div class="l">Properties tracked</div></div>
-    <div class="stat"><div class="n">${shortlisted}</div><div class="l">On the shortlist</div></div>
-    <div class="stat"><div class="n">${great}</div><div class="l">Rated &ldquo;Great Find&rdquo;</div></div>`;
+    <div class="stat" title="Properties with at least one Love vote"><div class="n">${loved}</div><div class="l">Loved</div></div>
+    <div class="stat" title="Score 7+ and no building concern"><div class="n">${strong}</div><div class="l">Strong fits</div></div>`;
 }
 function initFilters(){
   [...new Set(PROPERTIES.map(p=>p.area).filter(Boolean))].sort()
@@ -905,6 +912,8 @@ async function castVote(pid, choice){
     recountLocal();
   }
   paintVotes();
+  renderTop(); wireJumps(); renderStats();
+  if(sortKey==="loved") render();
   if(VOTE_SHARED){
     try{
       if(!myVotes[pid]){
@@ -914,7 +923,8 @@ async function castVote(pid, choice){
           headers:{Prefer:"resolution=merge-duplicates,return=minimal"},
           body:JSON.stringify({property_id:pid,voter:v,choice:myVotes[pid]})});
       }
-      await loadVotes(); paintVotes();
+      await loadVotes(); paintVotes(); renderTop(); wireJumps(); renderStats();
+      if(sortKey==="loved") render();
     }catch(e){ /* keep optimistic state */ }
   }
 }
@@ -1022,7 +1032,7 @@ function wireRemove(){
 
 // re-wire & paint after every render
 const _origRender=render;
-render=function(){ _origRender(); wireVotes(); wireRemove(); paintVotes(); };
+render=function(){ _origRender(); wireVotes(); wireRemove(); wireJumps(); paintVotes(); };
 
 renderStats();initFilters();renderTop();render();renderBQ();
 // load shared state on startup if configured
