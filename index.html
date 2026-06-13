@@ -178,11 +178,23 @@
 
   footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 20px 50px;line-height:1.7}
 
-  @media(max-width:640px){
-    .controls-row{flex-direction:column;align-items:stretch}
-    .clear{margin-left:0}
-    select,input[type=search]{min-width:0;width:100%}
-    .seg{width:100%}.seg button{flex:1}
+  /* filter toggle button - hidden on desktop */
+  .filter-toggle{display:none}
+
+  @media(max-width:760px){
+    .controls{position:static;padding:0;border:none;box-shadow:none;background:transparent;margin:14px auto 18px}
+    .filter-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;
+      font:inherit;font-size:14px;font-weight:600;color:var(--ink);background:var(--sand-card);
+      border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:11px 14px;cursor:pointer}
+    .filter-toggle .ti{font-size:16px;color:var(--bay)}
+    .filter-toggle .badge-count{background:var(--bay);color:#fff;font-size:11px;font-weight:700;border-radius:99px;padding:1px 8px;margin-left:6px}
+    .controls-row{display:none;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;
+      background:var(--sand-card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:14px}
+    .controls.open .controls-row{display:grid}
+    .field{min-width:0}
+    .field:first-child{grid-column:1 / -1}            /* search spans full width */
+    .controls select,.controls input[type=search]{width:100%;font-size:14px;padding:9px 10px}
+    .clear{grid-column:1 / -1;justify-self:stretch;text-align:center;border:1px solid var(--line);border-radius:8px;padding:10px;margin:0;background:#fff}
   }
 </style>
 </head>
@@ -409,7 +421,11 @@ const PROPERTIES = [
 
 <div class="wrap">
 
-  <div class="controls">
+  <div class="controls" id="controls">
+    <button class="filter-toggle" id="filter-toggle" aria-expanded="false">
+      <span><i class="ti"></i> Filters &amp; sort<span class="badge-count" id="filter-count" hidden>0</span></span>
+      <span id="filter-toggle-state">Show</span>
+    </button>
     <div class="controls-row">
       <div class="field"><label for="f-search">Search</label><input id="f-search" type="search" placeholder="Building, area&hellip;"></div>
       <div class="field"><label for="f-area">Area</label><select id="f-area"><option value="">All areas</option></select></div>
@@ -726,6 +742,24 @@ function initFilters(){
   document.addEventListener("input",e=>{if(e.target.id===id){if(id==="f-sort")sortKey=$("#f-sort").value;render();}});
 });
 document.addEventListener("change",e=>{if(e.target.id==="f-sort"){sortKey=$("#f-sort").value;render();}});
+
+// mobile filter toggle
+const ctl=$("#controls"), tgl=$("#filter-toggle"), tglState=$("#filter-toggle-state");
+if(tgl){
+  tgl.addEventListener("click",()=>{
+    const open=ctl.classList.toggle("open");
+    tgl.setAttribute("aria-expanded",open?"true":"false");
+    tglState.textContent=open?"Hide":"Show";
+  });
+}
+function updateFilterCount(){
+  const ids=["f-search","f-area","f-price","f-beds","f-status","f-verdict","f-fresh","f-bldg"];
+  const n=ids.filter(id=>{const el=$("#"+id);return el&&el.value;}).length;
+  const badge=$("#filter-count");
+  if(badge){ if(n>0){badge.hidden=false;badge.textContent=n;} else badge.hidden=true; }
+}
+document.addEventListener("input",updateFilterCount);
+document.addEventListener("change",updateFilterCount);
 $("#clear").addEventListener("click",()=>{
   ["f-search","f-area","f-price","f-beds","f-status","f-verdict","f-fresh","f-bldg"].forEach(id=>$("#"+id).value="");
   $("#f-sort").value="score";sortKey="score";
