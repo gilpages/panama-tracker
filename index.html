@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panama Property Tracker</title>
+<title>Gil's Panama Property Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bay:#0f5c63; --bay-deep:#0a3f44; --sand:#f6f1e7; --sand-card:#fffdf8;
@@ -20,17 +20,23 @@
   a{color:var(--bay);text-underline-offset:2px}
   .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 
-  /* Hero */
-  header{background:linear-gradient(155deg,var(--bay) 0%,var(--bay-deep) 100%);color:#fdfbf5;padding:46px 0 40px;position:relative;overflow:hidden}
-  header::after{content:"";position:absolute;right:-60px;bottom:-90px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
-  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.8;font-weight:500}
-  h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(30px,5vw,46px);line-height:1.05;margin:8px 0 10px}
-  .sub{max-width:560px;opacity:.9;font-size:15px}
+  header{background:linear-gradient(160deg,#0d6770 0%,#0a4a50 45%,#072e33 100%);color:#fdfbf5;padding:50px 0 150px;position:relative;overflow:hidden;isolation:isolate}
+  /* skyline sits at the bottom of the header */
+  .skyline{position:absolute;left:0;right:0;bottom:0;width:100%;height:170px;z-index:-1;display:block}
+  .skyline svg{width:100%;height:100%;display:block}
+  /* sun glow */
+  header::before{content:"";position:absolute;right:14%;top:30px;width:120px;height:120px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,239,206,.55),rgba(255,239,206,0) 70%);z-index:-1}
+  /* readability scrim behind the text block */
+  .header-scrim{position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(180deg,rgba(7,46,51,.55) 0%,rgba(7,46,51,.15) 38%,rgba(7,46,51,0) 60%)}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.85;font-weight:500;text-shadow:0 1px 6px rgba(0,0,0,.35)}
+  h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(30px,5vw,46px);line-height:1.05;margin:8px 0 10px;text-shadow:0 2px 14px rgba(0,0,0,.4)}
+  .sub{max-width:580px;opacity:.95;font-size:15px;text-shadow:0 1px 8px rgba(0,0,0,.35)}
   .stats{display:flex;gap:28px;margin-top:26px;flex-wrap:wrap}
   .stat .n{font-family:'Fraunces',serif;font-size:28px;line-height:1}
   .stat .l{font-size:12px;opacity:.8;letter-spacing:.04em;margin-top:3px}
 
-  /* Controls */
   .controls{background:var(--sand-card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px;margin:-26px auto 26px;position:relative;z-index:2}
   .controls-row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
   .field{display:flex;flex-direction:column;gap:5px}
@@ -38,29 +44,37 @@
   select,input[type=search]{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);min-width:130px}
   input[type=search]{min-width:200px}
   select:focus,input:focus{outline:2px solid var(--bay);outline-offset:1px}
-  .seg{display:flex;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
   .seg button{font:inherit;font-size:13px;padding:8px 12px;background:#fff;border:none;cursor:pointer;color:var(--muted);border-right:1px solid var(--line)}
   .seg button:last-child{border-right:none}
   .seg button.on{background:var(--bay);color:#fff}
   .clear{margin-left:auto;font:inherit;font-size:13px;background:none;border:none;color:var(--bay);cursor:pointer;padding:8px}
 
-  /* Section headings */
   .sec-head{display:flex;align-items:baseline;gap:12px;margin:34px 0 16px}
   .sec-head h2{font-family:'Fraunces',serif;font-weight:500;font-size:24px}
   .sec-head .meta{font-size:13px;color:var(--muted)}
   .rule{height:1px;background:var(--line);flex:1}
 
-  /* Cards */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
   .card{background:var(--sand-card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .15s ease,box-shadow .15s ease}
   .card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(18,40,38,.12)}
-  .thumb{height:170px;background:#dfe6e2 center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
-  .score-chip{position:absolute;top:12px;right:12px;background:rgba(255,253,248,.95);border-radius:10px;padding:6px 9px;text-align:center;box-shadow:var(--shadow);min-width:46px}
-  .score-chip .v{font-family:'Fraunces',serif;font-size:19px;line-height:1;font-weight:600}
-  .score-chip .o{font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-  .card-body{padding:15px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .card.archived{opacity:.72}
+
+  .verdict{font-size:13px;font-weight:700;letter-spacing:.02em;padding:8px 16px;display:flex;align-items:center;gap:8px;color:#fff}
+  .verdict .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.85)}
+  .v-great{background:var(--green)} .v-solid{background:#3f8a5f}
+  .v-fair{background:var(--amber)} .v-over{background:#9a4f36} .v-caution{background:var(--red)}
+  .v-none{background:#8a948f}
+
+  .thumb{height:160px;background:#dfe6e2 center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
+  .freshness{position:absolute;top:10px;left:10px;background:rgba(255,253,248,.95);border-radius:99px;padding:4px 10px;font-size:11.5px;font-weight:600;display:flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
+  .fdot{width:7px;height:7px;border-radius:50%}
+  .f-fresh .fdot{background:var(--green)} .f-aging .fdot{background:#c79a2e} .f-stale .fdot{background:var(--red)} .f-unknown .fdot{background:#aaa}
+  .f-stale{color:var(--red)}
+
+  .card-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:11px;flex:1}
   .badges{display:flex;gap:6px;flex-wrap:wrap}
-  .badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;letter-spacing:.02em}
+  .badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px}
   .b-short{background:var(--green-bg);color:var(--green)}
   .b-value{background:var(--slate-bg);color:var(--slate)}
   .b-ask{background:var(--amber-bg);color:var(--amber)}
@@ -70,24 +84,50 @@
   .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15}
   .area{font-size:13px;color:var(--muted)}
   .price{font-family:'Fraunces',serif;font-size:23px;font-weight:600;color:var(--bay-deep)}
-  .price small{font-family:'Inter';font-size:12px;font-weight:500;color:var(--muted)}
-  .facts{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--ink);padding:8px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+  .grades{display:flex;gap:8px}
+  .grade{flex:1;text-align:center;border:1px solid var(--line);border-radius:9px;padding:7px 4px;background:#fff}
+  .grade .g{font-family:'Fraunces',serif;font-size:22px;font-weight:600;line-height:1}
+  .grade .gl{font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+  .g-A{color:var(--green)} .g-B{color:#3f8a5f} .g-C{color:var(--amber)} .g-D{color:#9a4f36} .g-F{color:var(--red)} .g-x{color:#bbb}
+
+  /* building rating strip */
+  .bldg{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:9px;font-size:12.5px;font-weight:600}
+  .bldg .bl{font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+  .bldg .bx{flex:1;font-weight:500}
+  .bldg-good{background:var(--green-bg);color:var(--green)}
+  .bldg-caution{background:var(--red-bg);color:var(--red)}
+  .bldg-unknown{background:#eef0ee;color:#5f6b66}
+
+  .facts{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;padding:8px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .facts b{font-weight:600}
   .summary{font-size:13.5px;color:#3a443f;flex:1}
-  .card-foot{display:flex;gap:10px;align-items:center;margin-top:2px}
+  .flags-line{font-size:12.5px;color:var(--red);background:var(--red-bg);padding:6px 9px;border-radius:8px}
+  /* worth-checking panel: plain-language considerations for family */
+  .consider{background:#fbf4e4;border:1px solid #ecdcb5;border-radius:9px;padding:9px 11px;font-size:12.5px;color:#5a4a22}
+  .consider .ch{font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:6px;margin-bottom:5px}
+  .consider ul{margin:0 0 0 16px;padding:0}
+  .consider li{margin:2px 0;line-height:1.45}
+
+  .mapwrap{display:block;border-radius:9px;overflow:hidden;border:1px solid var(--line);position:relative}
+  .mapwrap img{display:block;width:100%;height:120px;object-fit:cover}
+  .mapwrap .open{position:absolute;right:8px;bottom:8px;background:rgba(255,253,248,.95);border-radius:7px;padding:3px 8px;font-size:11px;font-weight:600;color:var(--bay);box-shadow:var(--shadow)}
+  .walk{font-size:12.5px;color:#3a443f}
+  .walk .wt{font-weight:600;color:var(--bay-deep)}
+  .walk-label{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+
+  .card-foot{display:flex;gap:14px;align-items:center;margin-top:2px}
   .card-foot a{font-size:13px;font-weight:600;text-decoration:none}
   .card-foot a:hover{text-decoration:underline}
-  .flags-line{font-size:12.5px;color:var(--red);background:var(--red-bg);padding:6px 9px;border-radius:8px}
+  .verified{font-size:11.5px;color:var(--muted);margin-left:auto}
 
-  /* Comparison table */
   .tbl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--sand-card);box-shadow:var(--shadow)}
-  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:760px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:820px}
   th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
-  th{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600;background:#faf6ec;position:sticky;top:0}
+  th{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600;background:#faf6ec}
   tbody tr:hover{background:#faf6ec}
-  td.score{font-weight:600}
+  .pill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;color:#fff}
 
-  /* Broker questions */
   .bq-group{background:var(--sand-card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow)}
   .bq-group h4{font-family:'Fraunces',serif;font-weight:500;font-size:16px;margin-bottom:8px}
   .bq-group ul{margin-left:18px;font-size:14px;color:#3a443f}
@@ -96,7 +136,13 @@
   .empty{background:var(--sand-card);border:1px dashed var(--line);border-radius:14px;padding:38px 24px;text-align:center;color:var(--muted)}
   .empty b{color:var(--ink);font-family:'Fraunces',serif;font-weight:500;font-size:18px;display:block;margin-bottom:6px}
 
-  footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 20px 50px}
+  details.archive{margin-top:18px}
+  details.archive summary{cursor:pointer;font-family:'Fraunces',serif;font-size:18px;color:var(--muted);padding:8px 0;list-style:none}
+  details.archive summary::-webkit-details-marker{display:none}
+  details.archive summary::before{content:"\25B8 ";font-size:13px}
+  details.archive[open] summary::before{content:"\25BE "}
+
+  footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 20px 50px;line-height:1.7}
 
   @media(max-width:640px){
     .controls-row{flex-direction:column;align-items:stretch}
@@ -109,36 +155,281 @@
 <body>
 
 <!-- ============================================================= -->
-<!--  EDIT YOUR PROPERTIES HERE. Each {...} block is one property.  -->
+<!--  EDIT YOUR PROPERTIES HERE - each {...} block is one property. -->
 <!--  Add / remove blocks freely. Use "Unknown" for missing data.   -->
-<!--  badges options: "Shortlist","Good Value","Ask Broker",         -->
-<!--                   "Red Flag","Needs Manual Review"              -->
+<!--                                                                 -->
+<!--  FIELD GUIDE:                                                   -->
+<!--   datePosted     "2026-06-01"  (when the LISTING went up)       -->
+<!--   lastVerified   "2026-06-12"  (when WE last checked it)        -->
+<!--   verdict        auto from score+flags, or set manually:        -->
+<!--                  "Great Find" "Solid Option" "Fair"             -->
+<!--                  "Overpriced" "Caution"                         -->
+<!--   grades         letters A-F: {neighborhood:"A",home:"B",value:"C"} -->
+<!--   badges         "Shortlist","Good Value","Ask Broker",         -->
+<!--                  "Red Flag","Needs Manual Review"               -->
+<!--   lat,lng        coordinates -> draws the map thumbnail         -->
+<!--   walk           [{to:"Parque Omar",min:6}, ...]                -->
+<!--   considerations ["Plain-language thing to verify", ...]        -->
+<!--                  -> shows a "Worth checking" panel for family    -->
+<!--   building_rating  "good" | "caution" | "unknown"               -->
+<!--                  -> "caution" caps the verdict at Caution        -->
+<!--   building_note    short plain-language reason for the rating    -->
+<!--   archived       true  -> moves card to the Archive section     -->
+<!--   topPick        true  -> features it in Top Picks              -->
 <!-- ============================================================= -->
 <script>
 const PROPERTIES = [
-  /* PASTE PROPERTY OBJECTS BELOW. Example shape (delete this comment when you add real ones):
   {
-    id:"P-001", building:"Building name", area:"San Francisco",
-    price:285000, beds:2, baths:2, parking:1, size_m2:120,
-    view:"Partial ocean", status:"Shortlist",
-    badges:["Shortlist","Good Value"],
-    summary:"Plain-English summary written by Claude.",
-    redFlags:"None noted",
-    thumbnail:"",                       // image URL, or leave "" for placeholder
-    listingUrl:"https://...",
-    mapLink:"https://maps.google.com/...",
-    topPick:true,                       // true to feature in Top Picks
-    brokerQuestions:["Question 1?","Question 2?"]
+    id:"P-001", building:"PH Royal Princess (7A)", area:"Punta Paitilla",
+    price:215000, beds:2, baths:2, parking:2, size_m2:147.15,
+    view:"Unknown (balcony present)", status:"Ask Broker",
+    overallScore:7.4,
+    verdict:"Solid Option",
+    grades:{neighborhood:"B", home:"A", value:"A"},
+    badges:["Good Value"],
+    summary:"Fully remodeled 147 m\u00b2 with 2 en-suite bedrooms plus a maid's room usable as a 3rd bedroom or office, two side-by-side parking spaces, and on-floor storage. Only two units per floor; pool, gym, sauna. At about $1,461/m\u00b2 it's roughly 36% under the typical Punta Paitilla range \u2014 an unusually low price that's most likely explained by an older building.",
+    redFlags:"Price is well below the Paitilla norm \u2014 there's usually a reason. Confirm it before going further.",
+    considerations:[
+      "Monthly HOA / maintenance fee isn't listed \u2014 in an older tower this can be high and changes the real cost.",
+      "Building age and the health of its reserves aren't stated \u2014 ask about any special assessments or repairs.",
+      "No view described (bay, city, or interior?) and exact floor unconfirmed.",
+      "We haven't independently verified the listing photos or condition \u2014 facts are from the listing text only."
+    ],
+    building_rating:"unknown",
+    building_note:"Royal Princess is an exclusive, generally well-regarded address, but we don't have enough independent reviews to rate it firmly. Confirm management and reserves.",
+    datePosted:"2026-06-01",
+    lastVerified:"2026-06-09",
+    thumbnail:"",
+    lat:8.9738102, lng:-79.5128125,
+    walk:[{to:"Parque Paitilla (waterfront)",min:2},{to:"Paitilla Mall",min:6},{to:"Plaza Paitilla",min:6},{to:"Megapolis Outlets",min:7}],
+    listingUrl:"https://www.realtor.com/international/pa/punta-paitilla-unit-7a-panama-panama-city-310108431797/",
+    mapLink:"https://maps.google.com/?cid=12926776633571481936",
+    topPick:true,
+    archived:false,
+    brokerQuestions:["What is the monthly HOA / maintenance fee?","What year was the building built?","Why is the price notably below the Paitilla market \u2014 any special assessments, structural/reserve issues, or title matters?","What is the view (bay / city / interior) and which floor is 7A exactly?","Is it sold furnished or unfurnished?","Condition of common areas, elevators and fa\u00e7ade \u2014 any recent or planned assessments?"]
   },
-  */
+  {
+    id:"P-002", building:"PH Balboa Bay", area:"Avenida Balboa",
+    price:315000, beds:2, baths:2, parking:2, size_m2:125,
+    view:"Unknown (balcony present)", status:"Interested",
+    overallScore:6.9,
+    verdict:"Solid Option",
+    grades:{neighborhood:"A", home:"B", value:"C"},
+    badges:["Furnished","Low HOA"],
+    summary:"Fully furnished, move-in-ready 2BR in a newer, well-kept building two blocks off Av. Balboa, with a 3-min walk to groceries and the metro nearby. At $2,520/m\u00b2 it's fairly priced for the area \u2014 not a bargain, but a complete, low-uncertainty listing: maintenance fee disclosed ($200/mo), amenities itemized, condition described as good.",
+    redFlags:"None major. Top of your budget and the smaller of the units seen so far.",
+    considerations:[
+      "Priced mid-range for Av. Balboa \u2014 fair value, not a discount (contrast with the cheaper Paitilla unit).",
+      "125 m\u00b2 is a true 2BR; the maid's room here reads as staff quarters, not a flexible 3rd bedroom.",
+      "\u201CNear Traffic\u201D is listed as a feature \u2014 on Av. Balboa that can mean street noise; confirm the unit's exposure/floor.",
+      "Waterfront (Cinta Costera) is a ~15-min walk, not steps away. View not stated.",
+      "We haven't independently verified the listing photos or condition \u2014 facts are from the listing text only."
+    ],
+    building_rating:"good",
+    building_note:"Reviews describe a newer, well-maintained building with friendly security and good social areas.",
+    datePosted:"2026-04-28",
+    lastVerified:"2026-04-28",
+    thumbnail:"",
+    lat:8.9726373, lng:-79.5318545,
+    walk:[{to:"Supermercados Rey",min:3},{to:"Riba Smith grocery",min:7},{to:"Cinta Costera waterfront",min:15},{to:"Balboa Boutiques dining",min:16}],
+    listingUrl:"https://www.encuentra24.com/panama-es/bienes-raices-venta-de-propiedades-apartamentos/venta-de-apartamento-en-bella-vista-ph-balboa-bay-125m2/31051294",
+    mapLink:"https://maps.google.com/?cid=4570147021747517056",
+    topPick:false,
+    archived:false,
+    brokerQuestions:["Which floor is the unit on, and what is its exposure (street/traffic side vs. quiet side)?","What is the view?","How old is the building exactly?","Are the furnishings included in the $315k price?","Any planned special assessments or maintenance reserve concerns?"]
+  },
+  {
+    id:"P-003", building:"PH Sophia Tower", area:"Obarrio",
+    price:329000, beds:3, baths:3, parking:2, size_m2:188,
+    view:"Panoramic city (stated)", status:"Shortlist",
+    overallScore:7.6,
+    verdict:"Caution",
+    grades:{neighborhood:"A", home:"A", value:"A"},
+    badges:["Good Value"],
+    summary:"The biggest and best-laid-out unit so far: a true 3-bedroom with a separate family room across 188 m\u00b2, remodeled (granite kitchen, marble/porcelain floors), panoramic city-view balcony, 2 parking plus an EV charger, in an amenity-rich Obarrio tower. At $1,750/m\u00b2 it's strong value for the area. Excellent on paper \u2014 but check the building before falling for it.",
+    redFlags:"A building review cites noise complaints, weak management and police visits \u2014 thin data (8 reviews) but worth serious diligence. Slightly over your $320k ceiling. No HOA fee disclosed.",
+    considerations:[
+      "$329k is just over your $320k target ceiling \u2014 worth it only if the size/quality justify the stretch.",
+      "No maintenance fee listed \u2014 with 4 elevators, generator, pools and big social areas, the monthly HOA on 188 m\u00b2 could be high. Confirm it; it materially changes carrying cost.",
+      "A public building review alleges noise issues, an unresponsive manager and frequent police visits. It's one detailed review among a few short ones, so treat as a flag to investigate, not a verdict.",
+      "Listing cites an appraisal exactly equal to the asking price \u2014 that's marketing, not independent validation. The real value signal is the below-market price per m\u00b2.",
+      "Multiplaza and main dining are a ~15-min walk, not steps away; \u201CNear Traffic\u201D is tagged \u2014 confirm floor/exposure for noise.",
+      "We haven't independently verified the listing photos or condition \u2014 facts are from the listing text only."
+    ],
+    building_rating:"caution",
+    building_note:"A public building review alleges noise violations, an unresponsive manager and frequent police visits. Thin data (few reviews) but a real concern to verify before proceeding.",
+    datePosted:"2026-06-11",
+    lastVerified:"2026-06-11",
+    thumbnail:"",
+    lat:8.9859345, lng:-79.5222123,
+    walk:[{to:"Multiplaza mall",min:15},{to:"Niko's Caf\u00e9 (24h)",min:15}],
+    listingUrl:"https://www.encuentra24.com/panama-es/bienes-raices-venta-de-propiedades-apartamentos/obarrio-ph-sophia-tower-exclusivo-apartamento-de-188-m/32562547",
+    mapLink:"https://maps.google.com/?cid=16599022545151842624",
+    topPick:true,
+    archived:false,
+    brokerQuestions:["What is the monthly HOA / maintenance fee?","Which floor and what exposure (city view confirmed, traffic/noise side?)","How old is the building, and how is it managed \u2014 are there known noise or management issues / HOA disputes?","Are the marble finishes, EV charger and family-room layout as described, and is anything included?","Year built and any planned special assessments?"]
+  },
+  {
+    id:"P-004", building:"Brand-new Bella Vista tower (model unit)", area:"Avenida Balboa",
+    price:211000, beds:2, baths:2, parking:1, size_m2:57,
+    view:"Unknown (low-density, balcony)", status:"Interested",
+    overallScore:5.7,
+    verdict:"Fair",
+    grades:{neighborhood:"A", home:"D", value:"C"},
+    badges:["Brand New","Small Unit"],
+    summary:"A brand-new (2025\u201326 delivery) 2BR in a heavily-amenitied Bella Vista development one block from the metro and Cinta Costera. Walkability is superb. But it's small \u2014 just 57 m\u00b2 for a 2BR \u2014 and parking is a $17k extra, pushing the real all-in to about $228k (~$4,000/m\u00b2, above the area norm). Reads as a sleek city base or rental play, not a comfortable family home.",
+    redFlags:"Parking NOT included (+$17k). At ~$4,000/m\u00b2 all-in it's above the Av. Balboa range. Pre/just-construction \u2014 no operating or resale track record yet.",
+    considerations:[
+      "57 m\u00b2 is small for a 2BR \u2014 fine for a couple or a rental, tight for hosting family. This is the main reason it scores low on family use.",
+      "Headline $211k excludes parking ($17k) \u2014 budget ~$228k all-in for unit + one space.",
+      "Brand-new building: low quoted HOA ($156) may rise once real operating costs and reserves kick in; no resale history to gauge liquidity.",
+      "\u201CModel apartment\u201D photos \u2014 the actual unit excludes furniture, lighting and appliances.",
+      "Lock-off option and metro-doorstep location make it a credible rental/investment unit if family-size isn't the priority.",
+      "We haven't independently verified the listing or building \u2014 facts are from the listing text only; building coordinates are approximate."
+    ],
+    building_rating:"unknown",
+    building_note:"Brand-new development with no operating history yet \u2014 cannot be rated Good until management, HOA and resale track record exist. Treat as unproven.",
+    datePosted:"2026-06-11",
+    lastVerified:"2026-06-11",
+    thumbnail:"",
+    lat:8.9735, lng:-79.5318,
+    walk:[{to:"Santo Tom\u00e1s metro",min:1},{to:"Super Rey supermarket",min:1},{to:"Riba Smith grocery",min:8},{to:"Parque Urrac\u00e1",min:7}],
+    listingUrl:"https://www.encuentra24.com/panama-en/real-estate-for-sale-apartments-condos/brand-new-in-bella-vista-steps-from-the-circle-station/32132415",
+    mapLink:"https://maps.google.com/?q=8.9735,-79.5318",
+    topPick:false,
+    archived:false,
+    brokerQuestions:["Is the $211k price for a specific unit/floor, or starting price? Which floor?","Confirm parking is $17k extra and whether a space is even available.","What's the projected HOA once fully occupied, and what does it cover?","Is this completed and deliverable now, or still off-plan? Exact delivery date?","Developer track record \u2014 any other completed buildings to reference?","What is the view and exposure of the actual available units?"]
+  },
+  {
+    id:"P-005", building:"PH Luxor 300", area:"El Cangrejo",
+    price:239000, beds:2, baths:2, parking:1, size_m2:93,
+    view:"Unknown (dense area; likely city)", status:"Interested",
+    overallScore:7.2,
+    verdict:"Solid Option",
+    grades:{neighborhood:"A", home:"B", value:"B"},
+    badges:["Good Value","Walkable"],
+    summary:"A 93 m\u00b2 2BR in a well-regarded luxury El Cangrejo tower, with the building's only open-concept kitchen (its main draw \u2014 brighter, more modern than the typical closed layouts). Parking included, strong amenities, and unbeatable walkability: top-rated caf\u00e9s on V\u00eda Argentina and the metro are a 3\u20136 min stroll. Fairly priced at $2,570/m\u00b2 and in a building that actually reviews well.",
+    redFlags:"None major. Maintenance fee, floor and address are all 'ask the seller' \u2014 confirm the HOA. A 2BR (not 3BR), so less flexible for extended-family visits.",
+    considerations:[
+      "Maintenance fee, floor and exact address are all withheld ('ask the seller') \u2014 the HOA on a Sky-Lounge luxury building can be meaningful, so confirm it.",
+      "It's a 2BR \u2014 comfortable for a couple or small family, snug for hosting several guests at once.",
+      "El Cangrejo is the most walkable but also busiest/noisiest of your areas \u2014 great energy, less calm than San Francisco. A building review notes it's dense and adds local traffic.",
+      "Appliances not included except the dishwasher \u2014 budget for fridge/stove/washer.",
+      "We haven't independently verified the listing photos or condition \u2014 facts are from the listing text only."
+    ],
+    building_rating:"good",
+    building_note:"PH Luxor 300 reviews well (4.6\u2605): residents praise responsive administration, good security and social areas; called the best new building in El Cangrejo. Noted as dense, adding local traffic.",
+    datePosted:"2026-06-11",
+    lastVerified:"2026-06-11",
+    thumbnail:"",
+    lat:8.9877076, lng:-79.5275872,
+    walk:[{to:"Mancora caf\u00e9 / Einstein Park",min:3},{to:"Caf\u00e9 Unido (V\u00eda Argentina)",min:4},{to:"Cabrera Coffee 4.9\u2605",min:4},{to:"Tres Cosechas coffee",min:6}],
+    listingUrl:"https://www.encuentra24.com/panama-en/real-estate-for-sale-apartments-condos/2-bedroom-apartment-in-luxor-300-luxury-excellent-layout-and-prime-location/32362489",
+    mapLink:"https://maps.google.com/?cid=2594277173738922522",
+    topPick:true,
+    archived:false,
+    brokerQuestions:["What is the monthly maintenance / HOA fee, and what does it cover?","Which floor is the unit on, and what is the view/exposure?","Exact address within El Cangrejo?","Is the parking space deeded/assigned? Any storage?","Any planned special assessments?"]
+  },
+  {
+    id:"P-006", building:"PH Cadiz", area:"Obarrio",
+    price:205000, beds:2, baths:2, parking:1, size_m2:157,
+    view:"Unknown (terrace; quiet cul-de-sac)", status:"Interested",
+    overallScore:7.0,
+    verdict:"Caution",
+    grades:{neighborhood:"A", home:"A", value:"A"},
+    badges:["Good Value","Big + Terrace"],
+    summary:"The most space-for-money yet: a big 157 m\u00b2 apartment that 'lives like a house' \u2014 spacious living/dining, maid's room, and a private 20 m\u00b2 terrace \u2014 on a quiet cul-de-sac steps from Calle 50, freshly remodeled in 2024. At $1,305/m\u00b2 it's the cheapest per-meter on the board. The catch is honest and disclosed: it's a 1978 building, so the bargain hinges entirely on the building's structural health.",
+    redFlags:"Building is from 1978 (~48 yrs). The 2024 remodel is the apartment, not the structure \u2014 verify plumbing, electrical, elevator, fa\u00e7ade and reserve fund before anything else. No amenities, which can soften resale.",
+    considerations:[
+      "1978 building: the remodel covers the unit, not the bones. The whole value case depends on the building's structure and reserve fund being sound \u2014 this needs the most building diligence of any listing so far.",
+      "Maintenance is a reasonable $275/mo and is disclosed, as is the year built and three clear price tiers ($205k bare / $210k appliances / $220k furnished) \u2014 that transparency is a good sign.",
+      "'No social area' (no pool/gym) \u2014 framed as tranquility, but amenity-free older buildings can be slightly less liquid on resale. Note: a data field oddly says 'pool: yes' \u2014 confirm which is true.",
+      "Closed kitchen (more dated feel than an open-concept), wood floors.",
+      "We haven't independently verified the listing or building \u2014 facts are from the listing text only; building coordinates are approximate."
+    ],
+    building_rating:"caution",
+    building_note:"No direct reviews exist, but the building dates to 1978 (~48 years). That age is exactly where structural/reserve risk concentrates in Panama \u2014 rated Caution until the building's bones and reserve fund are independently verified. Not a reflection of bad reviews, but of unverified age risk.",
+    datePosted:"2026-06-12",
+    lastVerified:"2026-06-12",
+    thumbnail:"",
+    lat:8.9815, lng:-79.5237,
+    walk:[{to:"Grand Deli Gourmet (groceries)",min:10},{to:"SMARTTU Market",min:11},{to:"Calle 50 corridor",min:3}],
+    listingUrl:"https://www.encuentra24.com/panama-en/real-estate-for-sale-apartments-condos/apartment-for-sale-with-20m2-terrace-in-obarrio-ph-cadiz-mm/32271959",
+    mapLink:"https://maps.google.com/?q=8.9815,-79.5237",
+    topPick:false,
+    archived:false,
+    brokerQuestions:["Building is 1978 \u2014 what major systems have been updated (plumbing risers, electrical, elevator, fa\u00e7ade, roof, water tanks)?","What is the reserve fund balance and are any special assessments planned?","Is there actually a pool/social area? (Listing fields contradict the description.)","Which floor, what view, and exact address?","Confirm which price tier ($205k/$210k/$220k) and what each includes."]
+  },
 ];
 </script>
 
 <header>
+  <div class="header-scrim"></div>
+  <div class="skyline" aria-hidden="true">
+    <svg viewBox="0 0 1440 170" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bld" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0c5158"/><stop offset="1" stop-color="#062b30"/>
+        </linearGradient>
+        <linearGradient id="bldFront" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0a444a"/><stop offset="1" stop-color="#04181b"/>
+        </linearGradient>
+        <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0a3a40"/><stop offset="1" stop-color="#062227"/>
+        </linearGradient>
+      </defs>
+      <!-- back skyline (lighter, varied tower heights echoing Panama's bayfront) -->
+      <g fill="url(#bld)" opacity="0.85">
+        <rect x="20" y="70" width="34" height="100"/>
+        <rect x="60" y="48" width="26" height="122"/>
+        <polygon points="92,60 112,40 132,60 132,170 92,170"/>
+        <rect x="150" y="78" width="40" height="92"/>
+        <rect x="198" y="34" width="22" height="136"/>
+        <rect x="228" y="58" width="30" height="112"/>
+        <polygon points="270,52 286,28 302,52 302,170 270,170"/>
+        <rect x="320" y="66" width="36" height="104"/>
+        <rect x="366" y="44" width="24" height="126"/>
+        <rect x="398" y="72" width="30" height="98"/>
+        <rect x="540" y="56" width="28" height="114"/>
+        <rect x="576" y="40" width="22" height="130"/>
+        <polygon points="608,46 624,22 640,46 640,170 608,170"/>
+        <rect x="660" y="64" width="34" height="106"/>
+        <rect x="704" y="50" width="24" height="120"/>
+        <rect x="900" y="60" width="30" height="110"/>
+        <rect x="938" y="38" width="22" height="132"/>
+        <rect x="968" y="70" width="36" height="100"/>
+        <polygon points="1014,54 1030,30 1046,54 1046,170 1014,170"/>
+        <rect x="1060" y="46" width="24" height="124"/>
+        <rect x="1200" y="64" width="32" height="106"/>
+        <rect x="1238" y="44" width="22" height="126"/>
+        <rect x="1270" y="72" width="34" height="98"/>
+        <rect x="1316" y="52" width="24" height="118"/>
+        <rect x="1352" y="68" width="30" height="102"/>
+      </g>
+      <!-- front skyline (darker, taller hero towers) -->
+      <g fill="url(#bldFront)">
+        <rect x="120" y="88" width="46" height="82"/>
+        <rect x="430" y="62" width="40" height="108"/>
+        <rect x="476" y="40" width="30" height="130"/>
+        <polygon points="506,48 524,18 542,48 542,170 506,170"/>
+        <rect x="740" y="58" width="42" height="112"/>
+        <rect x="790" y="36" width="28" height="134"/>
+        <polygon points="818,44 836,14 854,44 854,170 818,170"/>
+        <rect x="864" y="70" width="38" height="100"/>
+        <rect x="1100" y="60" width="44" height="110"/>
+        <rect x="1150" y="42" width="30" height="128"/>
+        <polygon points="1180,50 1196,22 1212,50 1212,170 1180,170"/>
+        <rect x="0" y="96" width="40" height="74"/>
+        <rect x="1400" y="82" width="40" height="88"/>
+      </g>
+      <!-- waterline -->
+      <rect x="0" y="158" width="1440" height="12" fill="url(#water)" opacity="0.9"/>
+    </svg>
+  </div>
   <div class="wrap">
-    <div class="eyebrow">Panama City · Apartments &amp; Condos</div>
-    <h1>Panama Property Tracker</h1>
-    <p class="sub">A shared shortlist of apartments we're considering — browse, compare, and see the honest pros and cons of each one at a glance.</p>
+    <div class="eyebrow">Panama City &middot; Apartments &amp; Condos</div>
+    <h1>Gil's Panama Property Tracker</h1>
+    <p class="sub">A shared shortlist of apartments we're considering. Each card shows an honest verdict, easy A&ndash;F grades, how fresh the listing is, and what's within walking distance.</p>
     <div class="stats" id="stats"></div>
   </div>
 </header>
@@ -147,22 +438,31 @@ const PROPERTIES = [
 
   <div class="controls">
     <div class="controls-row">
-      <div class="field"><label for="f-search">Search</label><input id="f-search" type="search" placeholder="Building, area, keyword…"></div>
+      <div class="field"><label for="f-search">Search</label><input id="f-search" type="search" placeholder="Building, area, keyword&hellip;"></div>
       <div class="field"><label for="f-area">Area</label><select id="f-area"><option value="">All areas</option></select></div>
       <div class="field"><label for="f-price">Price</label><select id="f-price">
         <option value="">Any price</option>
         <option value="0-200000">Under $200k</option>
-        <option value="200000-250000">$200k–$250k</option>
-        <option value="250000-300000">$250k–$300k</option>
-        <option value="300000-320000">$300k–$320k</option>
+        <option value="200000-250000">$200k&ndash;$250k</option>
+        <option value="250000-300000">$250k&ndash;$300k</option>
+        <option value="300000-320000">$300k&ndash;$320k</option>
         <option value="320000-99999999">Over $320k</option>
       </select></div>
       <div class="field"><label for="f-beds">Beds</label><select id="f-beds">
         <option value="">Any</option><option value="2">2+</option><option value="3">3+</option>
       </select></div>
       <div class="field"><label for="f-status">Status</label><select id="f-status"><option value="">All</option></select></div>
-      <div class="field"><label for="f-score">Min score</label><select id="f-score">
-        <option value="">Any</option><option value="6">6+</option><option value="7">7+</option><option value="8">8+</option>
+      <div class="field"><label for="f-verdict">Verdict</label><select id="f-verdict">
+        <option value="">Any</option><option>Great Find</option><option>Solid Option</option>
+        <option>Fair</option><option>Overpriced</option><option>Caution</option>
+      </select></div>
+      <div class="field"><label for="f-fresh">Freshness</label><select id="f-fresh">
+        <option value="">Any</option><option value="Fresh">Fresh</option>
+        <option value="Aging">Aging</option><option value="Stale">Stale (60+)</option>
+      </select></div>
+      <div class="field"><label for="f-bldg">Building</label><select id="f-bldg">
+        <option value="">Any</option><option value="good">Looks good</option>
+        <option value="caution">Has concerns</option><option value="unknown">Unrated</option>
       </select></div>
       <button class="clear" id="clear">Reset filters</button>
     </div>
@@ -171,20 +471,18 @@ const PROPERTIES = [
         <div class="seg" id="sort">
           <button data-sort="score" class="on">Overall score</button>
           <button data-sort="price">Price</button>
-          <button data-sort="ppm">Price / m²</button>
-          <button data-sort="date">Date added</button>
+          <button data-sort="ppm">Price / m&sup2;</button>
+          <button data-sort="date">Date posted</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Top Picks -->
   <section id="top-section" hidden>
     <div class="sec-head"><h2>Top picks</h2><span class="meta">Our strongest fits so far</span><span class="rule"></span></div>
     <div class="grid" id="top-grid"></div>
   </section>
 
-  <!-- All properties -->
   <section>
     <div class="sec-head"><h2>All properties</h2><span class="meta" id="count"></span><span class="rule"></span></div>
     <div class="grid" id="grid"></div>
@@ -192,23 +490,25 @@ const PROPERTIES = [
       <b>No properties yet</b>
       Paste listing links to Claude and the cards will appear here once added.
     </div>
+    <details class="archive" id="archive-wrap" hidden>
+      <summary id="archive-summary">Archived / possibly gone</summary>
+      <div class="grid" id="archive-grid" style="margin-top:14px"></div>
+    </details>
   </section>
 
-  <!-- Comparison -->
   <section id="compare-section" hidden>
     <div class="sec-head"><h2>Compare</h2><span class="meta">Side by side, sorted by score</span><span class="rule"></span></div>
     <div class="tbl-scroll">
       <table>
         <thead><tr>
-          <th>Building</th><th>Area</th><th>Price</th><th>$/m²</th><th>Beds</th><th>Baths</th>
-          <th>Parking</th><th>Size</th><th>View</th><th>Score</th><th>Status</th><th>Link</th>
+          <th>Building</th><th>Area</th><th>Verdict</th><th>Hood</th><th>Home</th><th>Value</th>
+          <th>Price</th><th>$/m&sup2;</th><th>Beds</th><th>Size</th><th>Freshness</th><th>Link</th>
         </tr></thead>
         <tbody id="cmp-body"></tbody>
       </table>
     </div>
   </section>
 
-  <!-- Broker questions -->
   <section id="bq-section" hidden>
     <div class="sec-head"><h2>Questions for the broker</h2><span class="meta">Details still missing per property</span><span class="rule"></span></div>
     <div id="bq-list"></div>
@@ -217,7 +517,8 @@ const PROPERTIES = [
 </div>
 
 <footer>
-  Panama Property Tracker · facts shown are taken from listings; anything unconfirmed is marked “Unknown.” · Updated as new listings are added.
+  Gil's Panama Property Tracker &middot; Facts shown are taken from listings; anything unconfirmed is marked &ldquo;Unknown.&rdquo;<br>
+  Walk times are approximate. Verdict &amp; grades are our own assessment, not the seller's. Listings can sell or expire &mdash; check the freshness label.
 </footer>
 
 <script>
@@ -225,133 +526,201 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const fmt=n=>"$"+Number(n).toLocaleString("en-US");
 const num=v=>(typeof v==="number"&&!isNaN(v));
 const ppm=p=>(num(p.price)&&num(p.size_m2)&&p.size_m2>0)?Math.round(p.price/p.size_m2):null;
+const getScore=p=>num(p.overallScore)?p.overallScore:(num(p.overall_score)?p.overall_score:-1);
 let sortKey="score";
 
-function badgeClass(b){
-  const m={"Shortlist":"b-short","Good Value":"b-value","Ask Broker":"b-ask","Red Flag":"b-flag","Needs Manual Review":"b-review"};
-  return m[b]||"b-status";
+function ageDays(p){
+  if(!p.datePosted)return null;
+  const d=new Date(p.datePosted); if(isNaN(d))return null;
+  return Math.floor((Date.now()-d.getTime())/86400000);
 }
-function placeholder(area){
-  return `<div class="thumb"><span>No photo yet${area?` · ${area}`:""}</span></div>`;
+function freshness(p){
+  const a=ageDays(p);
+  if(a===null)return {key:"unknown",label:"Post date unknown",cls:"f-unknown"};
+  if(a<=21)return {key:"Fresh",label:`Posted ${a===0?"today":a+"d ago"}`,cls:"f-fresh"};
+  if(a<=60)return {key:"Aging",label:`Posted ~${Math.round(a/7)}wk ago`,cls:"f-aging"};
+  return {key:"Stale",label:`60+ days \u2014 may be gone`,cls:"f-stale"};
+}
+function verdictOf(p){
+  if(p.verdict)return p.verdict;
+  const s=getScore(p);
+  const hasFlag=p.redFlags&&!/^none|^unknown/i.test(p.redFlags.trim());
+  if((p.building_rating||"")==="caution")return "Caution";
+  if(hasFlag)return "Caution";
+  if(s<0)return null;
+  if(s>=8)return "Great Find";
+  if(s>=6.5)return "Solid Option";
+  if(s>=5)return "Fair";
+  return "Overpriced";
+}
+function buildingRow(p){
+  const r=p.building_rating||"unknown";
+  const note=p.building_note||"";
+  if(r==="good")return `<div class="bldg bldg-good"><span class="bl"><i class="ti"></i>Building</span><span class="bx">Looks good \u00b7 ${note||"positive signals, no flags found"}</span></div>`;
+  if(r==="caution")return `<div class="bldg bldg-caution"><span class="bl">\u2691 Building concern</span><span class="bx">${note||"reviews or known issues flag this building"}</span></div>`;
+  return `<div class="bldg bldg-unknown"><span class="bl">Building</span><span class="bx">${note||"not enough information to rate the building yet"}</span></div>`;
+}
+const verdictCls={"Great Find":"v-great","Solid Option":"v-solid","Fair":"v-fair","Overpriced":"v-over","Caution":"v-caution"};
+function badgeClass(b){
+  return {"Shortlist":"b-short","Good Value":"b-value","Ask Broker":"b-ask","Red Flag":"b-flag","Needs Manual Review":"b-review","Furnished":"b-value","Low HOA":"b-value","Brand New":"b-value","Small Unit":"b-flag","Walkable":"b-value","Big + Terrace":"b-value"}[b]||"b-status";
+}
+function gradeBox(letter,label){
+  const L=(letter||"").toUpperCase();
+  const cls=["A","B","C","D","F"].includes(L)?`g-${L}`:"g-x";
+  return `<div class="grade"><div class="g ${cls}">${L||"\u2013"}</div><div class="gl">${label}</div></div>`;
+}
+function mapImg(p){
+  if(!num(p.lat)||!num(p.lng))return "";
+  const lat=p.lat,lng=p.lng;
+  const src=`https://staticmap.openstreetmap.de/staticmap.php?center=${lat},${lng}&zoom=15&size=600x240&markers=${lat},${lng},red-pushpin`;
+  const link=p.mapLink||`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+  return `<a class="mapwrap" href="${link}" target="_blank" rel="noopener">
+    <img src="${src}" alt="Map of ${p.building||"property"}" loading="lazy"
+      onerror="this.parentElement.style.display='none'">
+    <span class="open">Open map \u2197</span></a>`;
+}
+function walkList(p){
+  if(!Array.isArray(p.walk)||!p.walk.length)return "";
+  const items=p.walk.slice(0,5).map(w=>`<span class="wt">${w.min}m</span> ${w.to}`).join(" \u00b7 ");
+  return `<div class="walk"><div class="walk-label">Walk to</div>${items}</div>`;
 }
 
 function cardHTML(p){
-  const score=num(p.overall_score)?p.overall_score:(num(p.overallScore)?p.overallScore:null);
-  const pm=ppm(p);
+  const v=verdictOf(p);
+  const f=freshness(p);
+  const score=getScore(p);
+  const banner=v?`<div class="verdict ${verdictCls[v]||"v-none"}"><span class="dot"></span>${v}${score>=0?` \u00b7 ${score}/10`:""}</div>`:"";
   const thumb=p.thumbnail
-    ? `<div class="thumb" style="background-image:url('${p.thumbnail}')">${score!=null?`<div class="score-chip"><div class="v">${score}</div><div class="o">/10</div></div>`:""}</div>`
-    : placeholder(p.area).replace("</div>", `${score!=null?`<div class="score-chip"><div class="v">${score}</div><div class="o">/10</div></div>`:""}</div>`);
+    ? `<div class="thumb" style="background-image:url('${p.thumbnail}')"><span class="freshness ${f.cls}"><span class="fdot"></span>${f.label}</span></div>`
+    : `<div class="thumb"><span class="freshness ${f.cls}"><span class="fdot"></span>${f.label}</span><span>No photo yet</span></div>`;
   const badges=(p.badges||[]).map(b=>`<span class="badge ${badgeClass(b)}">${b}</span>`).join("");
   const statusBadge=p.status?`<span class="badge b-status">${p.status}</span>`:"";
+  const g=p.grades||{};
+  const grades=`<div class="grades">${gradeBox(g.neighborhood,"Neighborhood")}${gradeBox(g.home,"Home")}${gradeBox(g.value,"Value")}</div>`;
+  const pm=ppm(p);
   const facts=[
     num(p.beds)?`<span><b>${p.beds}</b> bd</span>`:"",
     num(p.baths)?`<span><b>${p.baths}</b> ba</span>`:"",
     num(p.parking)?`<span><b>${p.parking}</b> park</span>`:"",
-    num(p.size_m2)?`<span><b>${p.size_m2}</b> m²</span>`:"",
-    pm!=null?`<span><b>${fmt(pm)}</b>/m²</span>`:""
+    num(p.size_m2)?`<span><b>${p.size_m2}</b> m\u00b2</span>`:"",
+    pm!=null?`<span><b>${fmt(pm)}</b>/m\u00b2</span>`:""
   ].filter(Boolean).join("");
-  const flags=(p.redFlags&&!/^none|^unknown/i.test(p.redFlags.trim()))
-    ? `<div class="flags-line">⚑ ${p.redFlags}</div>`:"";
-  return `<article class="card">
-    ${thumb}
+  const flags=(p.redFlags&&!/^none|^unknown/i.test(p.redFlags.trim()))?`<div class="flags-line">\u2691 ${p.redFlags}</div>`:"";
+  const considers=(Array.isArray(p.considerations)&&p.considerations.length)
+    ? `<div class="consider"><div class="ch">\u26A0 Worth checking before getting excited</div><ul>${p.considerations.map(c=>`<li>${c}</li>`).join("")}</ul></div>`
+    : "";
+  const verified=p.lastVerified?`<span class="verified">Checked ${p.lastVerified}</span>`:"";
+  return `<article class="card ${p.archived?"archived":""}">
+    ${banner}${thumb}
     <div class="card-body">
       <div class="badges">${badges}${statusBadge}</div>
       <h3>${p.building||"Unknown building"}</h3>
-      <div class="area">${p.area||"Area unknown"}${p.view?` · ${p.view}`:""}</div>
+      <div class="area">${p.area||"Area unknown"}${p.view?` \u00b7 ${p.view}`:""}</div>
       <div class="price">${num(p.price)?fmt(p.price):"Price unknown"}</div>
+      ${grades}
+      ${buildingRow(p)}
       <div class="facts">${facts||'<span style="color:var(--muted)">Details unknown</span>'}</div>
       <p class="summary">${p.summary||"No summary yet."}</p>
       ${flags}
+      ${considers}
+      ${mapImg(p)}
+      ${walkList(p)}
       <div class="card-foot">
-        ${p.listingUrl?`<a href="${p.listingUrl}" target="_blank" rel="noopener">View listing ↗</a>`:""}
-        ${p.mapLink?`<a href="${p.mapLink}" target="_blank" rel="noopener">Map ↗</a>`:""}
+        ${p.listingUrl?`<a href="${p.listingUrl}" target="_blank" rel="noopener">View listing \u2197</a>`:""}
+        ${verified}
       </div>
     </div>
   </article>`;
 }
 
-function getScore(p){return num(p.overall_score)?p.overall_score:(num(p.overallScore)?p.overallScore:-1);}
-
-function applyFilters(){
+function applyFilters(src){
   const q=$("#f-search").value.toLowerCase().trim();
-  const area=$("#f-area").value, status=$("#f-status").value;
-  const beds=$("#f-beds").value, minScore=$("#f-score").value;
-  const price=$("#f-price").value;
-  let list=PROPERTIES.filter(p=>{
+  const area=$("#f-area").value,status=$("#f-status").value,beds=$("#f-beds").value;
+  const price=$("#f-price").value,verd=$("#f-verdict").value,fresh=$("#f-fresh").value;
+  const bldg=$("#f-bldg").value;
+  let list=src.filter(p=>{
     if(q){const hay=`${p.building} ${p.area} ${p.summary} ${p.view} ${(p.badges||[]).join(" ")}`.toLowerCase();if(!hay.includes(q))return false;}
     if(area&&p.area!==area)return false;
     if(status&&p.status!==status)return false;
     if(beds&&!(num(p.beds)&&p.beds>=+beds))return false;
-    if(minScore&&!(getScore(p)>=+minScore))return false;
     if(price){const[lo,hi]=price.split("-").map(Number);if(!(num(p.price)&&p.price>=lo&&p.price<=hi))return false;}
+    if(verd&&verdictOf(p)!==verd)return false;
+    if(fresh&&freshness(p).key!==fresh)return false;
+    if(bldg&&(p.building_rating||"unknown")!==bldg)return false;
     return true;
   });
   list.sort((a,b)=>{
     if(sortKey==="price")return (a.price||1e12)-(b.price||1e12);
     if(sortKey==="ppm")return (ppm(a)||1e9)-(ppm(b)||1e9);
-    if(sortKey==="date")return (b.dateAdded||"").localeCompare(a.dateAdded||"");
+    if(sortKey==="date")return (b.datePosted||"").localeCompare(a.datePosted||"");
     return getScore(b)-getScore(a);
   });
   return list;
 }
 
 function render(){
-  const list=applyFilters();
+  const active=PROPERTIES.filter(p=>!p.archived);
+  const archived=PROPERTIES.filter(p=>p.archived);
+  const list=applyFilters(active);
   $("#grid").innerHTML=list.map(cardHTML).join("");
   $("#count").textContent=`${list.length} shown`;
   $("#empty").hidden=PROPERTIES.length!==0;
   $("#grid").hidden=PROPERTIES.length===0;
 
-  // comparison
+  $("#archive-wrap").hidden=archived.length===0;
+  if(archived.length){
+    $("#archive-summary").textContent=`Archived / possibly gone (${archived.length})`;
+    $("#archive-grid").innerHTML=archived.map(cardHTML).join("");
+  }
+
   const cmp=$("#compare-section");
   if(list.length){cmp.hidden=false;
-    $("#cmp-body").innerHTML=list.map(p=>{const pm=ppm(p),s=getScore(p);
-      return `<tr><td>${p.building||"—"}</td><td>${p.area||"—"}</td><td>${num(p.price)?fmt(p.price):"—"}</td>
-      <td>${pm!=null?fmt(pm):"—"}</td><td>${num(p.beds)?p.beds:"—"}</td><td>${num(p.baths)?p.baths:"—"}</td>
-      <td>${num(p.parking)?p.parking:"—"}</td><td>${num(p.size_m2)?p.size_m2+" m²":"—"}</td>
-      <td>${p.view||"—"}</td><td class="score">${s>=0?s:"—"}</td><td>${p.status||"—"}</td>
-      <td>${p.listingUrl?`<a href="${p.listingUrl}" target="_blank" rel="noopener">↗</a>`:"—"}</td></tr>`;
+    $("#cmp-body").innerHTML=list.map(p=>{
+      const pm=ppm(p),v=verdictOf(p),f=freshness(p),g=p.grades||{};
+      const vcls=verdictCls[v]||"v-none";
+      const vpill=v?`<span class="pill ${vcls}">${v}</span>`:"\u2014";
+      return `<tr><td>${p.building||"\u2014"}</td><td>${p.area||"\u2014"}</td><td>${vpill}</td>
+      <td>${(g.neighborhood||"\u2013").toUpperCase()}</td><td>${(g.home||"\u2013").toUpperCase()}</td><td>${(g.value||"\u2013").toUpperCase()}</td>
+      <td>${num(p.price)?fmt(p.price):"\u2014"}</td><td>${pm!=null?fmt(pm):"\u2014"}</td>
+      <td>${num(p.beds)?p.beds:"\u2014"}</td><td>${num(p.size_m2)?p.size_m2+" m\u00b2":"\u2014"}</td>
+      <td>${f.key==="unknown"?"Unknown":f.key}</td>
+      <td>${p.listingUrl?`<a href="${p.listingUrl}" target="_blank" rel="noopener">\u2197</a>`:"\u2014"}</td></tr>`;
     }).join("");
   } else cmp.hidden=true;
 }
 
 function renderTop(){
-  const picks=PROPERTIES.filter(p=>p.topPick).sort((a,b)=>getScore(b)-getScore(a));
+  const picks=PROPERTIES.filter(p=>p.topPick&&!p.archived).sort((a,b)=>getScore(b)-getScore(a));
   $("#top-section").hidden=picks.length===0;
   $("#top-grid").innerHTML=picks.map(cardHTML).join("");
 }
-
 function renderBQ(){
-  const groups=PROPERTIES.filter(p=>(p.brokerQuestions||[]).length);
+  const groups=PROPERTIES.filter(p=>(p.brokerQuestions||[]).length&&!p.archived);
   $("#bq-section").hidden=groups.length===0;
   $("#bq-list").innerHTML=groups.map(p=>`<div class="bq-group">
-    <h4>${p.building||"Unknown"} <span style="color:var(--muted);font-size:13px;font-family:Inter">· ${p.area||""}</span></h4>
+    <h4>${p.building||"Unknown"} <span style="color:var(--muted);font-size:13px;font-family:Inter">\u00b7 ${p.area||""}</span></h4>
     <ul>${p.brokerQuestions.map(q=>`<li>${q}</li>`).join("")}</ul></div>`).join("");
 }
-
 function renderStats(){
-  const n=PROPERTIES.length;
-  const shortlisted=PROPERTIES.filter(p=>(p.badges||[]).includes("Shortlist")||p.status==="Shortlist").length;
-  const scored=PROPERTIES.filter(p=>getScore(p)>=0);
-  const avg=scored.length?(scored.reduce((s,p)=>s+getScore(p),0)/scored.length).toFixed(1):"—";
+  const active=PROPERTIES.filter(p=>!p.archived);
+  const shortlisted=active.filter(p=>(p.badges||[]).includes("Shortlist")||p.status==="Shortlist").length;
+  const great=active.filter(p=>verdictOf(p)==="Great Find").length;
   $("#stats").innerHTML=`
-    <div class="stat"><div class="n">${n}</div><div class="l">Properties tracked</div></div>
+    <div class="stat"><div class="n">${active.length}</div><div class="l">Properties tracked</div></div>
     <div class="stat"><div class="n">${shortlisted}</div><div class="l">On the shortlist</div></div>
-    <div class="stat"><div class="n">${avg}</div><div class="l">Avg. score / 10</div></div>`;
+    <div class="stat"><div class="n">${great}</div><div class="l">Rated &ldquo;Great Find&rdquo;</div></div>`;
 }
-
 function initFilters(){
-  const areas=[...new Set(PROPERTIES.map(p=>p.area).filter(Boolean))].sort();
-  areas.forEach(a=>$("#f-area").insertAdjacentHTML("beforeend",`<option value="${a}">${a}</option>`));
-  const statuses=[...new Set(PROPERTIES.map(p=>p.status).filter(Boolean))].sort();
-  statuses.forEach(s=>$("#f-status").insertAdjacentHTML("beforeend",`<option value="${s}">${s}</option>`));
+  [...new Set(PROPERTIES.map(p=>p.area).filter(Boolean))].sort()
+    .forEach(a=>$("#f-area").insertAdjacentHTML("beforeend",`<option value="${a}">${a}</option>`));
+  [...new Set(PROPERTIES.map(p=>p.status).filter(Boolean))].sort()
+    .forEach(s=>$("#f-status").insertAdjacentHTML("beforeend",`<option value="${s}">${s}</option>`));
 }
-
-["f-search","f-area","f-price","f-beds","f-status","f-score"].forEach(id=>{
+["f-search","f-area","f-price","f-beds","f-status","f-verdict","f-fresh","f-bldg"].forEach(id=>{
   document.addEventListener("input",e=>{if(e.target.id===id)render();});
 });
 $("#clear").addEventListener("click",()=>{
-  ["f-search","f-area","f-price","f-beds","f-status","f-score"].forEach(id=>$("#"+id).value="");
+  ["f-search","f-area","f-price","f-beds","f-status","f-verdict","f-fresh","f-bldg"].forEach(id=>$("#"+id).value="");
   render();
 });
 $$("#sort button").forEach(b=>b.addEventListener("click",()=>{
