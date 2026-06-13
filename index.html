@@ -1,1 +1,365 @@
-<h1>Panama Tracker coming soon</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panama Property Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bay:#0f5c63; --bay-deep:#0a3f44; --sand:#f6f1e7; --sand-card:#fffdf8;
+    --ink:#1c2826; --muted:#6b746f; --line:#e3ddcf;
+    --green:#2f7d4f; --green-bg:#e3f1e6; --amber:#9a6a16; --amber-bg:#fbf0d7;
+    --red:#a33636; --red-bg:#f7e1de; --slate:#3a5566; --slate-bg:#e2ebf0;
+    --shadow:0 1px 2px rgba(18,40,38,.06),0 6px 24px rgba(18,40,38,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--sand);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:var(--bay);text-underline-offset:2px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+  /* Hero */
+  header{background:linear-gradient(155deg,var(--bay) 0%,var(--bay-deep) 100%);color:#fdfbf5;padding:46px 0 40px;position:relative;overflow:hidden}
+  header::after{content:"";position:absolute;right:-60px;bottom:-90px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.8;font-weight:500}
+  h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(30px,5vw,46px);line-height:1.05;margin:8px 0 10px}
+  .sub{max-width:560px;opacity:.9;font-size:15px}
+  .stats{display:flex;gap:28px;margin-top:26px;flex-wrap:wrap}
+  .stat .n{font-family:'Fraunces',serif;font-size:28px;line-height:1}
+  .stat .l{font-size:12px;opacity:.8;letter-spacing:.04em;margin-top:3px}
+
+  /* Controls */
+  .controls{background:var(--sand-card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px;margin:-26px auto 26px;position:relative;z-index:2}
+  .controls-row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+  .field{display:flex;flex-direction:column;gap:5px}
+  .field label{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  select,input[type=search]{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);min-width:130px}
+  input[type=search]{min-width:200px}
+  select:focus,input:focus{outline:2px solid var(--bay);outline-offset:1px}
+  .seg{display:flex;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .seg button{font:inherit;font-size:13px;padding:8px 12px;background:#fff;border:none;cursor:pointer;color:var(--muted);border-right:1px solid var(--line)}
+  .seg button:last-child{border-right:none}
+  .seg button.on{background:var(--bay);color:#fff}
+  .clear{margin-left:auto;font:inherit;font-size:13px;background:none;border:none;color:var(--bay);cursor:pointer;padding:8px}
+
+  /* Section headings */
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin:34px 0 16px}
+  .sec-head h2{font-family:'Fraunces',serif;font-weight:500;font-size:24px}
+  .sec-head .meta{font-size:13px;color:var(--muted)}
+  .rule{height:1px;background:var(--line);flex:1}
+
+  /* Cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+  .card{background:var(--sand-card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(18,40,38,.12)}
+  .thumb{height:170px;background:#dfe6e2 center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
+  .score-chip{position:absolute;top:12px;right:12px;background:rgba(255,253,248,.95);border-radius:10px;padding:6px 9px;text-align:center;box-shadow:var(--shadow);min-width:46px}
+  .score-chip .v{font-family:'Fraunces',serif;font-size:19px;line-height:1;font-weight:600}
+  .score-chip .o{font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .card-body{padding:15px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .badges{display:flex;gap:6px;flex-wrap:wrap}
+  .badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;letter-spacing:.02em}
+  .b-short{background:var(--green-bg);color:var(--green)}
+  .b-value{background:var(--slate-bg);color:var(--slate)}
+  .b-ask{background:var(--amber-bg);color:var(--amber)}
+  .b-flag{background:var(--red-bg);color:var(--red)}
+  .b-review{background:#eee;color:#555}
+  .b-status{background:#eef3f1;color:var(--bay)}
+  .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15}
+  .area{font-size:13px;color:var(--muted)}
+  .price{font-family:'Fraunces',serif;font-size:23px;font-weight:600;color:var(--bay-deep)}
+  .price small{font-family:'Inter';font-size:12px;font-weight:500;color:var(--muted)}
+  .facts{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--ink);padding:8px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .facts b{font-weight:600}
+  .summary{font-size:13.5px;color:#3a443f;flex:1}
+  .card-foot{display:flex;gap:10px;align-items:center;margin-top:2px}
+  .card-foot a{font-size:13px;font-weight:600;text-decoration:none}
+  .card-foot a:hover{text-decoration:underline}
+  .flags-line{font-size:12.5px;color:var(--red);background:var(--red-bg);padding:6px 9px;border-radius:8px}
+
+  /* Comparison table */
+  .tbl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--sand-card);box-shadow:var(--shadow)}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:760px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600;background:#faf6ec;position:sticky;top:0}
+  tbody tr:hover{background:#faf6ec}
+  td.score{font-weight:600}
+
+  /* Broker questions */
+  .bq-group{background:var(--sand-card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .bq-group h4{font-family:'Fraunces',serif;font-weight:500;font-size:16px;margin-bottom:8px}
+  .bq-group ul{margin-left:18px;font-size:14px;color:#3a443f}
+  .bq-group li{margin:3px 0}
+
+  .empty{background:var(--sand-card);border:1px dashed var(--line);border-radius:14px;padding:38px 24px;text-align:center;color:var(--muted)}
+  .empty b{color:var(--ink);font-family:'Fraunces',serif;font-weight:500;font-size:18px;display:block;margin-bottom:6px}
+
+  footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 20px 50px}
+
+  @media(max-width:640px){
+    .controls-row{flex-direction:column;align-items:stretch}
+    .clear{margin-left:0}
+    select,input[type=search]{min-width:0;width:100%}
+    .seg{width:100%}.seg button{flex:1}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================= -->
+<!--  EDIT YOUR PROPERTIES HERE. Each {...} block is one property.  -->
+<!--  Add / remove blocks freely. Use "Unknown" for missing data.   -->
+<!--  badges options: "Shortlist","Good Value","Ask Broker",         -->
+<!--                   "Red Flag","Needs Manual Review"              -->
+<!-- ============================================================= -->
+<script>
+const PROPERTIES = [
+  /* PASTE PROPERTY OBJECTS BELOW. Example shape (delete this comment when you add real ones):
+  {
+    id:"P-001", building:"Building name", area:"San Francisco",
+    price:285000, beds:2, baths:2, parking:1, size_m2:120,
+    view:"Partial ocean", status:"Shortlist",
+    badges:["Shortlist","Good Value"],
+    summary:"Plain-English summary written by Claude.",
+    redFlags:"None noted",
+    thumbnail:"",                       // image URL, or leave "" for placeholder
+    listingUrl:"https://...",
+    mapLink:"https://maps.google.com/...",
+    topPick:true,                       // true to feature in Top Picks
+    brokerQuestions:["Question 1?","Question 2?"]
+  },
+  */
+];
+</script>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Panama City · Apartments &amp; Condos</div>
+    <h1>Panama Property Tracker</h1>
+    <p class="sub">A shared shortlist of apartments we're considering — browse, compare, and see the honest pros and cons of each one at a glance.</p>
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="controls">
+    <div class="controls-row">
+      <div class="field"><label for="f-search">Search</label><input id="f-search" type="search" placeholder="Building, area, keyword…"></div>
+      <div class="field"><label for="f-area">Area</label><select id="f-area"><option value="">All areas</option></select></div>
+      <div class="field"><label for="f-price">Price</label><select id="f-price">
+        <option value="">Any price</option>
+        <option value="0-200000">Under $200k</option>
+        <option value="200000-250000">$200k–$250k</option>
+        <option value="250000-300000">$250k–$300k</option>
+        <option value="300000-320000">$300k–$320k</option>
+        <option value="320000-99999999">Over $320k</option>
+      </select></div>
+      <div class="field"><label for="f-beds">Beds</label><select id="f-beds">
+        <option value="">Any</option><option value="2">2+</option><option value="3">3+</option>
+      </select></div>
+      <div class="field"><label for="f-status">Status</label><select id="f-status"><option value="">All</option></select></div>
+      <div class="field"><label for="f-score">Min score</label><select id="f-score">
+        <option value="">Any</option><option value="6">6+</option><option value="7">7+</option><option value="8">8+</option>
+      </select></div>
+      <button class="clear" id="clear">Reset filters</button>
+    </div>
+    <div class="controls-row" style="margin-top:12px">
+      <div class="field"><label>Sort by</label>
+        <div class="seg" id="sort">
+          <button data-sort="score" class="on">Overall score</button>
+          <button data-sort="price">Price</button>
+          <button data-sort="ppm">Price / m²</button>
+          <button data-sort="date">Date added</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Picks -->
+  <section id="top-section" hidden>
+    <div class="sec-head"><h2>Top picks</h2><span class="meta">Our strongest fits so far</span><span class="rule"></span></div>
+    <div class="grid" id="top-grid"></div>
+  </section>
+
+  <!-- All properties -->
+  <section>
+    <div class="sec-head"><h2>All properties</h2><span class="meta" id="count"></span><span class="rule"></span></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <b>No properties yet</b>
+      Paste listing links to Claude and the cards will appear here once added.
+    </div>
+  </section>
+
+  <!-- Comparison -->
+  <section id="compare-section" hidden>
+    <div class="sec-head"><h2>Compare</h2><span class="meta">Side by side, sorted by score</span><span class="rule"></span></div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr>
+          <th>Building</th><th>Area</th><th>Price</th><th>$/m²</th><th>Beds</th><th>Baths</th>
+          <th>Parking</th><th>Size</th><th>View</th><th>Score</th><th>Status</th><th>Link</th>
+        </tr></thead>
+        <tbody id="cmp-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Broker questions -->
+  <section id="bq-section" hidden>
+    <div class="sec-head"><h2>Questions for the broker</h2><span class="meta">Details still missing per property</span><span class="rule"></span></div>
+    <div id="bq-list"></div>
+  </section>
+
+</div>
+
+<footer>
+  Panama Property Tracker · facts shown are taken from listings; anything unconfirmed is marked “Unknown.” · Updated as new listings are added.
+</footer>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const fmt=n=>"$"+Number(n).toLocaleString("en-US");
+const num=v=>(typeof v==="number"&&!isNaN(v));
+const ppm=p=>(num(p.price)&&num(p.size_m2)&&p.size_m2>0)?Math.round(p.price/p.size_m2):null;
+let sortKey="score";
+
+function badgeClass(b){
+  const m={"Shortlist":"b-short","Good Value":"b-value","Ask Broker":"b-ask","Red Flag":"b-flag","Needs Manual Review":"b-review"};
+  return m[b]||"b-status";
+}
+function placeholder(area){
+  return `<div class="thumb"><span>No photo yet${area?` · ${area}`:""}</span></div>`;
+}
+
+function cardHTML(p){
+  const score=num(p.overall_score)?p.overall_score:(num(p.overallScore)?p.overallScore:null);
+  const pm=ppm(p);
+  const thumb=p.thumbnail
+    ? `<div class="thumb" style="background-image:url('${p.thumbnail}')">${score!=null?`<div class="score-chip"><div class="v">${score}</div><div class="o">/10</div></div>`:""}</div>`
+    : placeholder(p.area).replace("</div>", `${score!=null?`<div class="score-chip"><div class="v">${score}</div><div class="o">/10</div></div>`:""}</div>`);
+  const badges=(p.badges||[]).map(b=>`<span class="badge ${badgeClass(b)}">${b}</span>`).join("");
+  const statusBadge=p.status?`<span class="badge b-status">${p.status}</span>`:"";
+  const facts=[
+    num(p.beds)?`<span><b>${p.beds}</b> bd</span>`:"",
+    num(p.baths)?`<span><b>${p.baths}</b> ba</span>`:"",
+    num(p.parking)?`<span><b>${p.parking}</b> park</span>`:"",
+    num(p.size_m2)?`<span><b>${p.size_m2}</b> m²</span>`:"",
+    pm!=null?`<span><b>${fmt(pm)}</b>/m²</span>`:""
+  ].filter(Boolean).join("");
+  const flags=(p.redFlags&&!/^none|^unknown/i.test(p.redFlags.trim()))
+    ? `<div class="flags-line">⚑ ${p.redFlags}</div>`:"";
+  return `<article class="card">
+    ${thumb}
+    <div class="card-body">
+      <div class="badges">${badges}${statusBadge}</div>
+      <h3>${p.building||"Unknown building"}</h3>
+      <div class="area">${p.area||"Area unknown"}${p.view?` · ${p.view}`:""}</div>
+      <div class="price">${num(p.price)?fmt(p.price):"Price unknown"}</div>
+      <div class="facts">${facts||'<span style="color:var(--muted)">Details unknown</span>'}</div>
+      <p class="summary">${p.summary||"No summary yet."}</p>
+      ${flags}
+      <div class="card-foot">
+        ${p.listingUrl?`<a href="${p.listingUrl}" target="_blank" rel="noopener">View listing ↗</a>`:""}
+        ${p.mapLink?`<a href="${p.mapLink}" target="_blank" rel="noopener">Map ↗</a>`:""}
+      </div>
+    </div>
+  </article>`;
+}
+
+function getScore(p){return num(p.overall_score)?p.overall_score:(num(p.overallScore)?p.overallScore:-1);}
+
+function applyFilters(){
+  const q=$("#f-search").value.toLowerCase().trim();
+  const area=$("#f-area").value, status=$("#f-status").value;
+  const beds=$("#f-beds").value, minScore=$("#f-score").value;
+  const price=$("#f-price").value;
+  let list=PROPERTIES.filter(p=>{
+    if(q){const hay=`${p.building} ${p.area} ${p.summary} ${p.view} ${(p.badges||[]).join(" ")}`.toLowerCase();if(!hay.includes(q))return false;}
+    if(area&&p.area!==area)return false;
+    if(status&&p.status!==status)return false;
+    if(beds&&!(num(p.beds)&&p.beds>=+beds))return false;
+    if(minScore&&!(getScore(p)>=+minScore))return false;
+    if(price){const[lo,hi]=price.split("-").map(Number);if(!(num(p.price)&&p.price>=lo&&p.price<=hi))return false;}
+    return true;
+  });
+  list.sort((a,b)=>{
+    if(sortKey==="price")return (a.price||1e12)-(b.price||1e12);
+    if(sortKey==="ppm")return (ppm(a)||1e9)-(ppm(b)||1e9);
+    if(sortKey==="date")return (b.dateAdded||"").localeCompare(a.dateAdded||"");
+    return getScore(b)-getScore(a);
+  });
+  return list;
+}
+
+function render(){
+  const list=applyFilters();
+  $("#grid").innerHTML=list.map(cardHTML).join("");
+  $("#count").textContent=`${list.length} shown`;
+  $("#empty").hidden=PROPERTIES.length!==0;
+  $("#grid").hidden=PROPERTIES.length===0;
+
+  // comparison
+  const cmp=$("#compare-section");
+  if(list.length){cmp.hidden=false;
+    $("#cmp-body").innerHTML=list.map(p=>{const pm=ppm(p),s=getScore(p);
+      return `<tr><td>${p.building||"—"}</td><td>${p.area||"—"}</td><td>${num(p.price)?fmt(p.price):"—"}</td>
+      <td>${pm!=null?fmt(pm):"—"}</td><td>${num(p.beds)?p.beds:"—"}</td><td>${num(p.baths)?p.baths:"—"}</td>
+      <td>${num(p.parking)?p.parking:"—"}</td><td>${num(p.size_m2)?p.size_m2+" m²":"—"}</td>
+      <td>${p.view||"—"}</td><td class="score">${s>=0?s:"—"}</td><td>${p.status||"—"}</td>
+      <td>${p.listingUrl?`<a href="${p.listingUrl}" target="_blank" rel="noopener">↗</a>`:"—"}</td></tr>`;
+    }).join("");
+  } else cmp.hidden=true;
+}
+
+function renderTop(){
+  const picks=PROPERTIES.filter(p=>p.topPick).sort((a,b)=>getScore(b)-getScore(a));
+  $("#top-section").hidden=picks.length===0;
+  $("#top-grid").innerHTML=picks.map(cardHTML).join("");
+}
+
+function renderBQ(){
+  const groups=PROPERTIES.filter(p=>(p.brokerQuestions||[]).length);
+  $("#bq-section").hidden=groups.length===0;
+  $("#bq-list").innerHTML=groups.map(p=>`<div class="bq-group">
+    <h4>${p.building||"Unknown"} <span style="color:var(--muted);font-size:13px;font-family:Inter">· ${p.area||""}</span></h4>
+    <ul>${p.brokerQuestions.map(q=>`<li>${q}</li>`).join("")}</ul></div>`).join("");
+}
+
+function renderStats(){
+  const n=PROPERTIES.length;
+  const shortlisted=PROPERTIES.filter(p=>(p.badges||[]).includes("Shortlist")||p.status==="Shortlist").length;
+  const scored=PROPERTIES.filter(p=>getScore(p)>=0);
+  const avg=scored.length?(scored.reduce((s,p)=>s+getScore(p),0)/scored.length).toFixed(1):"—";
+  $("#stats").innerHTML=`
+    <div class="stat"><div class="n">${n}</div><div class="l">Properties tracked</div></div>
+    <div class="stat"><div class="n">${shortlisted}</div><div class="l">On the shortlist</div></div>
+    <div class="stat"><div class="n">${avg}</div><div class="l">Avg. score / 10</div></div>`;
+}
+
+function initFilters(){
+  const areas=[...new Set(PROPERTIES.map(p=>p.area).filter(Boolean))].sort();
+  areas.forEach(a=>$("#f-area").insertAdjacentHTML("beforeend",`<option value="${a}">${a}</option>`));
+  const statuses=[...new Set(PROPERTIES.map(p=>p.status).filter(Boolean))].sort();
+  statuses.forEach(s=>$("#f-status").insertAdjacentHTML("beforeend",`<option value="${s}">${s}</option>`));
+}
+
+["f-search","f-area","f-price","f-beds","f-status","f-score"].forEach(id=>{
+  document.addEventListener("input",e=>{if(e.target.id===id)render();});
+});
+$("#clear").addEventListener("click",()=>{
+  ["f-search","f-area","f-price","f-beds","f-status","f-score"].forEach(id=>$("#"+id).value="");
+  render();
+});
+$$("#sort button").forEach(b=>b.addEventListener("click",()=>{
+  $$("#sort button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
+  sortKey=b.dataset.sort;render();
+}));
+
+renderStats();initFilters();renderTop();render();renderBQ();
+</script>
+</body>
+</html>
