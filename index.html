@@ -20,26 +20,23 @@
   a{color:var(--bay);text-underline-offset:2px}
   .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 
-  header{background:linear-gradient(160deg,#0d6770 0%,#0a4a50 45%,#072e33 100%);color:#fdfbf5;padding:50px 0 150px;position:relative;overflow:hidden;isolation:isolate}
-  /* skyline sits at the bottom of the header */
-  .skyline{position:absolute;left:0;right:0;bottom:0;width:100%;height:170px;z-index:-1;display:block}
-  .skyline svg{width:100%;height:100%;display:block}
-  /* sun glow */
-  header::before{content:"";position:absolute;right:14%;top:30px;width:120px;height:120px;border-radius:50%;
-    background:radial-gradient(circle,rgba(255,239,206,.55),rgba(255,239,206,0) 70%);z-index:-1}
-  /* readability scrim behind the text block */
-  .header-scrim{position:absolute;inset:0;z-index:-1;
-    background:linear-gradient(180deg,rgba(7,46,51,.55) 0%,rgba(7,46,51,.15) 38%,rgba(7,46,51,0) 60%)}
-  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.85;font-weight:500;text-shadow:0 1px 6px rgba(0,0,0,.35)}
-  h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(30px,5vw,46px);line-height:1.05;margin:8px 0 10px;text-shadow:0 2px 14px rgba(0,0,0,.4)}
-  .sub{max-width:580px;opacity:.95;font-size:15px;text-shadow:0 1px 8px rgba(0,0,0,.35)}
-  .stats{display:flex;gap:28px;margin-top:26px;flex-wrap:wrap}
-  .stat .n{font-family:'Fraunces',serif;font-size:28px;line-height:1}
-  .stat .l{font-size:12px;opacity:.8;letter-spacing:.04em;margin-top:3px}
+  header{background:linear-gradient(135deg,#0d6770 0%,#0a4248 100%);color:#fdfbf5;padding:24px 0 30px;position:relative;overflow:hidden}
+  .header-inner{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+  .header-left{flex:1;min-width:260px}
+  .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.8;font-weight:500}
+  h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(24px,3.5vw,34px);line-height:1.05;margin:4px 0 0}
+  .stats{display:flex;gap:22px}
+  .stat{text-align:center}
+  .stat .n{font-family:'Fraunces',serif;font-size:24px;line-height:1}
+  .stat .l{font-size:10.5px;opacity:.78;letter-spacing:.03em;margin-top:2px;white-space:nowrap}
 
-  .controls{background:var(--sand-card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px;margin:-26px auto 26px;position:relative;z-index:2}
-  .controls-row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
-  .field{display:flex;flex-direction:column;gap:5px}
+  .controls{background:var(--sand-card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:12px 14px;margin:16px auto 22px;position:sticky;top:8px;z-index:20}
+  .controls-row{display:flex;gap:10px 12px;flex-wrap:wrap;align-items:flex-end}
+  .field{display:flex;flex-direction:column;gap:4px}
+  .field label{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .controls select,.controls input[type=search]{font:inherit;font-size:13px;padding:6px 9px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}
+  .controls input[type=search]{min-width:150px}
+  .controls select{min-width:0}
   .field label{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
   select,input[type=search]{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);min-width:130px}
   input[type=search]{min-width:200px}
@@ -56,12 +53,49 @@
   .rule{height:1px;background:var(--line);flex:1}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+
+  /* compact top-picks strip */
+  .topstrip{display:flex;gap:12px;flex-wrap:wrap}
+  .tp{flex:1 1 220px;min-width:200px;background:var(--sand-card);border:1px solid var(--line);border-radius:11px;box-shadow:var(--shadow);padding:12px 13px;display:flex;flex-direction:column;gap:6px;cursor:pointer;text-decoration:none;color:inherit;transition:transform .12s ease,box-shadow .12s ease}
+  .tp:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(18,40,38,.12)}
+  .tp-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .tp-vd{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:99px;color:#fff;white-space:nowrap}
+  .tp-score{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--bay-deep)}
+  .tp-name{font-family:'Fraunces',serif;font-size:15px;font-weight:500;line-height:1.15}
+  .tp-meta{font-size:12px;color:var(--muted)}
+  .tp-price{font-weight:600;color:var(--bay-deep);font-size:13.5px}
+  .tp-bldg{font-size:11px;font-weight:600;display:flex;align-items:center;gap:5px}
+  .tp-bldg .d{width:6px;height:6px;border-radius:50%;flex:0 0 auto}
+  .tp-bldg.good{color:var(--green)} .tp-bldg.good .d{background:var(--green)}
+  .tp-bldg.caution{color:var(--red)} .tp-bldg.caution .d{background:var(--red)}
+  .tp-bldg.unknown{color:var(--muted)} .tp-bldg.unknown .d{background:#b3b9b5}
   .card{background:var(--sand-card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .15s ease,box-shadow .15s ease}
   .card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(18,40,38,.12)}
   .card.archived{opacity:.72}
 
-  .verdict{font-size:13px;font-weight:700;letter-spacing:.02em;padding:8px 16px;display:flex;align-items:center;gap:8px;color:#fff}
-  .verdict .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.85)}
+  .verdict{font-size:13px;font-weight:700;letter-spacing:.02em;padding:9px 16px;display:flex;align-items:center;gap:9px;color:#fff}
+  .verdict .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.9);flex:0 0 auto}
+  .verdict .vtext{flex:1 1 auto}
+
+  /* view-photos placeholder */
+  .thumb .viewphotos{position:absolute;bottom:10px;right:10px;background:rgba(255,253,248,.95);border-radius:8px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--bay);box-shadow:var(--shadow);text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+  .thumb .viewphotos:hover{background:#fff}
+  .thumb .ph-hint{color:var(--muted);font-size:12.5px}
+
+  /* compact building one-liner */
+  .bldg1{display:flex;align-items:center;gap:7px;font-size:12.5px;padding:6px 0}
+  .bldg1 .d{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+  .bldg1.good .d{background:var(--green)} .bldg1.caution .d{background:var(--red)} .bldg1.unknown .d{background:#b3b9b5}
+  .bldg1.good{color:var(--green)} .bldg1.caution{color:var(--red)} .bldg1.unknown{color:var(--muted)}
+  .bldg1 b{font-weight:600}
+
+  /* details expander */
+  details.more{border-top:1px solid var(--line);margin-top:2px}
+  details.more summary{cursor:pointer;list-style:none;font-size:12.5px;font-weight:600;color:var(--bay);padding:9px 0 2px;display:flex;align-items:center;gap:5px}
+  details.more summary::-webkit-details-marker{display:none}
+  details.more summary .chev{transition:transform .15s ease}
+  details.more[open] summary .chev{transform:rotate(90deg)}
+  details.more .more-inner{display:flex;flex-direction:column;gap:10px;padding:8px 0 2px}
   .v-great{background:var(--green)} .v-solid{background:#3f8a5f}
   .v-fair{background:var(--amber)} .v-over{background:#9a4f36} .v-caution{background:var(--red)}
   .v-none{background:#8a948f}
@@ -364,72 +398,11 @@ const PROPERTIES = [
 </script>
 
 <header>
-  <div class="header-scrim"></div>
-  <div class="skyline" aria-hidden="true">
-    <svg viewBox="0 0 1440 170" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="bld" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#0c5158"/><stop offset="1" stop-color="#062b30"/>
-        </linearGradient>
-        <linearGradient id="bldFront" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#0a444a"/><stop offset="1" stop-color="#04181b"/>
-        </linearGradient>
-        <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#0a3a40"/><stop offset="1" stop-color="#062227"/>
-        </linearGradient>
-      </defs>
-      <!-- back skyline (lighter, varied tower heights echoing Panama's bayfront) -->
-      <g fill="url(#bld)" opacity="0.85">
-        <rect x="20" y="70" width="34" height="100"/>
-        <rect x="60" y="48" width="26" height="122"/>
-        <polygon points="92,60 112,40 132,60 132,170 92,170"/>
-        <rect x="150" y="78" width="40" height="92"/>
-        <rect x="198" y="34" width="22" height="136"/>
-        <rect x="228" y="58" width="30" height="112"/>
-        <polygon points="270,52 286,28 302,52 302,170 270,170"/>
-        <rect x="320" y="66" width="36" height="104"/>
-        <rect x="366" y="44" width="24" height="126"/>
-        <rect x="398" y="72" width="30" height="98"/>
-        <rect x="540" y="56" width="28" height="114"/>
-        <rect x="576" y="40" width="22" height="130"/>
-        <polygon points="608,46 624,22 640,46 640,170 608,170"/>
-        <rect x="660" y="64" width="34" height="106"/>
-        <rect x="704" y="50" width="24" height="120"/>
-        <rect x="900" y="60" width="30" height="110"/>
-        <rect x="938" y="38" width="22" height="132"/>
-        <rect x="968" y="70" width="36" height="100"/>
-        <polygon points="1014,54 1030,30 1046,54 1046,170 1014,170"/>
-        <rect x="1060" y="46" width="24" height="124"/>
-        <rect x="1200" y="64" width="32" height="106"/>
-        <rect x="1238" y="44" width="22" height="126"/>
-        <rect x="1270" y="72" width="34" height="98"/>
-        <rect x="1316" y="52" width="24" height="118"/>
-        <rect x="1352" y="68" width="30" height="102"/>
-      </g>
-      <!-- front skyline (darker, taller hero towers) -->
-      <g fill="url(#bldFront)">
-        <rect x="120" y="88" width="46" height="82"/>
-        <rect x="430" y="62" width="40" height="108"/>
-        <rect x="476" y="40" width="30" height="130"/>
-        <polygon points="506,48 524,18 542,48 542,170 506,170"/>
-        <rect x="740" y="58" width="42" height="112"/>
-        <rect x="790" y="36" width="28" height="134"/>
-        <polygon points="818,44 836,14 854,44 854,170 818,170"/>
-        <rect x="864" y="70" width="38" height="100"/>
-        <rect x="1100" y="60" width="44" height="110"/>
-        <rect x="1150" y="42" width="30" height="128"/>
-        <polygon points="1180,50 1196,22 1212,50 1212,170 1180,170"/>
-        <rect x="0" y="96" width="40" height="74"/>
-        <rect x="1400" y="82" width="40" height="88"/>
-      </g>
-      <!-- waterline -->
-      <rect x="0" y="158" width="1440" height="12" fill="url(#water)" opacity="0.9"/>
-    </svg>
-  </div>
-  <div class="wrap">
-    <div class="eyebrow">Panama City &middot; Apartments &amp; Condos</div>
-    <h1>Gil's Panama Property Tracker</h1>
-    <p class="sub">A shared shortlist of apartments we're considering. Each card shows an honest verdict, easy A&ndash;F grades, how fresh the listing is, and what's within walking distance.</p>
+  <div class="wrap header-inner">
+    <div class="header-left">
+      <div class="eyebrow">Panama City &middot; Apartments &amp; Condos</div>
+      <h1>Gil's Panama Property Tracker</h1>
+    </div>
     <div class="stats" id="stats"></div>
   </div>
 </header>
@@ -438,7 +411,7 @@ const PROPERTIES = [
 
   <div class="controls">
     <div class="controls-row">
-      <div class="field"><label for="f-search">Search</label><input id="f-search" type="search" placeholder="Building, area, keyword&hellip;"></div>
+      <div class="field"><label for="f-search">Search</label><input id="f-search" type="search" placeholder="Building, area&hellip;"></div>
       <div class="field"><label for="f-area">Area</label><select id="f-area"><option value="">All areas</option></select></div>
       <div class="field"><label for="f-price">Price</label><select id="f-price">
         <option value="">Any price</option>
@@ -464,23 +437,19 @@ const PROPERTIES = [
         <option value="">Any</option><option value="good">Looks good</option>
         <option value="caution">Has concerns</option><option value="unknown">Unrated</option>
       </select></div>
-      <button class="clear" id="clear">Reset filters</button>
-    </div>
-    <div class="controls-row" style="margin-top:12px">
-      <div class="field"><label>Sort by</label>
-        <div class="seg" id="sort">
-          <button data-sort="score" class="on">Overall score</button>
-          <button data-sort="price">Price</button>
-          <button data-sort="ppm">Price / m&sup2;</button>
-          <button data-sort="date">Date posted</button>
-        </div>
-      </div>
+      <div class="field"><label for="f-sort">Sort by</label><select id="f-sort">
+        <option value="score">Overall score</option>
+        <option value="price">Price (low&ndash;high)</option>
+        <option value="ppm">Price / m&sup2;</option>
+        <option value="date">Date posted</option>
+      </select></div>
+      <button class="clear" id="clear">Reset</button>
     </div>
   </div>
 
   <section id="top-section" hidden>
     <div class="sec-head"><h2>Top picks</h2><span class="meta">Our strongest fits so far</span><span class="rule"></span></div>
-    <div class="grid" id="top-grid"></div>
+    <div class="topstrip" id="top-strip"></div>
   </section>
 
   <section>
@@ -560,6 +529,11 @@ function buildingRow(p){
   if(r==="caution")return `<div class="bldg bldg-caution"><span class="bl">\u2691 Building concern</span><span class="bx">${note||"reviews or known issues flag this building"}</span></div>`;
   return `<div class="bldg bldg-unknown"><span class="bl">Building</span><span class="bx">${note||"not enough information to rate the building yet"}</span></div>`;
 }
+function buildingLine(p){
+  const r=p.building_rating||"unknown";
+  const txt={good:"Building looks good",caution:"Building concern \u2014 see details",unknown:"Building not yet rated"}[r];
+  return `<div class="bldg1 ${r}"><span class="d"></span><b>${txt}</b></div>`;
+}
 const verdictCls={"Great Find":"v-great","Solid Option":"v-solid","Fair":"v-fair","Overpriced":"v-over","Caution":"v-caution"};
 function badgeClass(b){
   return {"Shortlist":"b-short","Good Value":"b-value","Ask Broker":"b-ask","Red Flag":"b-flag","Needs Manual Review":"b-review","Furnished":"b-value","Low HOA":"b-value","Brand New":"b-value","Small Unit":"b-flag","Walkable":"b-value","Big + Terrace":"b-value"}[b]||"b-status";
@@ -589,10 +563,13 @@ function cardHTML(p){
   const v=verdictOf(p);
   const f=freshness(p);
   const score=getScore(p);
-  const banner=v?`<div class="verdict ${verdictCls[v]||"v-none"}"><span class="dot"></span>${v}${score>=0?` \u00b7 ${score}/10`:""}</div>`:"";
+  const banner=v?`<div class="verdict ${verdictCls[v]||"v-none"}"><span class="dot"></span><span class="vtext">${v}${score>=0?` \u00b7 ${score}/10`:""}</span></div>`:"";
+  const photoBtn=p.listingUrl
+    ? `<a class="viewphotos" href="${p.listingUrl}" target="_blank" rel="noopener"><i class="ti"></i>View photos \u2197</a>`
+    : "";
   const thumb=p.thumbnail
-    ? `<div class="thumb" style="background-image:url('${p.thumbnail}')"><span class="freshness ${f.cls}"><span class="fdot"></span>${f.label}</span></div>`
-    : `<div class="thumb"><span class="freshness ${f.cls}"><span class="fdot"></span>${f.label}</span><span>No photo yet</span></div>`;
+    ? `<div class="thumb" style="background-image:url('${p.thumbnail}')"><span class="freshness ${f.cls}"><span class="fdot"></span>${f.label}</span>${photoBtn}</div>`
+    : `<div class="thumb"><span class="freshness ${f.cls}"><span class="fdot"></span>${f.label}</span><span class="ph-hint">Photos on the listing</span>${photoBtn}</div>`;
   const badges=(p.badges||[]).map(b=>`<span class="badge ${badgeClass(b)}">${b}</span>`).join("");
   const statusBadge=p.status?`<span class="badge b-status">${p.status}</span>`:"";
   const g=p.grades||{};
@@ -605,11 +582,30 @@ function cardHTML(p){
     num(p.size_m2)?`<span><b>${p.size_m2}</b> m\u00b2</span>`:"",
     pm!=null?`<span><b>${fmt(pm)}</b>/m\u00b2</span>`:""
   ].filter(Boolean).join("");
+  // short summary: first sentence (or ~140 chars) up top; full summary in details if longer
+  const fullSummary=p.summary||"";
+  const firstSentence=fullSummary.split(/(?<=[.!?])\s/)[0]||fullSummary;
+  const shortSummary=firstSentence.length>160?firstSentence.slice(0,157).trim()+"\u2026":firstSentence;
+  const summaryTruncated=fullSummary.length>shortSummary.length;
+
   const flags=(p.redFlags&&!/^none|^unknown/i.test(p.redFlags.trim()))?`<div class="flags-line">\u2691 ${p.redFlags}</div>`:"";
   const considers=(Array.isArray(p.considerations)&&p.considerations.length)
     ? `<div class="consider"><div class="ch">\u26A0 Worth checking before getting excited</div><ul>${p.considerations.map(c=>`<li>${c}</li>`).join("")}</ul></div>`
     : "";
+  const bq=(Array.isArray(p.brokerQuestions)&&p.brokerQuestions.length)
+    ? `<div class="consider" style="background:#eef3f1;border-color:#cfe0da;color:#23463f"><div class="ch" style="color:var(--bay)">Questions for the broker</div><ul>${p.brokerQuestions.map(q=>`<li>${q}</li>`).join("")}</ul></div>`
+    : "";
   const verified=p.lastVerified?`<span class="verified">Checked ${p.lastVerified}</span>`:"";
+
+  // detail section content (only render the expander if there's something inside)
+  const detailBits=[
+    summaryTruncated?`<p class="summary">${fullSummary}</p>`:"",
+    flags, considers, mapImg(p), walkList(p), bq
+  ].filter(Boolean).join("");
+  const moreSection=detailBits
+    ? `<details class="more"><summary><span class="chev">\u203A</span>More details</summary><div class="more-inner">${detailBits}</div></details>`
+    : "";
+
   return `<article class="card ${p.archived?"archived":""}">
     ${banner}${thumb}
     <div class="card-body">
@@ -618,13 +614,10 @@ function cardHTML(p){
       <div class="area">${p.area||"Area unknown"}${p.view?` \u00b7 ${p.view}`:""}</div>
       <div class="price">${num(p.price)?fmt(p.price):"Price unknown"}</div>
       ${grades}
-      ${buildingRow(p)}
+      ${buildingLine(p)}
       <div class="facts">${facts||'<span style="color:var(--muted)">Details unknown</span>'}</div>
-      <p class="summary">${p.summary||"No summary yet."}</p>
-      ${flags}
-      ${considers}
-      ${mapImg(p)}
-      ${walkList(p)}
+      <p class="summary">${shortSummary||"No summary yet."}</p>
+      ${moreSection}
       <div class="card-foot">
         ${p.listingUrl?`<a href="${p.listingUrl}" target="_blank" rel="noopener">View listing \u2197</a>`:""}
         ${verified}
@@ -692,7 +685,20 @@ function render(){
 function renderTop(){
   const picks=PROPERTIES.filter(p=>p.topPick&&!p.archived).sort((a,b)=>getScore(b)-getScore(a));
   $("#top-section").hidden=picks.length===0;
-  $("#top-grid").innerHTML=picks.map(cardHTML).join("");
+  $("#top-strip").innerHTML=picks.map(p=>{
+    const v=verdictOf(p),s=getScore(p),pm=ppm(p),r=p.building_rating||"unknown";
+    const bldgTxt={good:"Building looks good",caution:"Building concern",unknown:"Building unrated"}[r];
+    return `<a class="tp" href="${p.listingUrl||'#'}" target="_blank" rel="noopener">
+      <div class="tp-top">
+        <span class="tp-vd ${verdictCls[v]||'v-none'}">${v||'\u2014'}</span>
+        <span class="tp-score">${s>=0?s:'\u2014'}<span style="font-size:11px;font-family:Inter;color:var(--muted)">/10</span></span>
+      </div>
+      <div class="tp-name">${p.building||'Unknown'}</div>
+      <div class="tp-meta">${p.area||''}${num(p.beds)?` \u00b7 ${p.beds}bd`:''}${num(p.size_m2)?` \u00b7 ${p.size_m2}m\u00b2`:''}</div>
+      <div class="tp-price">${num(p.price)?fmt(p.price):'\u2014'}${pm!=null?` <span style="font-weight:400;color:var(--muted)">\u00b7 ${fmt(pm)}/m\u00b2</span>`:''}</div>
+      <div class="tp-bldg ${r}"><span class="d"></span>${bldgTxt}</div>
+    </a>`;
+  }).join("");
 }
 function renderBQ(){
   const groups=PROPERTIES.filter(p=>(p.brokerQuestions||[]).length&&!p.archived);
@@ -716,17 +722,15 @@ function initFilters(){
   [...new Set(PROPERTIES.map(p=>p.status).filter(Boolean))].sort()
     .forEach(s=>$("#f-status").insertAdjacentHTML("beforeend",`<option value="${s}">${s}</option>`));
 }
-["f-search","f-area","f-price","f-beds","f-status","f-verdict","f-fresh","f-bldg"].forEach(id=>{
-  document.addEventListener("input",e=>{if(e.target.id===id)render();});
+["f-search","f-area","f-price","f-beds","f-status","f-verdict","f-fresh","f-bldg","f-sort"].forEach(id=>{
+  document.addEventListener("input",e=>{if(e.target.id===id){if(id==="f-sort")sortKey=$("#f-sort").value;render();}});
 });
+document.addEventListener("change",e=>{if(e.target.id==="f-sort"){sortKey=$("#f-sort").value;render();}});
 $("#clear").addEventListener("click",()=>{
   ["f-search","f-area","f-price","f-beds","f-status","f-verdict","f-fresh","f-bldg"].forEach(id=>$("#"+id).value="");
+  $("#f-sort").value="score";sortKey="score";
   render();
 });
-$$("#sort button").forEach(b=>b.addEventListener("click",()=>{
-  $$("#sort button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
-  sortKey=b.dataset.sort;render();
-}));
 
 renderStats();initFilters();renderTop();render();renderBQ();
 </script>
