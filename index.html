@@ -82,7 +82,6 @@
   .bldg1 b{font-weight:600}
 
   /* details expander */
-  details.more{border-top:1px solid var(--line);margin-top:2px}
   details.more{margin-top:0}
   details.more summary{cursor:pointer;list-style:none;display:flex;flex-direction:column;gap:4px}
   details.more summary::-webkit-details-marker{display:none}
@@ -99,14 +98,19 @@
 
   .thumb{height:160px;background:#dfe6e2 center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
   /* compact hero strip (used when there is no photo) */
-  .hero{position:relative;padding:13px 16px 30px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;color:#fff;overflow:hidden}
-  .hero .h-verdict{font-size:12px;font-weight:700;letter-spacing:.02em;opacity:.95;margin-bottom:5px}
-  .hero .h-area{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
-  .hero .h-price{font-family:'Fraunces',serif;font-size:26px;font-weight:600;line-height:1.05;margin-top:2px}
-  .hero .h-ppm{font-size:11.5px;opacity:.85;margin-top:1px}
-  .hero .h-fresh{font-size:10.5px;font-weight:600;background:rgba(255,255,255,.18);border-radius:99px;padding:3px 9px;white-space:nowrap;flex:0 0 auto}
-  .hero .photolink{position:absolute;right:14px;bottom:10px;font-size:11px;font-weight:600;color:#fff;opacity:.9;text-decoration:none}
-  .hero .photolink:hover{opacity:1;text-decoration:underline}
+  .hero{position:relative;padding:12px 16px 13px;display:flex;flex-direction:column;gap:7px;color:#fff;overflow:hidden}
+  .hero-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .hero .h-verdict{font-size:12px;font-weight:700;letter-spacing:.02em;opacity:.97}
+  .hero .h-fresh{font-size:10.5px;font-weight:600;background:rgba(255,255,255,.2);border-radius:99px;padding:3px 9px;white-space:nowrap;flex:0 0 auto}
+  .hero .h-area-line{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+  .hero .h-meta{display:flex;align-items:center;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;font-weight:600;opacity:.95}
+  .hero .h-chip{display:inline-flex;align-items:center;gap:5px}
+  .hero .h-chip svg{width:15px;height:15px;opacity:.85;flex:0 0 auto}
+  .hero .h-priceline{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin-top:1px}
+  .hero .h-price{font-family:'Fraunces',serif;font-size:25px;font-weight:600;line-height:1.05}
+  .hero .h-ppm{font-size:11.5px;opacity:.82}
+  .hero .photolink{margin-left:auto;font-size:11.5px;font-weight:600;color:#fff;text-decoration:none;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:99px;padding:4px 11px;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;transition:background .12s ease}
+  .hero .photolink:hover{background:rgba(255,255,255,.34)}
   .freshness{position:absolute;top:10px;left:10px;background:rgba(255,253,248,.95);border-radius:99px;padding:4px 10px;font-size:11.5px;font-weight:600;display:flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
   .fdot{width:7px;height:7px;border-radius:50%}
   .f-fresh .fdot{background:var(--green)} .f-aging .fdot{background:#c79a2e} .f-stale .fdot{background:var(--red)} .f-unknown .fdot{background:#aaa}
@@ -141,8 +145,8 @@
 
   .facts{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;padding:8px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .facts b{font-weight:600}
-  .summary{font-size:13.5px;color:#3a443f;flex:1}
-  .summary.clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .summary{font-size:14px;line-height:1.55;color:#2d3531;flex:1;margin:4px 0 2px}
+  .summary.clamp{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
   details[open] .summary.clamp{-webkit-line-clamp:unset;overflow:visible}
   .flags-line{font-size:12.5px;color:var(--red);background:var(--red-bg);padding:6px 9px;border-radius:8px}
   /* worth-checking panel: plain-language considerations for family */
@@ -204,6 +208,28 @@
   details.archive summary::-webkit-details-marker{display:none}
   details.archive summary::before{content:"\25B8 ";font-size:13px}
   details.archive[open] summary::before{content:"\25BE "}
+
+  /* suggestion box */
+  .suggest-box{background:var(--sand-card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:18px}
+  .suggest-form{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .suggest-form input{font:inherit;font-size:13.5px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+  #sg-url{flex:2 1 280px}
+  #sg-note{flex:1 1 200px}
+  .sg-btn{font:inherit;font-size:13.5px;font-weight:600;color:#fff;background:var(--bay);border:none;border-radius:8px;padding:9px 18px;cursor:pointer;transition:background .12s ease}
+  .sg-btn:hover{background:var(--bay-deep)}
+  .sg-btn:disabled{opacity:.6;cursor:default}
+  .sg-msg{font-size:12.5px;margin-top:10px;min-height:1px}
+  .sg-msg.ok{color:var(--green)} .sg-msg.err{color:var(--red)}
+  .sg-list{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+  .sg-item{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:13px}
+  .sg-item .sg-main{flex:1;min-width:0}
+  .sg-item a{color:var(--bay);font-weight:600;text-decoration:none;word-break:break-all}
+  .sg-item a:hover{text-decoration:underline}
+  .sg-item .sg-note{color:#3a443f;margin-top:3px}
+  .sg-item .sg-by{color:var(--muted);font-size:11.5px;margin-top:3px}
+  .sg-item .sg-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;padding:2px 6px;border-radius:6px;flex:0 0 auto}
+  .sg-item .sg-del:hover{color:var(--red);background:var(--red-bg)}
+  .sg-empty{color:var(--muted);font-size:12.5px;font-style:italic}
 
   footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 20px 50px;line-height:1.7}
 
@@ -544,6 +570,19 @@ const PROPERTIES = [
     <div id="bq-list"></div>
   </section>
 
+  <section id="suggest-section">
+    <div class="sec-head"><h2>Suggest a listing</h2><span class="meta">Spotted one worth a look? Drop the link &mdash; Gil will review &amp; add it</span><span class="rule"></span></div>
+    <div class="suggest-box">
+      <div class="suggest-form">
+        <input id="sg-url" type="url" placeholder="Paste the listing link (Encuentra24, Compre o Alquile, etc.)">
+        <input id="sg-note" type="text" placeholder="Optional note &mdash; why it caught your eye">
+        <button id="sg-submit" class="sg-btn">Suggest</button>
+      </div>
+      <div id="sg-msg" class="sg-msg"></div>
+      <div id="sg-list" class="sg-list"></div>
+    </div>
+  </section>
+
 </div>
 
 <footer>
@@ -633,19 +672,33 @@ function cardHTML(p){
   const pm=ppm(p);
   const heroBg=heroColor(v);
   const photoLink=p.listingUrl?`<a class="photolink" href="${p.listingUrl}" target="_blank" rel="noopener">View photos &amp; listing \u2197</a>`:"";
-  // verdict now lives INSIDE the hero so the card reads as one clean color-block
-  const verdictLine=v?`<div class="h-verdict">${v}${score>=0?` \u00b7 ${score}/10`:""}</div>`:"";
+  // tiny inline icons (inherit white text color via currentColor)
+  const ICON={
+    bed:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5"/><path d="M3 18v-12"/><path d="M21 18v-3"/><path d="M7 11V9a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v2"/><path d="M12 11V9a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v2"/></svg>`,
+    bath:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a0 0 0 0 1 0 0v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3a0 0 0 0 1 0 0Z"/><path d="M6 12V6a2 2 0 0 1 2-2 2 2 0 0 1 2 2"/><path d="M9 6h2"/><path d="M7 19l-1 2"/><path d="M18 19l1 2"/></svg>`,
+    car:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l1.5-4.5A2 2 0 0 1 8.4 7h7.2a2 2 0 0 1 1.9 1.5L19 13"/><path d="M4 13h16v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4Z"/><circle cx="7.5" cy="15.5" r=".6"/><circle cx="16.5" cy="15.5" r=".6"/></svg>`,
+    size:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M4 9h3"/><path d="M4 14h3"/><path d="M9 4v3"/><path d="M14 4v3"/></svg>`
+  };
+  const metaChips=[
+    num(p.beds)?`<span class="h-chip">${ICON.bed}${p.beds}</span>`:"",
+    num(p.baths)?`<span class="h-chip">${ICON.bath}${p.baths}</span>`:"",
+    num(p.parking)?`<span class="h-chip">${ICON.car}${p.parking}</span>`:"",
+    num(p.size_m2)?`<span class="h-chip">${ICON.size}${p.size_m2} m\u00b2</span>`:""
+  ].filter(Boolean).join("");
   const hero=p.thumbnail
     ? `<div class="thumb" style="background-image:url('${p.thumbnail}')"><span class="freshness ${f.cls}"><span class="fdot"></span>${f.label}</span></div>`
     : `<div class="hero" style="background:${heroBg}">
-         <div class="hero-main">
-           ${verdictLine}
-           <div class="h-area">${p.area||"Area unknown"}</div>
-           <div class="h-price">${num(p.price)?fmt(p.price):"Price unknown"}</div>
-           ${pm!=null?`<div class="h-ppm">${fmt(pm)} / m\u00b2</div>`:""}
+         <div class="hero-top">
+           ${v?`<span class="h-verdict">${v}${score>=0?` \u00b7 ${score}/10`:""}</span>`:"<span></span>"}
+           <span class="h-fresh">${f.label}</span>
          </div>
-         <span class="h-fresh">${f.label}</span>
-         ${photoLink}
+         <div class="h-area-line">${p.area||"Area unknown"}</div>
+         <div class="h-meta">${metaChips}</div>
+         <div class="h-priceline">
+           <span class="h-price">${num(p.price)?fmt(p.price):"Price unknown"}</span>
+           ${pm!=null?`<span class="h-ppm">${fmt(pm)}/m\u00b2</span>`:""}
+           ${photoLink}
+         </div>
        </div>`;
   const badges=(p.badges||[]).map(b=>`<span class="badge ${badgeClass(b)}">${b}</span>`).join("");
   const statusBadge=p.status?`<span class="badge b-status">${p.status}</span>`:"";
@@ -671,11 +724,14 @@ function cardHTML(p){
 
   const detailBits=[flags, considers, mapImg(p), walkList(p), bq].filter(Boolean).join("");
   const hasExtra=detailBits.length>0;
-  const longSummary=fullSummary.length>150;
+  // Only clamp a genuinely long summary. Current summaries (~400 chars / 5 lines)
+  // show in full; clamping kicks in only for substantially longer ones.
+  const longSummary=fullSummary.length>520;
   const needsToggle=hasExtra||longSummary;
+  const summaryCls=longSummary?"summary clamp":"summary";
   const body=needsToggle
     ? `<details class="more">
-         <summary><p class="summary clamp">${fullSummary}</p><span class="more-toggle"><span class="chev">\u203A</span><span class="more-label">More details</span></span></summary>
+         <summary><p class="${summaryCls}">${fullSummary}</p><span class="more-toggle"><span class="chev">\u203A</span><span class="more-label">More details</span></span></summary>
          ${hasExtra?`<div class="more-inner">${detailBits}</div>`:""}
        </details>`
     : `<p class="summary">${fullSummary}</p>`;
@@ -685,10 +741,9 @@ function cardHTML(p){
     <div class="card-body">
       <div class="badges">${badges}${statusBadge}</div>
       <h3>${p.building||"Unknown building"}</h3>
-      <div class="area">${p.area||"Area unknown"}${p.view?` \u00b7 ${p.view}`:""}</div>
+      ${p.view?`<div class="area">${p.view}</div>`:""}
       ${grades}
       ${buildingLine(p)}
-      <div class="facts">${facts||'<span style="color:var(--muted)">Details unknown</span>'}</div>
       ${body}
       <div class="reactions" data-id="${p.id}">
         <div class="react-row">
@@ -1030,11 +1085,82 @@ function wireRemove(){
   });
 }
 
+// ---------- Family suggestions ----------
+function validUrl(u){ try{ const x=new URL(u); return x.protocol==="http:"||x.protocol==="https:"; }catch(e){ return false; } }
+
+async function loadSuggestions(){
+  const listEl=document.getElementById("sg-list");
+  if(!VOTE_SHARED){ if(listEl) listEl.innerHTML=`<div class="sg-empty">Suggestions need the shared database to be set up.</div>`; return; }
+  try{
+    const r=await sbFetch("suggestions?select=id,listing_url,note,suggested_by,created_at&order=created_at.desc",{method:"GET"});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    const rows=await r.json();
+    if(!listEl) return;
+    if(!rows.length){ listEl.innerHTML=`<div class="sg-empty">No suggestions yet \u2014 be the first to add one.</div>`; return; }
+    listEl.innerHTML=rows.map(s=>{
+      const by=s.suggested_by?`Suggested by ${escapeHtml(s.suggested_by)}`:"Suggested by family";
+      const note=s.note?`<div class="sg-note">${escapeHtml(s.note)}</div>`:"";
+      return `<div class="sg-item">
+        <div class="sg-main">
+          <a href="${escapeAttr(s.listing_url)}" target="_blank" rel="noopener">${escapeHtml(s.listing_url)}</a>
+          ${note}
+          <div class="sg-by">${by}</div>
+        </div>
+        <button class="sg-del" data-del="${s.id}" title="Remove suggestion">\u2715</button>
+      </div>`;
+    }).join("");
+    wireSuggestDelete();
+  }catch(e){ if(listEl) listEl.innerHTML=`<div class="sg-empty">\u26A0 Couldn't load suggestions.</div>`; }
+}
+
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function escapeAttr(s){ return escapeHtml(s); }
+
+async function submitSuggestion(){
+  const urlEl=document.getElementById("sg-url"), noteEl=document.getElementById("sg-note");
+  const msg=document.getElementById("sg-msg"), btn=document.getElementById("sg-submit");
+  const url=(urlEl.value||"").trim(), note=(noteEl.value||"").trim();
+  msg.className="sg-msg";
+  if(!validUrl(url)){ msg.className="sg-msg err"; msg.textContent="Please paste a valid link (starting with http)."; return; }
+  if(!VOTE_SHARED){ msg.className="sg-msg err"; msg.textContent="Shared database isn't set up yet, so suggestions can't be saved."; return; }
+  const who=ensureVoterId();
+  btn.disabled=true;
+  try{
+    const r=await sbFetch("suggestions",{method:"POST",
+      headers:{Prefer:"return=minimal"},
+      body:JSON.stringify({listing_url:url,note:note||null,suggested_by:who})});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    urlEl.value=""; noteEl.value="";
+    msg.className="sg-msg ok"; msg.textContent="Thanks \u2014 sent to Gil for review.";
+    await loadSuggestions();
+  }catch(e){ msg.className="sg-msg err"; msg.textContent="Couldn't save \u2014 please try again."; }
+  finally{ btn.disabled=false; }
+}
+
+function wireSuggestDelete(){
+  document.querySelectorAll("[data-del]").forEach(btn=>{
+    if(btn._wired) return; btn._wired=true;
+    btn.addEventListener("click",async()=>{
+      if(!checkRemoveCode()) return;
+      try{
+        await sbFetch(`suggestions?id=eq.${encodeURIComponent(btn.dataset.del)}`,{method:"DELETE"});
+        await loadSuggestions();
+      }catch(e){ /* ignore */ }
+    });
+  });
+}
+
+(function wireSuggestForm(){
+  const btn=document.getElementById("sg-submit");
+  if(btn) btn.addEventListener("click",submitSuggestion);
+})();
+
 // re-wire & paint after every render
 const _origRender=render;
 render=function(){ _origRender(); wireVotes(); wireRemove(); wireJumps(); paintVotes(); };
 
 renderStats();initFilters();renderTop();render();renderBQ();
+loadSuggestions();
 // load shared state on startup if configured
 if(VOTE_SHARED){
   Promise.all([loadArchived(),loadVotes()]).then(()=>{ renderTop(); render(); renderBQ(); renderStats(); paintVotes(); });
