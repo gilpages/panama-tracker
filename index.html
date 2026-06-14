@@ -31,6 +31,22 @@
   .stat .l{font-size:10.5px;opacity:.78;letter-spacing:.03em;margin-top:2px;white-space:nowrap}
 
   .controls{background:var(--sand-card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:12px 14px;margin:16px auto 22px;position:relative;z-index:2}
+
+  /* priority chips */
+  .priorities{display:flex;align-items:center;gap:8px 10px;flex-wrap:wrap;margin:0 auto 18px;padding:11px 14px;background:var(--sand-card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+  .priorities .pr-label{font-size:12.5px;font-weight:600;color:var(--ink);margin-right:2px}
+  .priorities .pr-label small{display:block;font-size:11px;font-weight:400;color:var(--muted)}
+  .pr-chip{font:inherit;font-size:12.5px;font-weight:600;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:99px;padding:6px 13px;cursor:pointer;transition:all .12s ease;display:inline-flex;align-items:center;gap:6px}
+  .pr-chip:hover{border-color:var(--bay)}
+  .pr-chip.on{background:var(--bay);border-color:var(--bay);color:#fff}
+  .pr-chip .pr-check{font-size:11px;opacity:0;width:0;transition:all .12s ease}
+  .pr-chip.on .pr-check{opacity:1;width:auto}
+  .pr-clear{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;margin-left:auto}
+  .pr-clear:hover{color:var(--bay)}
+
+  /* your-fit badge on cards */
+  .fitbadge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:#fff;background:#7a4fa0;border-radius:99px;padding:3px 10px;margin-bottom:8px}
+  .fitbadge .fb-x{font-weight:500;opacity:.85;font-size:10.5px}
   .controls-row{display:flex;gap:10px 12px;flex-wrap:wrap;align-items:flex-end}
   .field{display:flex;flex-direction:column;gap:4px}
   .field label{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
@@ -154,6 +170,17 @@
   .consider .ch{font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:6px;margin-bottom:5px}
   .consider ul{margin:0 0 0 16px;padding:0}
   .consider li{margin:2px 0;line-height:1.45}
+
+  /* pre-build at-a-glance box */
+  .prebuild{border:1px solid #cdb8e0;background:#f6f0fb;border-radius:9px;padding:10px 12px;font-size:12.5px;color:#4a3a5e}
+  .prebuild .pb-h{font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:#7a4fa0;display:flex;align-items:center;gap:6px;margin-bottom:7px}
+  .prebuild .pb-cols{display:flex;gap:14px;flex-wrap:wrap}
+  .prebuild .pb-col{flex:1 1 130px;min-width:0}
+  .prebuild .pb-col h5{margin:0 0 4px;font-size:11.5px;font-weight:700}
+  .prebuild .pb-pro h5{color:var(--green)}
+  .prebuild .pb-con h5{color:var(--red)}
+  .prebuild ul{margin:0;padding:0 0 0 15px}
+  .prebuild li{margin:2px 0;line-height:1.4}
 
   .mapwrap{display:block;border-radius:9px;overflow:hidden;border:1px solid var(--line);position:relative}
   .mapwrap img{display:block;width:100%;height:120px;object-fit:cover}
@@ -538,6 +565,110 @@ const PROPERTIES = [
     archived:false,
     brokerQuestions:["What year was the building constructed, and what major systems have been updated (plumbing, electrical, elevators, fa\u00e7ade)?","What is the monthly HOA/maintenance fee and what does it cover?","Which floor is the unit on, and what is the view/exposure?","Why is this unit larger than standard \u2014 original layout or modifications?","Reserve fund balance and any planned special assessments?","Is the address technically El Cangrejo or Obarrio?"]
   },
+  {
+    id:"P-009", building:"Aurora Residences \u2014 106 m\u00b2 3BR", area:"San Francisco",
+    price:328600, beds:3, baths:2, parking:1, size_m2:106,
+    view:"Floor/orientation dependent \u2014 verify", status:"Interested",
+    overallScore:6.3,
+    verdict:"Fair",
+    grades:{neighborhood:"A", home:"B", value:"C"},
+    badges:["New Build","Pre-Sale"],
+    summary:"A brand-new 3BR (106 m\u00b2) in a heavily-amenitied San Francisco tower near Parque Omar \u2014 included here because some of the family lean toward new builds. The honest math: at $3,100/m\u00b2 it\u2019s ~19% above the area band, it\u2019s a pre-sale that won\u2019t deliver until end of 2027 (~18 months), and the building doesn\u2019t exist yet so there\u2019s no track record to check. You\u2019d be paying the appreciation premium upfront rather than getting a presale discount. Good amenities and location; the trade-off is price, wait, and uncertainty.",
+    redFlags:"PRE-SALE \u2014 delivery end 2027 (~18 months), can\u2019t inspect or use it. $3,100/m\u00b2 is above the San Francisco band. Floor 7 south-facing units may be view-blocked by the existing PH Living 73 tower ~225m south.",
+    considerations:[
+      "It\u2019s a pre-sale: you commit money now for a unit that doesn\u2019t exist yet and won\u2019t be ready until end of 2027. Developer (Grupo Binian) track record should be verified.",
+      "Priced ~19% above the San Francisco band \u2014 the presale premium is paid upfront, so it\u2019s an appreciation bet, not a discount. Contrast with Altamira/Luxor/Park City, all priced at or below their bands today.",
+      "Floor 7 is the lowest available. South-facing units risk being blocked by PH Living 73; NW-facing (toward Parque Omar) is the better orientation at this height. Confirm the exact unit\u2019s direction.",
+      "HOA is reasonable at ~$196/mo. Amenities are genuinely strong (rooftop, pool, gym, co-working, yoga, pet care).",
+      "Renderings are explicitly \u2018subject to change\u2019 \u2014 the delivered product may differ.",
+      "All figures from the developer price list and brochure \u2014 not an independently verified resale unit."
+    ],
+    building_rating:"unknown",
+    building_note:"PRE-SALE \u2014 the building does not exist yet, so it cannot be rated. Developer is Grupo Binian; delivery targeted end 2027.",
+    prebuild:{
+      pros:["Brand-new everything; pick your floor/finish","HOA reasonable (~$196/mo)","Payment spread over construction, not all upfront","Strong amenities + San Francisco / Parque Omar location"],
+      cons:["NO pre-build discount \u2014 priced ~19% ABOVE area band","~18-month wait (delivery end 2027); can't use it now","Building unproven \u2014 no track record, renders may change","Developer/delivery risk during construction"]
+    },
+    datePosted:"2026-06-01",
+    lastVerified:"2026-06-13",
+    thumbnail:"",
+    lat:8.990547, lng:-79.506389,
+    walk:[{to:"Parque Omar",min:7},{to:"V\u00eda Israel dining",min:5},{to:"Multiplaza area",min:12}],
+    listingUrl:"https://www.phaurora.com",
+    mapLink:"https://maps.google.com/?q=8.990547,-79.506389",
+    topPick:false,
+    archived:false,
+    brokerQuestions:["Confirmed delivery date? What protections exist if construction is delayed?","Which direction does the floor 7 unit face, and what\u2019s the actual (not rendered) view \u2014 is PH Living 73 blocking it?","Grupo Binian track record \u2014 what have they delivered on time?","Is the list price negotiable, and what are the payment-plan terms during construction?"]
+  },
+  {
+    id:"P-010", building:"Aurora Residences \u2014 120 m\u00b2 3BR + maid\u2019s", area:"San Francisco",
+    price:366000, beds:3, baths:2.5, parking:1, size_m2:120,
+    view:"Corner unit \u2014 Parque Omar potential; verify", status:"Interested",
+    overallScore:6.9,
+    verdict:"Fair",
+    grades:{neighborhood:"A", home:"B", value:"C"},
+    badges:["New Build","Pre-Sale"],
+    summary:"The biggest, best-laid-out Aurora unit: a brand-new 120 m\u00b2 corner 3BR + 2.5 bath + maid\u2019s quarters in San Francisco near Parque Omar \u2014 included for the family members who prefer new construction. As a family layout it\u2019s excellent. The catch is the same as the smaller Aurora unit: $3,050/m\u00b2 is ~17% above the area band, it\u2019s a pre-sale delivering end of 2027, and the building is unproven. A strong new-build option if the family values new over move-in-ready value, but the pricing is an appreciation bet.",
+    redFlags:"PRE-SALE \u2014 delivery end 2027 (~18 months), can\u2019t inspect or use it. $3,050/m\u00b2 above the San Francisco band. Only 1 parking space for a 120 m\u00b2 3BR.",
+    considerations:[
+      "Best family layout of the Aurora units \u2014 120 m\u00b2 corner, 3BR + 2.5 bath + maid\u2019s quarters. If new-build matters to the family, this is the one to look at.",
+      "Same pre-sale caveats: end-2027 delivery, money committed now, no building to inspect, developer track record to verify.",
+      "Priced ~17% above the San Francisco band \u2014 appreciation bet, not a discount.",
+      "Only 1 parking for a 120 m\u00b2 3BR is light \u2014 ask whether a 2nd space can be bought.",
+      "Corner unit at floor 8 \u2014 if it faces Parque Omar (NW) the view could be good; confirm orientation.",
+      "All figures from the developer price list and brochure \u2014 not an independently verified resale unit."
+    ],
+    building_rating:"unknown",
+    building_note:"PRE-SALE \u2014 the building does not exist yet, so it cannot be rated. Developer is Grupo Binian; delivery targeted end 2027.",
+    prebuild:{
+      pros:["Biggest/best Aurora family layout; brand-new","Pick your floor/finish; corner unit","HOA reasonable (~$222/mo)","Payment spread over construction","Strong amenities + Parque Omar location"],
+      cons:["NO pre-build discount \u2014 priced ~17% ABOVE area band","~18-month wait (delivery end 2027); can't use it now","Building unproven \u2014 no track record","Only 1 parking for a 120 m\u00b2 3BR","Developer/delivery risk during construction"]
+    },
+    datePosted:"2026-06-01",
+    lastVerified:"2026-06-13",
+    thumbnail:"",
+    lat:8.990547, lng:-79.506389,
+    walk:[{to:"Parque Omar",min:7},{to:"V\u00eda Israel dining",min:5},{to:"Multiplaza area",min:12}],
+    listingUrl:"https://www.phaurora.com",
+    mapLink:"https://maps.google.com/?q=8.990547,-79.506389",
+    topPick:false,
+    archived:false,
+    brokerQuestions:["Confirmed delivery date and delay protections?","Corner unit orientation \u2014 does it face Parque Omar (NW)? Actual view at floor 8?","Only 1 parking for a 120 m\u00b2 3BR \u2014 is a 2nd space available to buy?","Grupo Binian delivery track record? Is the price negotiable?"]
+  },
+  {
+    id:"P-011", building:"Aurora Residences \u2014 80 m\u00b2 2BR", area:"San Francisco",
+    price:256000, beds:2, baths:2, parking:1, size_m2:80,
+    view:"Floor/orientation dependent \u2014 verify", status:"Interested",
+    overallScore:6.0,
+    verdict:"Fair",
+    grades:{neighborhood:"A", home:"C", value:"C"},
+    badges:["New Build","Pre-Sale"],
+    summary:"The most budget-friendly Aurora unit and the one that fits your price range best: a brand-new 80 m\u00b2 2BR at $256,000 (the real available price \u2014 lower than the $281k the marketing quotes). A 2BR works for you, and this is the entry point into the new-build option some of the family prefer. The honest catch is the same as the other Aurora units: $3,200/m\u00b2 is the highest per-meter of the three (small units cost more per m\u00b2), it\u2019s above the area band, and it\u2019s a pre-sale delivering end of 2027.",
+    redFlags:"PRE-SALE \u2014 delivery end 2027 (~18 months). $3,200/m\u00b2 is the highest per-meter of the Aurora units and above the San Francisco band. 80 m\u00b2 is small for family hosting. Floor matters for view \u2014 verify.",
+    considerations:[
+      "$256k is the real lowest available price (floor 9, Type E) \u2014 the $281k \u2018starting\u2019 figure in the marketing is higher than what\u2019s actually on the price list. Negotiate from $256k.",
+      "80 m\u00b2 is fine for a couple or small family but tight for hosting several guests.",
+      "Highest $/m\u00b2 of the Aurora units ($3,200) \u2014 small units always cost more per meter. Still above the area band.",
+      "Same pre-sale caveats: end-2027 delivery, money committed now, unproven building, developer track record to verify.",
+      "All figures from the developer price list \u2014 not an independently verified resale unit."
+    ],
+    building_rating:"unknown",
+    building_note:"PRE-SALE \u2014 the building does not exist yet, so it cannot be rated. Developer is Grupo Binian; delivery targeted end 2027.",
+    prebuild:{
+      pros:["Fits your budget best of the Aurora units ($256k)","2BR works for you; brand-new everything","Pick your floor/finish","HOA reasonable (~$148/mo)","Payment spread over construction"],
+      cons:["NO pre-build discount \u2014 highest $/m\u00b2 of the three ($3,200), above band","~18-month wait (delivery end 2027); can't use it now","80 m\u00b2 is small for family use","Building unproven \u2014 no track record","Developer/delivery risk during construction"]
+    },
+    datePosted:"2026-06-01",
+    lastVerified:"2026-06-13",
+    thumbnail:"",
+    lat:8.990547, lng:-79.506389,
+    walk:[{to:"Parque Omar",min:7},{to:"V\u00eda Israel dining",min:5},{to:"Multiplaza area",min:12}],
+    listingUrl:"https://www.phaurora.com",
+    mapLink:"https://maps.google.com/?q=8.990547,-79.506389",
+    topPick:false,
+    archived:false,
+    brokerQuestions:["Is $256k still available (Type E, floor 9), and is it negotiable?","Confirmed delivery date and delay protections?","Which floor/orientation for the available 2BR units, and the actual view?","Grupo Binian delivery track record? Payment-plan terms during construction?"]
+  },
 ];
 </script>
 
@@ -594,6 +725,15 @@ const PROPERTIES = [
       </select></div>
       <button class="clear" id="clear">Reset</button>
     </div>
+  </div>
+
+  <div class="priorities" id="priorities">
+    <span class="pr-label">What matters to you?<small>Tap to rank by your priorities</small></span>
+    <button class="pr-chip" data-pri="family"><span class="pr-check">✓</span>Family space</button>
+    <button class="pr-chip" data-pri="walk"><span class="pr-check">✓</span>Walkability</button>
+    <button class="pr-chip" data-pri="value"><span class="pr-check">✓</span>Value / price</button>
+    <button class="pr-chip" data-pri="building"><span class="pr-check">✓</span>Building quality</button>
+    <button class="pr-clear" id="pr-clear" hidden>Clear</button>
   </div>
 
   <section id="top-section" hidden>
@@ -659,6 +799,36 @@ const num=v=>(typeof v==="number"&&!isNaN(v));
 const ppm=p=>(num(p.price)&&num(p.size_m2)&&p.size_m2>0)?Math.round(p.price/p.size_m2):null;
 const getScore=p=>num(p.overallScore)?p.overallScore:(num(p.overall_score)?p.overall_score:-1);
 let sortKey="score";
+let priorities=[];  // active priority chips, e.g. ["family","walk"]
+
+// Personalized "fit" score (0-10) derived from data already on each card,
+// weighted by the viewer's selected priorities. Honest: it reweights the
+// underlying signals, it does not invent new analysis.
+const gradeVal={A:10,"A-":9,B:8,"B-":7,C:6,"C-":5,D:4,F:2};
+function fitDimensions(p){
+  const g=p.grades||{};
+  // Family space: beds + size, scaled to ~0-10
+  const sz=num(p.size_m2)?p.size_m2:90;
+  const beds=num(p.beds)?p.beds:2;
+  const family=Math.max(0,Math.min(10, (beds>=3?7:beds>=2?5.5:4) + Math.min(3,(sz-70)/25) ));
+  // Walkability: from Neighborhood grade (derived from walkability)
+  const walk=gradeVal[g.neighborhood]||6;
+  // Value: from Value grade + a nudge for below-typical $/m²
+  const pm=ppm(p);
+  const valueGrade=gradeVal[g.value]||6;
+  const value=Math.max(0,Math.min(10, valueGrade + (pm!=null && pm<2000?1:pm!=null&&pm>3000?-1:0) ));
+  // Building quality: from building_rating
+  const bq={good:9,unknown:5.5,caution:3}[p.building_rating||"unknown"];
+  return {family,walk,value,building:bq};
+}
+function fitScore(p){
+  if(!priorities.length) return null;
+  const d=fitDimensions(p);
+  const map={family:d.family,walk:d.walk,value:d.value,building:d.building};
+  let sum=0,n=0;
+  priorities.forEach(k=>{ if(map[k]!=null){sum+=map[k];n++;} });
+  return n? Math.round((sum/n)*10)/10 : null;
+}
 
 function ageDays(p){
   if(!p.datePosted)return null;
@@ -698,7 +868,7 @@ function buildingLine(p){
 }
 const verdictCls={"Great Find":"v-great","Solid Option":"v-solid","Fair":"v-fair","Overpriced":"v-over","Caution":"v-caution"};
 function badgeClass(b){
-  return {"Shortlist":"b-short","Good Value":"b-value","Ask Broker":"b-ask","Red Flag":"b-flag","Needs Manual Review":"b-review","Furnished":"b-value","Low HOA":"b-value","Brand New":"b-value","Small Unit":"b-flag","Walkable":"b-value","Big + Terrace":"b-value"}[b]||"b-status";
+  return {"Shortlist":"b-short","Good Value":"b-value","Ask Broker":"b-ask","Red Flag":"b-flag","Needs Manual Review":"b-review","Furnished":"b-value","Low HOA":"b-value","Brand New":"b-value","Small Unit":"b-flag","Walkable":"b-value","Big + Terrace":"b-value","Big Layout":"b-value","High Floor":"b-value","New Build":"b-ask","Pre-Sale":"b-flag"}[b]||"b-status";
 }
 function gradeBox(letter,label){
   const L=(letter||"").toUpperCase();
@@ -782,9 +952,16 @@ function cardHTML(p){
   const bq=(Array.isArray(p.brokerQuestions)&&p.brokerQuestions.length)
     ? `<div class="consider" style="background:#eef3f1;border-color:#cfe0da;color:#23463f"><div class="ch" style="color:var(--bay)">Questions for the broker</div><ul>${p.brokerQuestions.map(q=>`<li>${q}</li>`).join("")}</ul></div>`
     : "";
+  const prebuild=(p.prebuild&&(p.prebuild.pros||p.prebuild.cons))
+    ? `<div class="prebuild"><div class="pb-h">\u{1F3D7} Pre-build \u2014 at a glance</div>
+         <div class="pb-cols">
+           <div class="pb-col pb-pro"><h5>Pros</h5><ul>${(p.prebuild.pros||[]).map(x=>`<li>${x}</li>`).join("")}</ul></div>
+           <div class="pb-col pb-con"><h5>Cons</h5><ul>${(p.prebuild.cons||[]).map(x=>`<li>${x}</li>`).join("")}</ul></div>
+         </div></div>`
+    : "";
   const verified=p.lastVerified?`<span class="verified">Checked ${p.lastVerified}</span>`:"";
 
-  const detailBits=[flags, considers, mapImg(p), walkList(p), bq].filter(Boolean).join("");
+  const detailBits=[flags, prebuild, considers, mapImg(p), walkList(p), bq].filter(Boolean).join("");
   const hasExtra=detailBits.length>0;
   // Only clamp a genuinely long summary. Current summaries (~400 chars / 5 lines)
   // show in full; clamping kicks in only for substantially longer ones.
@@ -801,6 +978,7 @@ function cardHTML(p){
   return `<article class="card ${p.archived?"archived":""}" id="card-${p.id}">
     ${hero}
     <div class="card-body">
+      ${(()=>{const fs=fitScore(p);return fs!=null?`<div class="fitbadge">Your fit: ${fs}<span class="fb-x">/10</span></div>`:"";})()}
       <div class="badges">${badges}${statusBadge}</div>
       <h3>${p.building||"Unknown building"}</h3>
       ${p.view?`<div class="area">${p.view}</div>`:""}
@@ -844,6 +1022,10 @@ function applyFilters(src){
     return true;
   });
   list.sort((a,b)=>{
+    if(priorities.length){
+      const fb=fitScore(b), fa=fitScore(a);
+      if(fb!==fa) return (fb||0)-(fa||0);
+    }
     if(sortKey==="loved")return (loveCount(b)-loveCount(a)) || (getScore(b)-getScore(a));
     if(sortKey==="price")return (a.price||1e12)-(b.price||1e12);
     if(sortKey==="ppm")return (ppm(a)||1e9)-(ppm(b)||1e9);
@@ -938,6 +1120,24 @@ function initFilters(){
   document.addEventListener("input",e=>{if(e.target.id===id){if(id==="f-sort")sortKey=$("#f-sort").value;render();}});
 });
 document.addEventListener("change",e=>{if(e.target.id==="f-sort"){sortKey=$("#f-sort").value;render();}});
+
+// priority chips
+function paintPriorities(){
+  document.querySelectorAll(".pr-chip").forEach(c=>c.classList.toggle("on",priorities.includes(c.dataset.pri)));
+  const clr=$("#pr-clear"); if(clr) clr.hidden=priorities.length===0;
+}
+document.querySelectorAll(".pr-chip").forEach(chip=>{
+  chip.addEventListener("click",()=>{
+    const k=chip.dataset.pri;
+    const i=priorities.indexOf(k);
+    if(i>-1) priorities.splice(i,1); else priorities.push(k);
+    paintPriorities();
+    renderTop(); render(); // re-score + re-sort grid and most-loved
+  });
+});
+if($("#pr-clear")){
+  $("#pr-clear").addEventListener("click",()=>{ priorities=[]; paintPriorities(); renderTop(); render(); });
+}
 
 // mobile filter toggle
 const ctl=$("#controls"), tgl=$("#filter-toggle"), tglState=$("#filter-toggle-state");
