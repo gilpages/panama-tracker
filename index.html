@@ -99,9 +99,9 @@
   .thumb .ph-hint{color:var(--muted);font-size:12.5px}
 
   /* investment-memo lines */
-  .thesis{font-size:13.5px;line-height:1.5;color:#234a40;background:#eef4f1;border-left:3px solid var(--bay);border-radius:0 8px 8px 0;padding:7px 11px;margin:2px 0 8px}
+  .thesis{font-size:13.5px;line-height:1.5;color:#234a40;background:#eef4f1;border-left:3px solid var(--bay);border-radius:0 8px 8px 0;padding:7px 11px;margin:2px 0 8px;min-height:62px;box-sizing:border-box}
   .thesis b{font-weight:700;color:var(--bay);font-size:11px;letter-spacing:.04em;text-transform:uppercase;display:block;margin-bottom:1px}
-  .killer{font-size:13px;line-height:1.5;color:#7a2a23;background:var(--red-bg);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:7px 11px;margin:0 0 10px}
+  .killer{font-size:13px;line-height:1.5;color:#7a2a23;background:var(--red-bg);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:7px 11px;margin:0 0 10px;min-height:60px;box-sizing:border-box}
   .killer b{font-weight:700;color:var(--red);font-size:11px;letter-spacing:.04em;text-transform:uppercase;display:block;margin-bottom:1px}
 
   /* compact building one-liner */
@@ -158,6 +158,10 @@
   .b-review{background:#eee;color:#555}
   .b-status{background:#eef3f1;color:var(--bay)}
   .stbadge{font-weight:600}
+  .owner-status{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+  .owner-status .os-label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .owner-status .os-select{flex:1;font:inherit;font-size:13px;padding:6px 8px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink);cursor:pointer}
+  .owner-status .os-select:focus{outline:none;border-color:var(--bay)}
   .st-interested{background:#eef3f1;color:var(--bay)}
   .st-emailed{background:#eaf0fb;color:#3a5fa8}
   .st-replied{background:#e9f5ee;color:#1d7a4d}
@@ -1166,6 +1170,8 @@ let sortKey="score";
 // Order matters: the first four are active pursuit; the last two mean "no longer available".
 const STATUS_ORDER = ["Interested","Emailed","Replied","Viewing booked","Off-market"];
 const UNAVAILABLE_STATUSES = ["Off-market"];
+// Owner mode: append ?owner=1 to the URL to reveal status controls. Family never sees them.
+const OWNER_MODE = /[?&]owner=1\b/.test(location.search);
 function statusOf(p){ return p.status || "Interested"; }
 function isUnavailable(p){ return UNAVAILABLE_STATUSES.includes(statusOf(p)); }
 // short pill class per status
@@ -1175,6 +1181,23 @@ function statusClass(s){
   if(s==="Replied") return "st-replied";
   if(s==="Emailed") return "st-emailed";
   return "st-interested";
+}
+async function setStatus(pid, newStatus){
+  const p=PROPERTIES.find(x=>x.id===pid); if(!p) return;
+  const prev=p.status;
+  p.status=newStatus;                 // optimistic
+  renderStats(); render();
+  try{
+    const r=await sbFetch(`properties?id=eq.${encodeURIComponent(pid)}`,{
+      method:"PATCH", headers:{Prefer:"return=minimal"},
+      body:JSON.stringify({status:newStatus, updated_at:new Date().toISOString()})
+    });
+    if(!r.ok) throw new Error("HTTP "+r.status);
+  }catch(e){
+    p.status=prev;                    // revert on failure
+    renderStats(); render();
+    alert("Couldn't save status change — please try again.");
+  }
 }
 
 let priorities=[];  // active priority chips, e.g. ["family","walk"]
@@ -1419,6 +1442,7 @@ function cardHTML(p){
         <div class="react-names" data-names="${p.id}"></div>
         <span class="react-mode"></span>
       </div>
+      ${OWNER_MODE?`<div class="owner-status"><span class="os-label">Status</span><select class="os-select" data-status="${p.id}">${STATUS_ORDER.map(s=>`<option value="${s}"${statusOf(p)===s?" selected":""}>${s}</option>`).join("")}</select></div>`:""}
       <div class="card-foot">
         ${p.listingUrl?`<a class="foot-listing" href="${p.listingUrl}" target="_blank" rel="noopener">View listing <span class="ext">\u2197</span></a>`:""}
         <span class="foot-right">
@@ -1938,7 +1962,15 @@ function wireSuggestDelete(){
 
 // re-wire & paint after every render
 const _origRender=render;
-render=function(){ _origRender(); wireVotes(); wireRemove(); wireJumps(); wireCopyQ(); paintVotes(); };
+render=function(){ _origRender(); wireVotes(); wireRemove(); wireJumps(); wireCopyQ(); wireStatus(); paintVotes(); };
+
+function wireStatus(){
+  if(!OWNER_MODE) return;
+  document.querySelectorAll("[data-status]").forEach(sel=>{
+    if(sel._wired) return; sel._wired=true;
+    sel.addEventListener("change",()=>setStatus(sel.dataset.status, sel.value));
+  });
+}
 
 // Initial paint from the baked-in snapshot so the page is never blank.
 renderStats();initFilters();renderTop();render();renderBQ();
