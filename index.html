@@ -212,10 +212,24 @@
   .reactions{padding-top:11px;margin-top:4px;border-top:1px solid var(--line)}
   .react-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
   .react-names{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.5;display:flex;flex-direction:column;gap:2px}
-  .you-loved{font-size:12px;font-weight:700;color:#b3265f;background:#fdeaf1;border-radius:8px;padding:4px 9px;margin-bottom:8px;display:inline-block;align-self:flex-start}
   .react-names .rn-line b{font-weight:600;color:#3a443f}
   .react-mode{display:block;font-size:10.5px;color:var(--muted);margin-top:6px;letter-spacing:.02em}
-  .card-foot{display:flex;gap:14px;align-items:center;margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
+  .card-foot{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
+  .card-foot a{font-size:13px;font-weight:600;text-decoration:none}
+  .card-foot a:hover{text-decoration:underline}
+  .foot-listing{color:var(--bay);display:inline-flex;align-items:center;gap:4px}
+  .foot-listing .ext{font-size:12px}
+  .foot-right{display:inline-flex;align-items:center;gap:12px}
+  .verified{font-size:11.5px;color:var(--muted)}
+  .card-remove{font:inherit;font-size:15px;line-height:1;color:var(--muted);background:none;border:none;cursor:pointer;padding:2px 4px;border-radius:6px}
+  .card-remove:hover{color:var(--red);background:var(--red-bg)}
+  .card-restore{font:inherit;font-size:12px;font-weight:600;color:var(--bay);background:none;border:none;cursor:pointer;padding:2px 4px}
+  /* sub-line under building name: view + map link */
+  .sub-line{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .map-top{font-size:12.5px;font-weight:600;color:var(--bay);text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:3px;flex:0 0 auto}
+  .map-top:hover{text-decoration:underline}
+  .map-top .pin{font-style:normal;font-size:12px}
+  .lbl-heart{color:#d4537e}
   .react-btn{font:inherit;font-size:13px;font-weight:500;border:1px solid var(--line);background:#fff;border-radius:99px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--ink);transition:all .12s ease}
   .react-btn:hover{border-color:var(--bay);background:#f6faf8}
   .react-btn .rc{font-weight:600;color:var(--muted);min-width:8px}
@@ -223,10 +237,6 @@
   .react-btn.mine .rc{color:var(--green)}
   .react-btn.r-pass.mine{background:var(--red-bg);border-color:#d99;color:var(--red)} .react-btn.r-pass.mine .rc{color:var(--red)}
   .react-btn.r-maybe.mine{background:var(--amber-bg);border-color:#d8b15e;color:var(--amber)} .react-btn.r-maybe.mine .rc{color:var(--amber)}
-  .card-foot a{font-size:13px;font-weight:600;text-decoration:none}
-  .card-foot a:hover{text-decoration:underline}
-  .foot-map{color:var(--bay)}
-  .verified{font-size:11.5px;color:var(--muted);margin-left:auto}
 
   .tbl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--sand-card);box-shadow:var(--shadow)}
   table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:820px}
@@ -346,7 +356,7 @@ const PROPERTIES = [
     dealKiller:"The below-market price likely reflects an older, unrated building \u2014 if reserves/management are weak, the bargain evaporates.",
     grades:{neighborhood:"B", home:"A", value:"A"},
     badges:["Good Value"],
-    summary:"Fully remodeled 147 m\u00b2 with 2 en-suite bedrooms plus a maid's room usable as a 3rd bedroom or office, two side-by-side parking spaces, and on-floor storage. Only two units per floor; pool, gym, sauna. At about $1,461/m\u00b2 it's roughly 36% under the typical Punta Paitilla range \u2014 an unusually low price that's most likely explained by an older building.",
+    summary:"147 m\u00b2, fully remodeled: 2 en-suite bedrooms plus a maid\u2019s room usable as a 3rd bedroom or office, two side-by-side parking spaces, on-floor storage. Only two units per floor; pool, gym, sauna. Priced at $1,461/m\u00b2.",
     redFlags:"Price is well below the Paitilla norm \u2014 there's usually a reason. Confirm it before going further.",
     considerations:[
       "Monthly HOA / maintenance fee isn't listed \u2014 in an older tower this can be high and changes the real cost.",
@@ -378,7 +388,7 @@ const PROPERTIES = [
     dealKiller:"Top of budget, and the stated 4 parking spaces for a 2BR look wrong \u2014 if it's really 1\u20132 deeded, value softens.",
     grades:{neighborhood:"A", home:"B", value:"C"},
     badges:["Furnished","Low HOA"],
-    summary:"Furnished, move-in-ready 2BR + den (den converts to a 3rd bedroom) + maid\u2019s quarters in a newer, well-kept building two blocks off Av. Balboa. HOA confirmed at $219/mo \u2014 reasonable. At $2,461/m\u00b2 it\u2019s fairly priced for the area. Three full bathrooms, smart home, 1 storage unit, and 4 parking spaces (verify \u2014 may be a listing error). The building reviews well and it\u2019s the most move-in-complete option in the set.",
+    summary:"128 m\u00b2, furnished and move-in ready: 2BR + den (converts to a 3rd bedroom) + maid\u2019s quarters, two blocks off Av. Balboa. Three full baths, smart home, 1 storage unit, HOA confirmed $219/mo. 4 parking spaces stated \u2014 verify. $2,461/m\u00b2.",
     redFlags:"4 parking spaces for a 2BR is unusual \u2014 confirm how many are deeded to this unit vs visitor/tandem. Top of your budget. Smaller footprint than Sophia or Royal Princess.",
     considerations:[
       "Den explicitly described as convertible to a 3rd bedroom \u2014 gives real layout flexibility for family visits.",
@@ -412,7 +422,7 @@ const PROPERTIES = [
     dealKiller:"Building reviews allege noise, weak management and police visits \u2014 if true, no layout makes up for living there.",
     grades:{neighborhood:"A", home:"A", value:"A"},
     badges:["Good Value"],
-    summary:"The biggest and best-laid-out unit so far: a true 3-bedroom with a separate family room across 188 m\u00b2, remodeled (granite kitchen, marble/porcelain floors), panoramic city-view balcony, 2 parking plus an EV charger, in an amenity-rich Obarrio tower. At $1,750/m\u00b2 it's strong value for the area. Excellent on paper \u2014 but check the building before falling for it.",
+    summary:"188 m\u00b2: a true 3-bedroom with a separate family room, remodeled (granite kitchen, marble/porcelain floors), panoramic city-view balcony, 2 parking plus an EV charger, amenity-rich Obarrio tower. $1,750/m\u00b2.",
     redFlags:"A building review cites noise complaints, weak management and police visits \u2014 thin data (8 reviews) but worth serious diligence. Slightly over your $320k ceiling. No HOA fee disclosed.",
     considerations:[
       "$329k is just over your $320k target ceiling \u2014 worth it only if the size/quality justify the stretch.",
@@ -446,7 +456,7 @@ const PROPERTIES = [
     dealKiller:"Too small for family use (57 m\u00b2), parking is a $17k add-on, and all-in $/m\u00b2 is above area norm \u2014 not a family home.",
     grades:{neighborhood:"A", home:"D", value:"C"},
     badges:["Brand New","Small Unit"],
-    summary:"A brand-new (2025\u201326 delivery) 2BR in a heavily-amenitied Bella Vista development one block from the metro and Cinta Costera. Walkability is superb. But it's small \u2014 just 57 m\u00b2 for a 2BR \u2014 and parking is a $17k extra, pushing the real all-in to about $228k (~$4,000/m\u00b2, above the area norm). Reads as a sleek city base or rental play, not a comfortable family home.",
+    summary:"57 m\u00b2 brand-new (2025\u201326 delivery) 2BR, one block from the metro and Cinta Costera. Heavily amenitied. Parking is a $17k add-on, pushing all-in to ~$228k (~$4,000/m\u00b2).",
     redFlags:"Parking NOT included (+$17k). At ~$4,000/m\u00b2 all-in it's above the Av. Balboa range. Pre/just-construction \u2014 no operating or resale track record yet.",
     considerations:[
       "57 m\u00b2 is small for a 2BR \u2014 fine for a couple or a rental, tight for hosting family. This is the main reason it scores low on family use.",
@@ -480,7 +490,7 @@ const PROPERTIES = [
     dealKiller:"It's a 2BR (less flexible for visits) and the HOA is undisclosed \u2014 a high amenity fee would dent the value.",
     grades:{neighborhood:"A", home:"B", value:"B"},
     badges:["Good Value","Walkable"],
-    summary:"A 93 m\u00b2 2BR in a well-regarded luxury El Cangrejo tower, with the building's only open-concept kitchen (its main draw \u2014 brighter, more modern than the typical closed layouts). Parking included, strong amenities, and unbeatable walkability: top-rated caf\u00e9s on V\u00eda Argentina and the metro are a 3\u20136 min stroll. Fairly priced at $2,570/m\u00b2 and in a building that actually reviews well.",
+    summary:"93 m\u00b2 2BR with the building\u2019s only open-concept kitchen (brighter than the typical closed layouts). Parking included, strong amenities. V\u00eda Argentina caf\u00e9s and the metro are a 3\u20136 min walk. $2,570/m\u00b2.",
     redFlags:"None major. Maintenance fee, floor and address are all 'ask the seller' \u2014 confirm the HOA. A 2BR (not 3BR), so less flexible for extended-family visits.",
     considerations:[
       "Maintenance fee, floor and exact address are all withheld ('ask the seller') \u2014 the HOA on a Sky-Lounge luxury building can be meaningful, so confirm it.",
@@ -513,7 +523,7 @@ const PROPERTIES = [
     dealKiller:"1978 building: the remodel is cosmetic \u2014 if plumbing/electrical/fa\u00e7ade/reserves are weak, this is a money pit, not a bargain.",
     grades:{neighborhood:"A", home:"A", value:"A"},
     badges:["Good Value","Big + Terrace"],
-    summary:"The most space-for-money yet: a big 157 m\u00b2 apartment that 'lives like a house' \u2014 spacious living/dining, maid's room, and a private 20 m\u00b2 terrace \u2014 on a quiet cul-de-sac steps from Calle 50, freshly remodeled in 2024. At $1,305/m\u00b2 it's the cheapest per-meter on the board. The catch is honest and disclosed: it's a 1978 building, so the bargain hinges entirely on the building's structural health.",
+    summary:"157 m\u00b2 plus a private ~20 m\u00b2 terrace; \u2018lives like a house\u2019 \u2014 spacious living/dining, maid\u2019s room, quiet cul-de-sac steps from Calle 50, remodeled 2024. 1 parking, HOA $275. $1,305/m\u00b2 \u2014 cheapest per-meter on the board.",
     redFlags:"Building is from 1978 (~48 yrs). The 2024 remodel is the apartment, not the structure \u2014 verify plumbing, electrical, elevator, fa\u00e7ade and reserve fund before anything else. No amenities, which can soften resale.",
     considerations:[
       "1978 building: the remodel covers the unit, not the bones. The whole value case depends on the building's structure and reserve fund being sound \u2014 this needs the most building diligence of any listing so far.",
@@ -546,7 +556,7 @@ const PROPERTIES = [
     dealKiller:"HOA is undisclosed on an amenity-heavy building \u2014 a steep fee is the one thing that could undercut an otherwise clean pick.",
     grades:{neighborhood:"A", home:"B", value:"B"},
     badges:["Furnished","High Floor"],
-    summary:"A fully furnished, move-in-ready 2BR on the 15th floor of Bella Vista\u2019s best-reviewed building (4.8\u2605, 18 reviews). At $2,481/m\u00b2 it\u2019s in the lower half of the area band \u2014 fair price for what you get. Reviews specifically mention beautiful views of Parque Metropolitano, great security, and proximity to Parque Urrac\u00e1 and Av. Balboa. The one meaningful unknown is the HOA fee; on a furnished amenity building with a pool, gym, co-working and (reportedly) a tennis court, it could be meaningful.",
+    summary:"90.68 m\u00b2, furnished, 15th floor. Reviews mention beautiful Parque Metropolitano views, strong security, proximity to Parque Urrac\u00e1 and Av. Balboa. Pool, gym, co-working, reportedly a tennis court. 1 parking. HOA unknown \u2014 the key question. $2,481/m\u00b2.",
     redFlags:"HOA not disclosed \u2014 the most important number to get before proceeding. 1 parking only. Year built unknown (appears recently delivered).",
     considerations:[
       "HOA is the critical unknown. A furnished 15th-floor unit with pool, gym, tennis court and co-working could carry a high maintenance fee \u2014 confirm before getting serious.",
@@ -580,7 +590,7 @@ const PROPERTIES = [
     dealKiller:"The price gap likely reflects building age, and year-built + HOA are unknown \u2014 the whole case rests on building diligence.",
     grades:{neighborhood:"A", home:"A", value:"A"},
     badges:["Good Value","Big Layout"],
-    summary:"The best family-use layout in El Cangrejo: a true 3BR + maid\u2019s room across 145 m\u00b2 in a Mallol & Mallol-designed 18-story tower, with 2 parking and El Cangrejo\u2019s top-tier walkability at your door. At $1,924/m\u00b2 it\u2019s the lowest $/m\u00b2 in the area \u2014 the gap likely reflects building age. It\u2019s a \u2018special layout model\u2019 (larger than standard units), which is rare but makes resale comps harder to find. Building diligence is the whole ballgame: if the year built and HOA come back clean, this is a strong Shortlist candidate.",
+    summary:"145 m\u00b2 true 3BR + maid\u2019s room in a Mallol & Mallol 18-story tower, 2 parking. A \u2018special layout model\u2019 (larger than standard units), so resale comps are harder to find. $1,924/m\u00b2 \u2014 lowest in the area. Year built and HOA undisclosed.",
     redFlags:"HOA undisclosed. Year built unknown. Building rating thin (3.6\u2605/8 reviews \u2014 not enough data). Address says Obarrio \u2014 confirm exact block. Special layout means fewer resale comps.",
     considerations:[
       "Year built is the first question \u2014 the low $/m\u00b2 in a good area usually means age. Mallol & Mallol design is a quality signal on the bones, but verify what\u2019s been updated (elevators, plumbing, electrical, fa\u00e7ade).",
@@ -613,7 +623,7 @@ const PROPERTIES = [
     dealKiller:"~19% above the area band, an 18-month wait to end-2027, and an unproven building \u2014 you pay the appreciation premium upfront.",
     grades:{neighborhood:"A", home:"B", value:"C"},
     badges:["New Build","Pre-Sale"],
-    summary:"A brand-new 3BR (106 m\u00b2) in a heavily-amenitied San Francisco tower near Parque Omar \u2014 included here because some of the family lean toward new builds. The honest math: at $3,100/m\u00b2 it\u2019s ~19% above the area band, it\u2019s a pre-sale that won\u2019t deliver until end of 2027 (~18 months), and the building doesn\u2019t exist yet so there\u2019s no track record to check. You\u2019d be paying the appreciation premium upfront rather than getting a presale discount. Good amenities and location; the trade-off is price, wait, and uncertainty.",
+    summary:"106 m\u00b2 brand-new 3BR in a heavily-amenitied San Francisco tower near Parque Omar. Pre-sale, delivery end of 2027 (~18 months). Developer Grupo Binian. $3,100/m\u00b2.",
     redFlags:"PRE-SALE \u2014 delivery end 2027 (~18 months), can\u2019t inspect or use it. $3,100/m\u00b2 is above the San Francisco band. Floor 7 south-facing units may be view-blocked by the existing PH Living 73 tower ~225m south.",
     considerations:[
       "It\u2019s a pre-sale: you commit money now for a unit that doesn\u2019t exist yet and won\u2019t be ready until end of 2027. Developer (Grupo Binian) track record should be verified.",
@@ -651,7 +661,7 @@ const PROPERTIES = [
     dealKiller:"~17% above band, delivers end-2027, only 1 parking for a 120 m\u00b2 3BR, and no track record \u2014 a pricing/appreciation bet.",
     grades:{neighborhood:"A", home:"B", value:"C"},
     badges:["New Build","Pre-Sale"],
-    summary:"The biggest, best-laid-out Aurora unit: a brand-new 120 m\u00b2 corner 3BR + 2.5 bath + maid\u2019s quarters in San Francisco near Parque Omar \u2014 included for the family members who prefer new construction. As a family layout it\u2019s excellent. The catch is the same as the smaller Aurora unit: $3,050/m\u00b2 is ~17% above the area band, it\u2019s a pre-sale delivering end of 2027, and the building is unproven. A strong new-build option if the family values new over move-in-ready value, but the pricing is an appreciation bet.",
+    summary:"120 m\u00b2 brand-new corner 3BR + 2.5 bath + maid\u2019s quarters near Parque Omar \u2014 the best family layout of the Aurora units. 1 parking. Pre-sale, delivery end of 2027. $3,050/m\u00b2.",
     redFlags:"PRE-SALE \u2014 delivery end 2027 (~18 months), can\u2019t inspect or use it. $3,050/m\u00b2 above the San Francisco band. Only 1 parking space for a 120 m\u00b2 3BR.",
     considerations:[
       "Best family layout of the Aurora units \u2014 120 m\u00b2 corner, 3BR + 2.5 bath + maid\u2019s quarters. If new-build matters to the family, this is the one to look at.",
@@ -689,7 +699,7 @@ const PROPERTIES = [
     dealKiller:"Highest $/m\u00b2 of the Auroras, above the area band, 80 m\u00b2 is tight for hosting, and it's a pre-sale to end-2027.",
     grades:{neighborhood:"A", home:"C", value:"C"},
     badges:["New Build","Pre-Sale"],
-    summary:"The most budget-friendly Aurora unit and the one that fits your price range best: a brand-new 80 m\u00b2 2BR at $256,000 (the real available price \u2014 lower than the $281k the marketing quotes). A 2BR works for you, and this is the entry point into the new-build option some of the family prefer. The honest catch is the same as the other Aurora units: $3,200/m\u00b2 is the highest per-meter of the three (small units cost more per m\u00b2), it\u2019s above the area band, and it\u2019s a pre-sale delivering end of 2027.",
+    summary:"80 m\u00b2 brand-new 2BR at $256,000 (the real available price; marketing quotes $281k) \u2014 the entry point into the Aurora new-build option. Pre-sale, delivery end of 2027. $3,200/m\u00b2.",
     redFlags:"PRE-SALE \u2014 delivery end 2027 (~18 months). $3,200/m\u00b2 is the highest per-meter of the Aurora units and above the San Francisco band. 80 m\u00b2 is small for family hosting. Floor matters for view \u2014 verify.",
     considerations:[
       "$256k is the real lowest available price (floor 9, Type E) \u2014 the $281k \u2018starting\u2019 figure in the marketing is higher than what\u2019s actually on the price list. Negotiate from $256k.",
@@ -726,7 +736,7 @@ const PROPERTIES = [
     dealKiller:"HOA is undisclosed and the review base is thin (6) \u2014 a surprise fee or management issue is the only thing that would knock it off the top spot.",
     grades:{neighborhood:"A", home:"A", value:"A"},
     badges:["Good Value","Big Layout"],
-    summary:"The best value and the highest score in the whole tracker: a 155 m\u00b2 true 3BR/3BA in the heart of El Cangrejo at $1,626/m\u00b2 \u2014 below the area average ($1,923) and below the band floor. It\u2019s a 2012 building (established, with a track record), floor 10 with panoramic city views and a balcony, master ensuite, breakfast-bar kitchen, 2 parking, and a pool/gym/24-7-security building that reviews 5.0\u2605. The only open item is the HOA fee. This is the strongest fit yet on the numbers \u2014 confirm the HOA and it\u2019s a serious front-runner.",
+    summary:"155 m\u00b2 true 3BR/3BA, floor 10, panoramic city views and a balcony, master ensuite, breakfast-bar kitchen, 2 parking. 2012 building with pool, gym, 24/7 security, 5.0\u2605 reviews. $1,626/m\u00b2 \u2014 below the area average ($1,923) and the band floor. HOA is the one open item.",
     redFlags:"HOA undisclosed \u2014 the one number to confirm. Building reviews are positive but thin (6). Price is negotiable per the listing.",
     considerations:[
       "$1,626/m\u00b2 is the best value in the set \u2014 below the El Cangrejo average and band floor for a large 3BR. The listing says price is negotiable, so there may be room below $252k.",
@@ -760,7 +770,7 @@ const PROPERTIES = [
     dealKiller:"1989 building (37 yrs): a remodeled interior doesn't fix aging systems, and the building's track record couldn't be confirmed.",
     grades:{neighborhood:"B", home:"A", value:"B"},
     badges:["Good Value","Building Age"],
-    summary:"A big, comfortable, well-remodeled unit \u2014 173 m\u00b2, 2BR + study (optional 3rd bedroom) + maid\u2019s quarters, European kitchen, bar with wine cellar, bay views, 2 parking, HOA confirmed at $294. On the unit alone it\u2019s strong value at $1,821/m\u00b2 (below the Paitilla average). The catch, and it\u2019s a real one: the building dates to 1989 (37 years old). A remodeled apartment doesn\u2019t fix an old building \u2014 plumbing, electrical, elevators and the reserve fund are what matter at this age, and I couldn\u2019t confirm this specific building\u2019s track record. Added because it clears the bar on the unit, but flagged: verify the building before getting attached.",
+    summary:"173 m\u00b2: 2BR + study (optional 3rd bedroom) + maid\u2019s quarters, European kitchen, bar with wine cellar, bay views, 2 parking, HOA confirmed $294. Remodeled interior. $1,821/m\u00b2 \u2014 below the Paitilla average. Building dates to 1989.",
     redFlags:"1989 building (37 years old) \u2014 the central concern, same age-risk profile as PH Cadiz. Building reviews could not be confirmed. Verify major systems and reserve fund before proceeding.",
     considerations:[
       "The building age is the whole question. Ask directly what\u2019s been updated since 1989 \u2014 plumbing risers, electrical, elevators, fa\u00e7ade, water tanks \u2014 and the reserve-fund balance.",
@@ -794,7 +804,7 @@ const PROPERTIES = [
     dealKiller:"Bank-owned at a market (not discount) price \u2014 likely sold as-is, so condition and handover terms are the real risk to verify.",
     grades:{neighborhood:"A", home:"B", value:"B"},
     badges:["High Floor","Sea View"],
-    summary:"A high-floor 2BR/2BA in Element Tower, right on Avenida Balboa \u2014 ocean views, modern kitchen, and a building that reviews well (4.1\u2605 across 27 reviews, the deepest review base in your set): \u201Cbeautiful place to live, heart of Av Balboa, best for the price,\u201D with a renovated gym and rooftop Sky Bar. It\u2019s bank-owned, which is the thing to weigh carefully: the price ($2,452/m\u00b2) is essentially at the Av Balboa average, so this isn\u2019t a deep discount \u2014 and bank sales are usually as-is, so condition and handover need checking. At 104 m\u00b2 with one parking space it\u2019s a comfortable couple/small-family unit rather than a full-family layout.",
+    summary:"104 m\u00b2 2BR/2BA, high floor, confirmed ocean views, modern kitchen, 1 parking. Element Tower reviews 4.1\u2605 across 27 \u2014 \u201cbest for the price,\u201d renovated gym and rooftop Sky Bar. Bank-owned at $2,452/m\u00b2 (\u2248 Av Balboa average). A comfortable couple/small-family unit.",
     redFlags:"Bank-owned \u2014 likely sold as-is; verify condition and occupancy/handover. HOA, year built, and exact floor undisclosed. Only 1 parking space. (Ocean view confirmed from the photos.)",
     considerations:[
       "Bank-owned doesn\u2019t mean cheap here \u2014 at $2,452/m\u00b2 it\u2019s priced at the Av Balboa average, so treat the \u201Cbank sale\u201D as a condition/process flag, not a bargain. Confirm whether it\u2019s sold as-is and what shape it\u2019s in.",
@@ -851,24 +861,19 @@ const PROPERTIES = [
       <div class="field"><label for="f-beds">Beds</label><select id="f-beds">
         <option value="">Any</option><option value="2">2+</option><option value="3">3+</option>
       </select></div>
-      <div class="field"><label for="f-status">Status</label><select id="f-status"><option value="">All</option></select></div>
       <div class="field"><label for="f-verdict">Verdict</label><select id="f-verdict">
         <option value="">Any</option><option>Great Find</option><option>Solid Option</option>
         <option>Fair</option><option>Overpriced</option><option>Caution</option>
       </select></div>
-      <div class="field"><label for="f-new">Show</label><select id="f-new">
-        <option value="">Everything</option><option value="new">New to me only</option>
-      </select></div>
-      <div class="field"><label for="f-lovedby">Loved by</label><select id="f-lovedby">
-        <option value="">Anyone</option>
-      </select></div>
-      <div class="field"><label for="f-fresh">Freshness</label><select id="f-fresh">
-        <option value="">Any</option><option value="Fresh">Fresh</option>
-        <option value="Aging">Aging</option><option value="Stale">Stale (60+)</option>
-      </select></div>
       <div class="field"><label for="f-bldg">Building</label><select id="f-bldg">
         <option value="">Any</option><option value="good">Looks good</option>
         <option value="caution">Has concerns</option><option value="unknown">Unrated</option>
+      </select></div>
+      <div class="field"><label for="f-new">Show</label><select id="f-new">
+        <option value="">Everything</option><option value="new">New to me only</option>
+      </select></div>
+      <div class="field"><label for="f-lovedby"><span class="lbl-heart">\u2764</span> Loved by</label><select id="f-lovedby">
+        <option value="">Anyone</option>
       </select></div>
       <div class="field"><label for="f-sort">Sort by</label><select id="f-sort">
         <option value="score">Overall score</option>
@@ -1153,19 +1158,21 @@ function cardHTML(p){
     : "";
   const verified=p.lastVerified?`<span class="verified">Checked ${p.lastVerified}</span>`:"";
 
-  const detailBits=[flags, prebuild, considers, mapImg(p), walkList(p), bq].filter(Boolean).join("");
+  const mapHref=(p.lat&&p.lng)
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((p.building?p.building+", ":"")+(p.area||"Panama City")+" Panama")}&center=${p.lat},${p.lng}`
+    : (p.mapLink||"");
+  const mapTop=mapHref?`<a class="map-top" href="${mapHref}" target="_blank" rel="noopener"><i class="pin">\u{1F4CD}</i> Map</a>`:"";
+
+  // The full summary now lives inside More details (keeps cards uniform height).
+  const summaryBlock=`<p class="summary">${fullSummary}</p>`;
+  const detailBits=[summaryBlock, flags, prebuild, considers, mapImg(p), walkList(p), bq].filter(Boolean).join("");
   const hasExtra=detailBits.length>0;
-  // Only clamp a genuinely long summary. Current summaries (~400 chars / 5 lines)
-  // show in full; clamping kicks in only for substantially longer ones.
-  const longSummary=fullSummary.length>520;
-  const needsToggle=hasExtra||longSummary;
-  const summaryCls=longSummary?"summary clamp":"summary";
-  const body=needsToggle
+  const body=hasExtra
     ? `<details class="more">
-         <summary><p class="${summaryCls}">${fullSummary}</p><span class="more-toggle"><span class="chev">\u203A</span><span class="more-label">More details</span></span></summary>
-         ${hasExtra?`<div class="more-inner">${detailBits}</div>`:""}
+         <summary><span class="more-toggle"><span class="chev">\u203A</span><span class="more-label">More details</span></span></summary>
+         <div class="more-inner">${detailBits}</div>
        </details>`
-    : `<p class="summary">${fullSummary}</p>`;
+    : "";
 
   return `<article class="card ${p.archived?"archived":""}" id="card-${p.id}">
     ${hero}
@@ -1173,14 +1180,13 @@ function cardHTML(p){
       ${(()=>{const fs=fitScore(p);return fs!=null?`<div class="fitbadge">Your fit: ${fs}<span class="fb-x">/10</span></div>`:"";})()}
       <div class="badges">${badges}${statusBadge}</div>
       <h3>${p.building||"Unknown building"}</h3>
-      ${p.view?`<div class="area">${p.view}</div>`:""}
+      <div class="sub-line">${p.view?`<span class="area">${p.view}</span>`:"<span></span>"}${mapTop}</div>
       ${p.thesis?`<div class="thesis"><b>Thesis</b>${p.thesis}</div>`:""}
       ${p.dealKiller?`<div class="killer"><b>What could kill it</b>${p.dealKiller}</div>`:""}
       ${grades}
       ${buildingLine(p)}
       ${body}
       <div class="reactions" data-id="${p.id}">
-        <div class="you-loved" data-youloved hidden>\u2764 You loved this</div>
         <div class="react-row">
           <button class="react-btn r-love" data-vote="love" aria-label="Love it"><span>\u2764 Love</span><span class="rc" data-c="love">0</span></button>
           <button class="react-btn r-maybe" data-vote="maybe" aria-label="Maybe"><span>\u2014 Maybe</span><span class="rc" data-c="maybe">0</span></button>
@@ -1190,12 +1196,13 @@ function cardHTML(p){
         <span class="react-mode"></span>
       </div>
       <div class="card-foot">
-        ${p.listingUrl?`<a class="foot-listing" href="${p.listingUrl}" target="_blank" rel="noopener">View listing \u2197</a>`:""}
-        ${(p.lat&&p.lng)?`<a class="foot-map" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((p.building?p.building+", ":"")+(p.area||"Panama City")+" Panama")}&center=${p.lat},${p.lng}" target="_blank" rel="noopener">\u{1F4CD} Map</a>`:(p.mapLink?`<a class="foot-map" href="${p.mapLink}" target="_blank" rel="noopener">\u{1F4CD} Map</a>`:"")}
-        ${verified}
-        ${p.archived
-          ? `<button class="card-restore" data-restore="${p.id}">Restore</button>`
-          : `<button class="card-remove" data-remove="${p.id}">\u2715 Remove</button>`}
+        ${p.listingUrl?`<a class="foot-listing" href="${p.listingUrl}" target="_blank" rel="noopener">View listing <span class="ext">\u2197</span></a>`:""}
+        <span class="foot-right">
+          ${verified}
+          ${p.archived
+            ? `<button class="card-restore" data-restore="${p.id}">Restore</button>`
+            : `<button class="card-remove" data-remove="${p.id}" aria-label="Remove">\u2715</button>`}
+        </span>
       </div>
     </div>
   </article>`;
@@ -1203,8 +1210,8 @@ function cardHTML(p){
 
 function applyFilters(src){
   const q=$("#f-search").value.toLowerCase().trim();
-  const area=$("#f-area").value,status=$("#f-status").value,beds=$("#f-beds").value;
-  const price=$("#f-price").value,verd=$("#f-verdict").value,fresh=$("#f-fresh").value;
+  const area=$("#f-area").value,beds=$("#f-beds").value;
+  const price=$("#f-price").value,verd=$("#f-verdict").value;
   const bldg=$("#f-bldg").value;
   const newOnly=$("#f-new")?$("#f-new").value:"";
   const lovedBy=$("#f-lovedby")?$("#f-lovedby").value:"";
@@ -1213,11 +1220,9 @@ function applyFilters(src){
     if(newOnly==="new"&&!isNewToMe(p))return false;
     if(lovedBy&&!loversOf(p).includes(lovedBy))return false;
     if(area&&p.area!==area)return false;
-    if(status&&p.status!==status)return false;
     if(beds&&!(num(p.beds)&&p.beds>=+beds))return false;
     if(price){const[lo,hi]=price.split("-").map(Number);if(!(num(p.price)&&p.price>=lo&&p.price<=hi))return false;}
     if(verd&&verdictOf(p)!==verd)return false;
-    if(fresh&&freshness(p).key!==fresh)return false;
     if(bldg&&(p.building_rating||"unknown")!==bldg)return false;
     return true;
   });
@@ -1342,10 +1347,8 @@ function renderStats(){
 function initFilters(){
   [...new Set(PROPERTIES.map(p=>p.area).filter(Boolean))].sort()
     .forEach(a=>$("#f-area").insertAdjacentHTML("beforeend",`<option value="${a}">${a}</option>`));
-  [...new Set(PROPERTIES.map(p=>p.status).filter(Boolean))].sort()
-    .forEach(s=>$("#f-status").insertAdjacentHTML("beforeend",`<option value="${s}">${s}</option>`));
 }
-["f-search","f-area","f-price","f-beds","f-status","f-verdict","f-new","f-lovedby","f-fresh","f-bldg","f-sort"].forEach(id=>{
+["f-search","f-area","f-price","f-beds","f-verdict","f-new","f-lovedby","f-bldg","f-sort"].forEach(id=>{
   document.addEventListener("input",e=>{if(e.target.id===id){if(id==="f-sort")sortKey=$("#f-sort").value;render();}});
 });
 document.addEventListener("change",e=>{if(e.target.id==="f-sort"){sortKey=$("#f-sort").value;render();}});
@@ -1378,7 +1381,7 @@ if(tgl){
   });
 }
 function updateFilterCount(){
-  const ids=["f-search","f-area","f-price","f-beds","f-status","f-verdict","f-fresh","f-bldg"];
+  const ids=["f-search","f-area","f-price","f-beds","f-verdict","f-new","f-lovedby","f-bldg"];
   const n=ids.filter(id=>{const el=$("#"+id);return el&&el.value;}).length;
   const badge=$("#filter-count");
   if(badge){ if(n>0){badge.hidden=false;badge.textContent=n;} else badge.hidden=true; }
@@ -1386,7 +1389,7 @@ function updateFilterCount(){
 document.addEventListener("input",updateFilterCount);
 document.addEventListener("change",updateFilterCount);
 $("#clear").addEventListener("click",()=>{
-  ["f-search","f-area","f-price","f-beds","f-status","f-verdict","f-fresh","f-bldg"].forEach(id=>$("#"+id).value="");
+  ["f-search","f-area","f-price","f-beds","f-verdict","f-new","f-lovedby","f-bldg"].forEach(id=>{const el=$("#"+id);if(el)el.value="";});
   $("#f-sort").value="score";sortKey="score";
   render();
 });
@@ -1500,9 +1503,6 @@ function paintVotes(){
       btn.querySelector(".rc").textContent=counts[ch]||0;
       btn.classList.toggle("mine", mine===ch);
     });
-    // "you loved this" marker
-    const yl=row.querySelector("[data-youloved]");
-    if(yl) yl.hidden = (mine!=="love");
     // names line
     const namesEl=row.querySelector(".react-names");
     if(namesEl){
