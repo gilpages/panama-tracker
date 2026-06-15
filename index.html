@@ -116,7 +116,7 @@
   details.more summary{cursor:pointer;list-style:none;display:flex;flex-direction:column;gap:4px}
   details.more summary::-webkit-details-marker{display:none}
   details.more summary .summary{margin:0}
-  .more-toggle{font-size:12.5px;font-weight:600;color:var(--bay);display:inline-flex;align-items:center;gap:6px;padding:6px 12px;margin-top:8px;border:1px solid var(--line);border-radius:8px;background:#fff;align-self:flex-start;transition:all .12s ease}
+  .more-toggle{font-size:12.5px;font-weight:600;color:var(--bay);display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;align-self:flex-start;transition:all .12s ease}
   details.more summary:hover .more-toggle{border-color:var(--bay);background:#f6faf8}
   details.more[open] .more-toggle .more-label::after{content:" \2014 less"}
   details.more .chev{transition:transform .15s ease;display:inline-block}
@@ -210,14 +210,20 @@
   .card-remove:hover{color:var(--red);background:var(--red-bg)}
   .card.archived{opacity:.78}
   .card.archived h3{text-decoration:line-through;text-decoration-color:rgba(163,54,54,.5)}
+  .card.offmarket{opacity:.85}
+  .card.offmarket .hero{filter:grayscale(.35)}
+  .offmarket-banner{background:#ede9e2;color:#6a6254;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-align:center;padding:5px 10px}
+  .badge.b-offmarket{background:#e4ded1;color:#6a6254}
   .card-restore{margin-left:auto;font-size:12px;font-weight:600;color:var(--bay);background:none;border:none;cursor:pointer;padding:4px 6px;border-radius:6px}
   .card-restore:hover{background:#f6faf8}
 
   /* reactions row */
   .reactions{padding-top:11px;margin-top:4px;border-top:1px solid var(--line)}
   .react-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-  .react-names{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.5;display:flex;flex-direction:column;gap:2px}
-  .react-names .rn-line b{font-weight:600;color:#3a443f}
+  .react-names{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.4;display:flex;flex-direction:column;gap:3px}
+  .react-names .rn-line{display:flex;align-items:center;gap:5px}
+  .react-names .rn-line b{font-weight:400;flex:0 0 auto;font-size:12px;line-height:1}
+  .react-names .rn-line .rn-names{color:#3a443f}
   .react-mode{display:block;font-size:10.5px;color:var(--muted);margin-top:6px;letter-spacing:.02em}
   .card-foot{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:auto;padding-top:11px;border-top:1px solid var(--line)}
   .card-foot a{font-size:13px;font-weight:600;text-decoration:none}
@@ -231,6 +237,8 @@
   .card-restore{font:inherit;font-size:12px;font-weight:600;color:var(--bay);background:none;border:none;cursor:pointer;padding:2px 4px}
   /* sub-line under building name: view + map link */
   .sub-line{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .walkline{display:flex;align-items:flex-start;gap:6px;font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:-2px}
+  .walkline .wl-icon{font-style:normal;flex:0 0 auto}
   .map-top{font-size:12.5px;font-weight:600;color:var(--bay);text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:3px;flex:0 0 auto}
   .map-top:hover{text-decoration:underline}
   .map-top .pin{font-style:normal;font-size:12px}
@@ -254,6 +262,9 @@
   .bq-group h4{font-family:'Fraunces',serif;font-weight:500;font-size:16px;margin-bottom:8px}
   .bq-group ul{margin-left:18px;font-size:14px;color:#3a443f}
   .bq-group li{margin:3px 0}
+  .copy-q{font:inherit;font-size:12px;font-weight:600;color:var(--bay);background:#fff;border:1px solid #cfe0da;border-radius:7px;padding:4px 10px;cursor:pointer;white-space:nowrap;transition:all .12s ease}
+  .copy-q:hover{background:var(--bay);color:#fff;border-color:var(--bay)}
+  .copy-q.copied{background:var(--green,#1d8a5f);color:#fff;border-color:var(--green,#1d8a5f)}
 
   .empty{background:var(--sand-card);border:1px dashed var(--line);border-radius:14px;padding:38px 24px;text-align:center;color:var(--muted)}
   .empty b{color:var(--ink);font-family:'Fraunces',serif;font-weight:500;font-size:18px;display:block;margin-bottom:6px}
@@ -300,6 +311,10 @@
   #qpill-new[data-active="true"]{background:#caa53a;border-color:#caa53a;color:#3a2e08}
 
   @media(max-width:760px){
+    .sec-head{flex-direction:column;align-items:flex-start;gap:3px;margin:28px 0 14px}
+    .sec-head h2{font-size:21px;white-space:nowrap}
+    .sec-head .meta{font-size:12.5px}
+    .sec-head .rule{display:none}
     .mobile-pills{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:10px}
     .controls{position:static;padding:0;border:none;box-shadow:none;background:transparent;margin:14px auto 18px}
     .filter-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;
@@ -362,13 +377,16 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
    someone with this code can set listings aside. */
 const REMOVE_CODE = "1234";
 
-const PROPERTIES = [
+// Baked-in snapshot — used instantly on load and as offline fallback.
+// Live data is fetched from Supabase by loadProperties() and replaces this.
+const FALLBACK_PROPERTIES = [
   {
     id:"P-001", building:"PH Royal Princess (7A)", area:"Punta Paitilla",
     price:215000, beds:2, baths:2, parking:2, size_m2:147.15,
     view:"Unknown (balcony present)", status:"Ask Broker",
     overallScore:7.4,
     verdict:"Solid Option",
+    walkLine:"2 min to Parque Paitilla waterfront \u00b7 6 min to Paitilla Mall",
     dateAdded:"2026-06-12",
     thesis:"Large fully-remodeled Paitilla 2BR+maid (lives like a 3BR) at a notably low $/m\u00b2 \u2014 strong space-for-money if the building holds up.",
     dealKiller:"The below-market price likely reflects an older, unrated building \u2014 if reserves/management are weak, the bargain evaporates.",
@@ -401,6 +419,7 @@ const PROPERTIES = [
     view:"Unknown (balcony present)", status:"Interested",
     overallScore:7.2,
     verdict:"Solid Option",
+    walkLine:"3 min to Supermercados Rey \u00b7 15 min to Cinta Costera waterfront",
     dateAdded:"2026-06-12",
     thesis:"Move-in-ready furnished 2BR+den+maid two blocks off Av Balboa in a well-reviewed building \u2014 the most turnkey option in the set.",
     dealKiller:"Top of budget, and the stated 4 parking spaces for a 2BR look wrong \u2014 if it's really 1\u20132 deeded, value softens.",
@@ -435,6 +454,7 @@ const PROPERTIES = [
     view:"Panoramic city (stated)", status:"Shortlist",
     overallScore:7.6,
     verdict:"Caution",
+    walkLine:"15 min to Multiplaza mall \u00b7 limited walkability nearby",
     dateAdded:"2026-06-12",
     thesis:"The biggest, best-laid-out unit on the board \u2014 true 3BR+family room, 188 m\u00b2, remodeled, EV charging \u2014 at strong Obarrio value.",
     dealKiller:"Building reviews allege noise, weak management and police visits \u2014 if true, no layout makes up for living there.",
@@ -469,6 +489,7 @@ const PROPERTIES = [
     view:"Unknown (low-density, balcony)", status:"Interested",
     overallScore:5.7,
     verdict:"Fair",
+    walkLine:"1 min to Santo Tom\u00e1s Metro \u00b7 1 min to supermarket \u00b7 7 min to Parque Urrac\u00e1",
     dateAdded:"2026-06-12",
     thesis:"A sleek brand-new micro-2BR one block from the metro \u2014 works as a city base or rental play.",
     dealKiller:"Too small for family use (57 m\u00b2), parking is a $17k add-on, and all-in $/m\u00b2 is above area norm \u2014 not a family home.",
@@ -503,6 +524,7 @@ const PROPERTIES = [
     view:"Unknown (dense area; likely city)", status:"Interested",
     overallScore:7.2,
     verdict:"Solid Option",
+    walkLine:"3 min to Einstein Park \u00b7 V\u00eda Argentina caf\u00e9s nearby",
     dateAdded:"2026-06-12",
     thesis:"Well-reviewed luxury El Cangrejo tower with the building's only open-kitchen unit, fairly priced, unbeatable walkability.",
     dealKiller:"It's a 2BR (less flexible for visits) and the HOA is undisclosed \u2014 a high amenity fee would dent the value.",
@@ -536,6 +558,7 @@ const PROPERTIES = [
     view:"Unknown (terrace; quiet cul-de-sac)", status:"Interested",
     overallScore:7.0,
     verdict:"Caution",
+    walkLine:"3 min to the Calle 50 corridor \u00b7 10 min to groceries",
     dateAdded:"2026-06-12",
     thesis:"The cheapest per-meter on the board \u2014 a big 157 m\u00b2 unit with a private terrace on a quiet cul-de-sac, freshly remodeled.",
     dealKiller:"1978 building: the remodel is cosmetic \u2014 if plumbing/electrical/fa\u00e7ade/reserves are weak, this is a money pit, not a bargain.",
@@ -566,28 +589,28 @@ const PROPERTIES = [
   {
     id:"P-007", building:"PH Altamira Residences (Unit 15C)", area:"Bella Vista",
     price:225000, beds:2, baths:2, parking:1, size_m2:90.68,
-    view:"City / Parque Metropolitano (15th floor)", status:"Interested",
+    view:"Cinta Costera & Parque Urrac\u00e1 \u2014 urban city view (confirmed)", status:"Off-market",
+    offMarket:true, offMarketNote:"Under contract / in closing \u2014 confirmed by agent 15 Jun 2026.",
     overallScore:7.4,
     verdict:"Solid Option",
+    walkLine:"5 min to supermarket \u00b7 7 min to Parque Urrac\u00e1 \u00b7 7 min to Cinta Costera",
     dateAdded:"2026-06-13",
     thesis:"Furnished, move-in-ready 2BR on a high floor in Bella Vista's best-reviewed building (4.8\u2605), fairly priced with great views.",
-    dealKiller:"HOA is undisclosed on an amenity-heavy building \u2014 a steep fee is the one thing that could undercut an otherwise clean pick.",
+    dealKiller:"Off the market \u2014 the agent confirmed it\u2019s under contract and in closing. Kept for reference and building intel.",
     grades:{neighborhood:"A", home:"B", value:"B"},
     badges:["Furnished","High Floor"],
-    summary:"90.68 m\u00b2, furnished, 15th floor. Reviews mention beautiful Parque Metropolitano views, strong security, proximity to Parque Urrac\u00e1 and Av. Balboa. Pool, gym, co-working, reportedly a tennis court. 1 parking. HOA unknown \u2014 the key question. $2,481/m\u00b2.",
-    redFlags:"HOA not disclosed \u2014 the most important number to get before proceeding. 1 parking only. Year built unknown (appears recently delivered).",
+    summary:"90.68 m\u00b2, furnished, 15th floor, completed 2019, facing Cinta Costera and Parque Urrac\u00e1 (confirmed by agent). Pool, gym, co-working. 1 parking. $2,481/m\u00b2. UNDER CONTRACT as of 15 Jun 2026 \u2014 no longer available; retained for reference.",
+    redFlags:"No longer available \u2014 under contract / closing. 1 parking only.",
     considerations:[
-      "HOA is the critical unknown. A furnished 15th-floor unit with pool, gym, tennis court and co-working could carry a high maintenance fee \u2014 confirm before getting serious.",
-      "Reviews mention a tennis court but the listing doesn\u2019t \u2014 verify this is actually there.",
-      "15th floor is the most promising view in the set if 15C faces Parque Metropolitano or Cinta Costera. Confirm the exact direction.",
-      "1 parking space \u2014 less flexible than Balboa Bay\u2019s setup if you need two vehicles.",
-      "Year built not stated; \u2018brand new\u2019 in one review suggests recently delivered. Confirm to assess building track record.",
-      "Facts from listing text and Google reviews only \u2014 not independently verified."
+      "Agent confirmed (15 Jun 2026): building completed 2019; unit faces Cinta Costera and Parque Urrac\u00e1 with an urban city view.",
+      "The agent noted Panama rentals typically fold HOA into the rent (covering gas + common areas) \u2014 useful context, but this was tracked as a purchase.",
+      "Same agent introduced two PH Joy Tower units in San Francisco as alternatives (see P-016).",
+      "Kept on the board as off-market for reference and as a record of the building\u2019s quality (4.8\u2605)."
     ],
     building_rating:"good",
-    building_note:"4.8\u2605 over 18 reviews \u2014 best building rating in this search. Residents praise security, atmosphere, and beautiful views of Parque Metropolitano. Close to Balboa and Urrac\u00e1. Reviews mention tennis court not in listing.",
+    building_note:"4.8\u2605 over 18 reviews \u2014 best building rating in this search. Completed 2019. Residents praise security, atmosphere, and views of Parque Metropolitano / Cinta Costera. Close to Balboa and Urrac\u00e1.",
     datePosted:"2026-05-13",
-    lastVerified:"2026-06-09",
+    lastVerified:"2026-06-15",
     thumbnail:"",
     lat:8.976101, lng:-79.5319947,
     walk:[{to:"Rey supermarket",min:5},{to:"Parque Urrac\u00e1",min:7},{to:"Cinta Costera",min:7}],
@@ -603,6 +626,7 @@ const PROPERTIES = [
     view:"Unknown (18-story tower \u2014 floor dependent)", status:"Interested",
     overallScore:7.6,
     verdict:"Solid Option",
+    walkLine:"3 min to V\u00eda Argentina caf\u00e9s & Einstein Park",
     dateAdded:"2026-06-13",
     thesis:"The best family layout in El Cangrejo \u2014 true 3BR+maid, Mallol-designed tower, top walkability \u2014 at the lowest $/m\u00b2 in the area.",
     dealKiller:"The price gap likely reflects building age, and year-built + HOA are unknown \u2014 the whole case rests on building diligence.",
@@ -636,6 +660,7 @@ const PROPERTIES = [
     view:"Floor/orientation dependent \u2014 verify", status:"Interested",
     overallScore:6.3,
     verdict:"Fair",
+    walkLine:"5 min to V\u00eda Israel dining \u00b7 7 min to Parque Omar",
     dateAdded:"2026-06-13",
     thesis:"A brand-new 3BR near Parque Omar for the family members who prefer new construction; strong amenities and location.",
     dealKiller:"~19% above the area band, an 18-month wait to end-2027, and an unproven building \u2014 you pay the appreciation premium upfront.",
@@ -674,6 +699,7 @@ const PROPERTIES = [
     view:"Corner unit \u2014 Parque Omar potential; verify", status:"Interested",
     overallScore:6.9,
     verdict:"Fair",
+    walkLine:"5 min to V\u00eda Israel dining \u00b7 7 min to Parque Omar",
     dateAdded:"2026-06-13",
     thesis:"The best family layout of the Aurora pre-sales \u2014 120 m\u00b2 corner 3BR+maid, brand-new near Parque Omar.",
     dealKiller:"~17% above band, delivers end-2027, only 1 parking for a 120 m\u00b2 3BR, and no track record \u2014 a pricing/appreciation bet.",
@@ -712,6 +738,7 @@ const PROPERTIES = [
     view:"Floor/orientation dependent \u2014 verify", status:"Interested",
     overallScore:6.0,
     verdict:"Fair",
+    walkLine:"5 min to V\u00eda Israel dining \u00b7 7 min to Parque Omar",
     dateAdded:"2026-06-13",
     thesis:"The most budget-friendly Aurora unit and the cleanest fit for your price band \u2014 the entry point into the new-build option.",
     dealKiller:"Highest $/m\u00b2 of the Auroras, above the area band, 80 m\u00b2 is tight for hosting, and it's a pre-sale to end-2027.",
@@ -749,6 +776,7 @@ const PROPERTIES = [
     view:"Panoramic city (10th floor balcony)", status:"Interested",
     overallScore:8.4,
     verdict:"Great Find",
+    walkLine:"5 min to El Cangrejo Metro \u00b7 2 min to supermarket \u00b7 V\u00eda Argentina caf\u00e9s nearby",
     dateAdded:"2026-06-13",
     thesis:"Best value and highest score in the tracker \u2014 a true 3BR/3BA in El Cangrejo below the area average, in an established 2012 building that reviews 5.0\u2605.",
     dealKiller:"HOA is undisclosed and the review base is thin (6) \u2014 a surprise fee or management issue is the only thing that would knock it off the top spot.",
@@ -783,6 +811,7 @@ const PROPERTIES = [
     view:"Bay / sea view", status:"Interested",
     overallScore:7.2,
     verdict:"Caution",
+    walkLine:"10 min to Multicentro Mall \u00b7 12 min to Cinta Costera waterfront",
     dateAdded:"2026-06-13",
     thesis:"A big, well-remodeled Paitilla unit \u2014 173 m\u00b2, 2BR+study+maid, bay views, confirmed HOA \u2014 at good per-meter value.",
     dealKiller:"1989 building (37 yrs): a remodeled interior doesn't fix aging systems, and the building's track record couldn't be confirmed.",
@@ -817,6 +846,7 @@ const PROPERTIES = [
     view:"Ocean view (confirmed from photos)", status:"Interested",
     overallScore:7.4,
     verdict:"Solid Option",
+    walkLine:"3 min to Cinta Costera waterfront \u00b7 8 min to Bella Vista amenities",
     dateAdded:"2026-06-14",
     thesis:"High-floor 2BR with confirmed ocean views in Element Tower \u2014 the best-reviewed building in your set (4.1\u2605/27), right on Av Balboa.",
     dealKiller:"Bank-owned at a market (not discount) price \u2014 likely sold as-is, so condition and handover terms are the real risk to verify.",
@@ -851,6 +881,7 @@ const PROPERTIES = [
     view:"View unknown \u2014 ask seller", status:"Interested",
     overallScore:7.5,
     verdict:"Solid Option",
+    walkLine:"5 min to supermarkets & shops \u00b7 6 min to Parque Omar",
     thesis:"A true 3BR/2BA with 2 parking and storage in central San Francisco near Parque Omar, at $1,626/m\u00b2 \u2014 about 26% below the area average, the same below-band value as the front-runner, in a practical family layout.",
     dealKiller:"That 26%-below price on a true 3BR usually has a reason \u2014 if photos, floor, or an unrated building hide a problem, the value isn\u2019t real. Building name, year, and HOA are all unknown.",
     dateAdded:"2026-06-14",
@@ -878,7 +909,81 @@ const PROPERTIES = [
     archived:false,
     brokerQuestions:["What is the building name and year built?","What is the monthly HOA/maintenance fee?","Why is it priced ~26% below the San Francisco average \u2014 condition, floor, or motivated seller?","What floor and what is the view? Any balcony or terrace?"]
   },
+  {
+    id:"P-016", building:"PH Joy Tower", area:"San Francisco",
+    price:340000, beds:3, baths:2, parking:2, size_m2:214.39,
+    view:"View unknown \u2014 ask seller (large balcony)", status:"Interested",
+    overallScore:7.7,
+    verdict:"Solid Option",
+    walkLine:"5 min to Parque Omar \u00b7 7 min to Calle 50 \u00b7 supermarkets & schools nearby",
+    dateAdded:"2026-06-15",
+    thesis:"A very spacious 214 m\u00b2 true 3BR + maid + 2 parking in an established, amenity-rich 2009 San Francisco building near Parque Omar \u2014 the kind of large family layout that\u2019s getting scarce, at a strong $1,586/m\u00b2 (~28% below the area average).",
+    dealKiller:"At $340k it\u2019s above your $250\u2013300k sweet spot and at the top of your band \u2014 and the building\u2019s \u2018healthy finances / well-run\u2019 reputation is the selling agent\u2019s word, not independent reviews yet.",
+    grades:{neighborhood:"A", home:"A", value:"B"},
+    badges:["Below Market","Big Layout"],
+    summary:"214.39 m\u00b2: true 3BR + maid\u2019s room, 2.5 baths, breakfast-bar kitchen, laundry, large balcony, 2 parking. Building (2009) has pool, gym, kids\u2019 playground, event room, sports court, social terrace, 24h security, backup generator, visitor parking \u2014 only two units per floor. HOA $385.90 incl. water + gas. $1,586/m\u00b2. Introduced by the Altamira (P-007) agent as a same-building multi-unit opportunity; two units available.",
+    redFlags:"$340k is above your sweet spot (top of band). Building quality is agent-described, not independently verified. Exact floor/view/unit unconfirmed. (A stray \u2018Costa del Este\u2019 label on the listing looks like a CMS error \u2014 everything else says San Francisco.)",
+    considerations:[
+      "Value-for-size is the strength: 214 m\u00b2 with 2 parking at $1,586/m\u00b2 is well below the SF average, and genuinely large family units in established buildings are getting hard to find \u2014 that scarcity is real, not just sales talk.",
+      "The catch is budget: $340k sits above your $250\u2013300k sweet spot. Worth asking how negotiable it is and which of the two available units is cheaper.",
+      "Building reputation (2009, well-run, healthy reserves, 2 units/floor) comes from the agent \u2014 verify independently before getting serious; it\u2019s a credible account but not yet confirmed.",
+      "Came up because the PH Altamira agent (P-007 went under contract) offered Joy Tower as an alternative \u2014 she\u2019s actively sourcing for your criteria across SF, Coco del Mar, Bella Vista, Av Balboa, El Cangrejo, Paitilla and Punta Pac\u00edfica.",
+      "Confirm the floor and what the large balcony faces \u2014 view wasn\u2019t specified.",
+      "Facts from the MLS Acobir listing and the agent\u2019s email; HOA and amenities are listing-stated."
+    ],
+    building_rating:"good",
+    building_note:"PH Joy Tower, completed 2009. Per the agent: well-maintained, solid administration, healthy condominium finances, only two units per floor. Agent-sourced \u2014 not independent reviews \u2014 so treat as promising-but-unverified.",
+    datePosted:"2026-06-15",
+    lastVerified:"2026-06-15",
+    thumbnail:"",
+    lat:8.989, lng:-79.506,
+    walk:[{to:"Parque Omar",min:5},{to:"Calle 50 corridor",min:7}],
+    listingUrl:"https://www.mlsacobir.com/en/properties/17608-apartamento-venta-ph-joy-tower-panama-mls24516/",
+    mapLink:"https://maps.google.com/?q=8.989,-79.506",
+    topPick:false,
+    archived:false,
+    brokerQuestions:["Which floor are the available units on, and what do they face / what\u2019s the view?","Can you share the condo\u2019s reserve-fund status and recent financials?","Is $340k negotiable, and what\u2019s the price of the lower of the two available units?","What exactly was renovated and when? Any pending or planned special assessments?"]
+  },
 ];
+
+// Live properties start as the baked-in snapshot, then get replaced by Supabase data.
+let PROPERTIES = FALLBACK_PROPERTIES;
+
+// Map a Supabase row (snake_case columns) to the card object shape the UI expects.
+function mapRow(r){
+  return {
+    id:r.id, building:r.building, area:r.area,
+    price:r.price, beds:r.beds, baths:r.baths, parking:r.parking, size_m2:r.size_m2,
+    view:r.view, status:r.status, offMarket:r.off_market, offMarketNote:r.off_market_note,
+    overallScore:r.overall_score, verdict:r.verdict, thesis:r.thesis, dealKiller:r.deal_killer,
+    dateAdded:r.date_added, datePosted:r.date_posted, lastVerified:r.last_verified,
+    grades:r.grades||{}, badges:r.badges||[], summary:r.summary, redFlags:r.red_flags,
+    considerations:r.considerations||[], building_rating:r.building_rating, building_note:r.building_note,
+    prebuild:r.prebuild||undefined, walkLine:r.walk_line, walk:r.walk||[],
+    brokerQuestions:r.broker_questions||[], lat:r.lat, lng:r.lng,
+    listingUrl:r.listing_url, mapLink:r.map_link, thumbnail:r.thumbnail, topPick:r.top_pick,
+    archived:false, _sort:r.sort_order
+  };
+}
+
+async function loadProperties(){
+  if(!(SUPABASE_URL && SUPABASE_KEY)) return false;
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/properties?select=*&order=sort_order.asc`,{
+      headers:{ apikey:SUPABASE_KEY, Authorization:`Bearer ${SUPABASE_KEY}` }
+    });
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    const rows=await res.json();
+    if(Array.isArray(rows) && rows.length){
+      PROPERTIES = rows.map(mapRow);
+      return true;
+    }
+    return false;
+  }catch(e){
+    console.warn("Supabase properties load failed, using baked-in snapshot:", e);
+    return false;
+  }
+}
 </script>
 
 <header>
@@ -1189,7 +1294,7 @@ function cardHTML(p){
          </div>
        </div>`;
   const badges=(p.badges||[]).map(b=>`<span class="badge ${badgeClass(b)}">${b}</span>`).join("");
-  const statusBadge=p.status?`<span class="badge b-status">${p.status}</span>`:"";
+  const statusBadge=p.status?`<span class="badge ${p.offMarket?"b-offmarket":"b-status"}">${p.status}</span>`:"";
   const g=p.grades||{};
   const grades=`<div class="grades">${gradeBox(g.neighborhood,"Neighborhood")}${gradeBox(g.home,"Home")}${gradeBox(g.value,"Value")}</div>`;
   const facts=[
@@ -1206,7 +1311,7 @@ function cardHTML(p){
     ? `<div class="consider"><div class="ch">\u26A0 Worth checking before getting excited</div><ul>${p.considerations.map(c=>`<li>${c}</li>`).join("")}</ul></div>`
     : "";
   const bq=(Array.isArray(p.brokerQuestions)&&p.brokerQuestions.length)
-    ? `<div class="consider" style="background:#eef3f1;border-color:#cfe0da;color:#23463f"><div class="ch" style="color:var(--bay)">Questions for the broker</div><ul>${p.brokerQuestions.map(q=>`<li>${q}</li>`).join("")}</ul></div>`
+    ? `<div class="consider" style="background:#eef3f1;border-color:#cfe0da;color:#23463f"><div class="ch" style="color:var(--bay);display:flex;align-items:center;justify-content:space-between;gap:10px"><span>Questions for the broker</span><button class="copy-q" data-copyq="${p.id}" type="button">\u29C9 Copy</button></div><ul>${p.brokerQuestions.map(q=>`<li>${q}</li>`).join("")}</ul></div>`
     : "";
   const prebuild=(p.prebuild&&(p.prebuild.pros||p.prebuild.cons))
     ? `<div class="prebuild"><div class="pb-h">\u{1F3D7} Pre-build \u2014 at a glance</div>
@@ -1224,7 +1329,7 @@ function cardHTML(p){
 
   // The full summary now lives inside More details (keeps cards uniform height).
   const summaryBlock=`<p class="summary">${fullSummary}</p>`;
-  const detailBits=[summaryBlock, flags, prebuild, considers, mapImg(p), walkList(p), bq].filter(Boolean).join("");
+  const detailBits=[summaryBlock, flags, prebuild, considers, mapImg(p), bq].filter(Boolean).join("");
   const hasExtra=detailBits.length>0;
   const body=hasExtra
     ? `<details class="more">
@@ -1233,13 +1338,15 @@ function cardHTML(p){
        </details>`
     : "";
 
-  return `<article class="card ${p.archived?"archived":""}" id="card-${p.id}">
+  return `<article class="card ${p.archived?"archived":""} ${p.offMarket?"offmarket":""}" id="card-${p.id}">
+    ${p.offMarket?`<div class="offmarket-banner">${p.offMarketNote||"No longer available"}</div>`:""}
     ${hero}
     <div class="card-body">
       ${(()=>{const fs=fitScore(p);return fs!=null?`<div class="fitbadge">Your fit: ${fs}<span class="fb-x">/10</span></div>`:"";})()}
       <div class="badges">${badges}${statusBadge}</div>
       <h3>${p.building||"Unknown building"}</h3>
       <div class="sub-line">${p.view?`<span class="area">${p.view}</span>`:"<span></span>"}${mapTop}</div>
+      ${p.walkLine?`<div class="walkline"><span class="wl-icon">\u{1F6B6}</span><span>${p.walkLine}</span></div>`:""}
       ${p.thesis?`<div class="thesis"><b>Thesis</b>${p.thesis}</div>`:""}
       ${p.dealKiller?`<div class="killer"><b>What could kill it</b>${p.dealKiller}</div>`:""}
       ${grades}
@@ -1389,8 +1496,8 @@ function renderBQ(){
     <ul>${p.brokerQuestions.map(q=>`<li>${q}</li>`).join("")}</ul></div>`).join("");
 }
 function renderStats(){
-  const active=PROPERTIES.filter(p=>!p.archived);
-  const loved=active.filter(p=>loveCount(p)>0).length;
+  const active=PROPERTIES.filter(p=>!p.archived&&!p.offMarket);
+  const loved=PROPERTIES.filter(p=>!p.archived&&loveCount(p)>0).length;
   const strong=active.filter(p=>getScore(p)>=7 && (p.building_rating||"unknown")!=="caution").length;
   const nNew=newToMeCount();
   const newStat=nNew>0
@@ -1597,7 +1704,7 @@ function paintVotes(){
       const labels={love:"\u2764",maybe:"\u2014",pass:"\u2715"};
       const lines=["love","maybe","pass"]
         .filter(ch=>names[ch]&&names[ch].length)
-        .map(ch=>`<span class="rn-line"><b>${labels[ch]}</b> ${names[ch].join(", ")}</span>`);
+        .map(ch=>`<span class="rn-line"><b>${labels[ch]}</b><span class="rn-names">${names[ch].join(", ")}</span></span>`);
       namesEl.innerHTML=lines.join("");
     }
     const modeEl=row.querySelector(".react-mode");
@@ -1671,8 +1778,31 @@ function wireRemove(){
   });
 }
 
-// ---------- Family suggestions ----------
-function validUrl(u){ try{ const x=new URL(u); return x.protocol==="http:"||x.protocol==="https:"; }catch(e){ return false; } }
+function wireCopyQ(){
+  document.querySelectorAll("[data-copyq]").forEach(btn=>{
+    if(btn._wired) return; btn._wired=true;
+    btn.addEventListener("click",async()=>{
+      const pid=btn.dataset.copyq;
+      const p=PROPERTIES.find(x=>x.id===pid);
+      if(!p||!(p.brokerQuestions||[]).length) return;
+      const lead=`Hello, I\u2019m interested in ${p.building||"this apartment"}${p.area?" in "+p.area:""}. Could you help with a few questions?`;
+      const numbered=p.brokerQuestions.map((q,i)=>`${i+1}. ${q}`).join("\n");
+      const text=`${lead}\n\n${numbered}\n\nThank you!`;
+      try{
+        await navigator.clipboard.writeText(text);
+      }catch(e){
+        // fallback for older/non-secure contexts
+        const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();
+        try{document.execCommand("copy");}catch(_){}
+        document.body.removeChild(ta);
+      }
+      const orig=btn.innerHTML;
+      btn.classList.add("copied"); btn.innerHTML="\u2713 Copied";
+      setTimeout(()=>{btn.classList.remove("copied"); btn.innerHTML=orig;},1800);
+    });
+  });
+}
+
 
 async function loadSuggestions(){
   const listEl=document.getElementById("sg-list");
@@ -1743,14 +1873,28 @@ function wireSuggestDelete(){
 
 // re-wire & paint after every render
 const _origRender=render;
-render=function(){ _origRender(); wireVotes(); wireRemove(); wireJumps(); paintVotes(); };
+render=function(){ _origRender(); wireVotes(); wireRemove(); wireJumps(); wireCopyQ(); paintVotes(); };
 
+// Initial paint from the baked-in snapshot so the page is never blank.
 renderStats();initFilters();renderTop();render();renderBQ();
 loadSuggestions();
-// load shared state on startup if configured
-if(VOTE_SHARED){
-  Promise.all([loadArchived(),loadVotes()]).then(()=>{ refreshLovedByOptions(); renderTop(); render(); renderBQ(); renderStats(); paintVotes(); });
-}
+
+// Then pull live data: listings from the properties table, plus shared votes/archived.
+(async function boot(){
+  const loaded = await loadProperties();      // replaces PROPERTIES with live rows (or keeps fallback)
+  if(loaded){
+    // rebuild anything derived from the property list, then repaint
+    $("#f-area").innerHTML = '<option value="">All areas</option>';
+    initFilters();
+    renderTop(); renderBQ();
+  }
+  if(VOTE_SHARED){
+    await Promise.all([loadArchived(), loadVotes()]);
+  }
+  refreshLovedByOptions();
+  renderStats();
+  render();
+})();
 </script>
 </body>
 </html>
