@@ -157,6 +157,12 @@
   .b-flag{background:var(--red-bg);color:var(--red)}
   .b-review{background:#eee;color:#555}
   .b-status{background:#eef3f1;color:var(--bay)}
+  .stbadge{font-weight:600}
+  .st-interested{background:#eef3f1;color:var(--bay)}
+  .st-emailed{background:#eaf0fb;color:#3a5fa8}
+  .st-replied{background:#e9f5ee;color:#1d7a4d}
+  .st-viewing{background:#fdf0e0;color:#a8671a}
+  .st-gone{background:#e4ded1;color:#6a6254}
   .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15}
   .area{font-size:13px;color:var(--muted)}
   .price{font-family:'Fraunces',serif;font-size:23px;font-weight:600;color:var(--bay-deep)}
@@ -212,7 +218,7 @@
   .card.archived h3{text-decoration:line-through;text-decoration-color:rgba(163,54,54,.5)}
   .card.offmarket{opacity:.85}
   .card.offmarket .hero{filter:grayscale(.35)}
-  .offmarket-banner{background:#ede9e2;color:#6a6254;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-align:center;padding:5px 10px}
+  .offmarket-banner{background:#ede9e2;color:#6a6254;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;text-align:center;padding:5px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .badge.b-offmarket{background:#e4ded1;color:#6a6254}
   .card-restore{margin-left:auto;font-size:12px;font-weight:600;color:var(--bay);background:none;border:none;cursor:pointer;padding:4px 6px;border-radius:6px}
   .card-restore:hover{background:#f6faf8}
@@ -590,7 +596,7 @@ const FALLBACK_PROPERTIES = [
     id:"P-007", building:"PH Altamira Residences (Unit 15C)", area:"Bella Vista",
     price:225000, beds:2, baths:2, parking:1, size_m2:90.68,
     view:"Cinta Costera & Parque Urrac\u00e1 \u2014 urban city view (confirmed)", status:"Off-market",
-    offMarket:true, offMarketNote:"Under contract / in closing \u2014 confirmed by agent 15 Jun 2026.",
+    offMarket:true, offMarketNote:"Under contract \u2014 no longer available",
     overallScore:7.4,
     verdict:"Solid Option",
     walkLine:"5 min to supermarket \u00b7 7 min to Parque Urrac\u00e1 \u00b7 7 min to Cinta Costera",
@@ -944,6 +950,41 @@ const FALLBACK_PROPERTIES = [
     archived:false,
     brokerQuestions:["Which floor are the available units on, and what do they face / what\u2019s the view?","Can you share the condo\u2019s reserve-fund status and recent financials?","Is $340k negotiable, and what\u2019s the price of the lower of the two available units?","What exactly was renovated and when? Any pending or planned special assessments?"]
   },
+  {
+    id:"P-017", building:"PH Joy Tower (Unit 14-B)", area:"San Francisco",
+    price:360000, beds:3, baths:3, parking:2, size_m2:216,
+    view:"View unknown \u2014 ask seller (high-end finishes, abundant natural light)", status:"Interested",
+    overallScore:7.6,
+    verdict:"Solid Option",
+    thesis:"The second, more luxe Joy Tower unit \u2014 216 m\u00b2 true 3BR/3.5BA, 2 parking, marketed as high-end and light-filled, in the same scarce large-family building near Parque Omar.",
+    dealKiller:"At $360k it\u2019s further over your $250\u2013300k sweet spot than its sibling, and like P-016 the building\u2019s quality is agent/listing-stated, not independently verified.",
+    dateAdded:"2026-06-15",
+    grades:{neighborhood:"A", home:"A", value:"B"},
+    badges:["Below Market","Big Layout"],
+    summary:"216 m\u00b2 true 3BR + 3.5 baths + 2 parking (basement) in PH Joy Tower, San Francisco \u2014 marketed as a luxury unit with high-end finishes and abundant natural light. $1,667/m\u00b2. The pricier of the two available Joy Tower units (its sibling, P-016, is $340k/214 m\u00b2). Building (listed as 2011) has gym and 24h security; same building the Altamira agent introduced.",
+    redFlags:"$360k is well above your sweet spot (top of band). Building quality is listing/agent-stated, not independently verified. Year built differs between the two Joy Tower listings (2009 vs 2011) \u2014 confirm. Exact floor/view unconfirmed.",
+    considerations:[
+      "This is the more expensive of the two Joy Tower units the agent offered \u2014 $360k vs $340k for P-016, for essentially the same size (216 vs 214 m\u00b2). It\u2019s pitched as the higher-end / more renovated one, so the question is whether the finishes justify the extra $20k.",
+      "Budget is the main flag: at $360k it\u2019s the furthest over your $250\u2013300k sweet spot of anything active.",
+      "Note a data discrepancy: this listing says built 2011, while the P-016 Joy Tower listing says 2009. Same building can\u2019t have two build years \u2014 worth having the agent confirm.",
+      "Strong value-for-size on paper ($1,667/m\u00b2, still below the SF average) and a genuinely scarce large-family layout \u2014 but verify the building independently rather than on the listing\u2019s \u2018luxury\u2019 framing.",
+      "Same agent (Eleanor Arcia Jurado, Unival) as P-016 \u2014 the two-units-in-one-building angle is her pitch; if the building checks out, having two to choose from is useful leverage.",
+      "Confirm floor, orientation and what the unit faces \u2014 view wasn\u2019t specified."
+    ],
+    building_rating:"good",
+    building_note:"PH Joy Tower \u2014 listed here as built 2011 (the sibling listing says 2009; confirm). Agent describes the building as well-run with healthy finances and two units per floor. Quality is agent/listing-sourced, not independent reviews \u2014 treat as promising-but-unverified.",
+    datePosted:"2026-06-15",
+    lastVerified:"2026-06-15",
+    thumbnail:"",
+    lat:8.989, lng:-79.506,
+    walkLine:"5 min to Parque Omar \u00b7 7 min to Calle 50 \u00b7 supermarkets & schools nearby",
+    walk:[{to:"Parque Omar",min:5},{to:"Calle 50 corridor",min:7}],
+    listingUrl:"https://propiedades.mlsacobir.com/listing/Panama-08/14-B-San-Francisco-Calle-73/3401q",
+    mapLink:"https://maps.google.com/?q=8.989,-79.506",
+    topPick:false,
+    archived:false,
+    brokerQuestions:["What floor is unit 14-B on, and what does it face / what is the view?","Why is 14-B $20k more than the other available unit \u2014 what are the specific high-end finishes?","Confirm the year built \u2014 one listing says 2009, this one says 2011.","Reserve-fund status, recent financials, and any planned special assessments?"]
+  },
 ];
 
 // Live properties start as the baked-in snapshot, then get replaced by Supabase data.
@@ -1120,6 +1161,22 @@ const num=v=>(typeof v==="number"&&!isNaN(v));
 const ppm=p=>(num(p.price)&&num(p.size_m2)&&p.size_m2>0)?Math.round(p.price/p.size_m2):null;
 const getScore=p=>num(p.overallScore)?p.overallScore:(num(p.overall_score)?p.overall_score:-1);
 let sortKey="score";
+
+// ---- Unified status lifecycle ----
+// Order matters: the first four are active pursuit; the last two mean "no longer available".
+const STATUS_ORDER = ["Interested","Emailed","Replied","Viewing booked","Off-market"];
+const UNAVAILABLE_STATUSES = ["Off-market"];
+function statusOf(p){ return p.status || "Interested"; }
+function isUnavailable(p){ return UNAVAILABLE_STATUSES.includes(statusOf(p)); }
+// short pill class per status
+function statusClass(s){
+  if(s==="Off-market") return "st-gone";
+  if(s==="Viewing booked") return "st-viewing";
+  if(s==="Replied") return "st-replied";
+  if(s==="Emailed") return "st-emailed";
+  return "st-interested";
+}
+
 let priorities=[];  // active priority chips, e.g. ["family","walk"]
 let mobileNewActive=false;   // mobile "New" quick-pill toggled on
 let mobileLovedActive=false; // mobile "Loved" quick-pill toggled on
@@ -1294,7 +1351,8 @@ function cardHTML(p){
          </div>
        </div>`;
   const badges=(p.badges||[]).map(b=>`<span class="badge ${badgeClass(b)}">${b}</span>`).join("");
-  const statusBadge=p.status?`<span class="badge ${p.offMarket?"b-offmarket":"b-status"}">${p.status}</span>`:"";
+  const gone=isUnavailable(p);
+  const statusBadge=p.status?`<span class="badge stbadge ${statusClass(p.status)}">${p.status}</span>`:"";
   const g=p.grades||{};
   const grades=`<div class="grades">${gradeBox(g.neighborhood,"Neighborhood")}${gradeBox(g.home,"Home")}${gradeBox(g.value,"Value")}</div>`;
   const facts=[
@@ -1338,8 +1396,8 @@ function cardHTML(p){
        </details>`
     : "";
 
-  return `<article class="card ${p.archived?"archived":""} ${p.offMarket?"offmarket":""}" id="card-${p.id}">
-    ${p.offMarket?`<div class="offmarket-banner">${p.offMarketNote||"No longer available"}</div>`:""}
+  return `<article class="card ${p.archived?"archived":""} ${gone?"offmarket":""}" id="card-${p.id}">
+    ${gone?`<div class="offmarket-banner">${p.offMarketNote||"Off-market \u2014 no longer available"}</div>`:""}
     ${hero}
     <div class="card-body">
       ${(()=>{const fs=fitScore(p);return fs!=null?`<div class="fitbadge">Your fit: ${fs}<span class="fb-x">/10</span></div>`:"";})()}
@@ -1409,18 +1467,25 @@ function applyFilters(src){
 }
 
 function render(){
-  const active=PROPERTIES.filter(p=>!p.archived);
+  const live=PROPERTIES.filter(p=>!p.archived);
+  const available=live.filter(p=>!isUnavailable(p));
+  const unavailable=live.filter(p=>isUnavailable(p));
   const archived=PROPERTIES.filter(p=>p.archived);
-  const list=applyFilters(active);
+  const list=applyFilters(available);
   $("#grid").innerHTML=list.map(cardHTML).join("");
   $("#count").textContent=`${list.length} shown`;
   $("#empty").hidden=PROPERTIES.length!==0;
   $("#grid").hidden=PROPERTIES.length===0;
 
-  $("#archive-wrap").hidden=archived.length===0;
-  if(archived.length){
-    $("#archive-summary").textContent=`Archived / possibly gone (${archived.length})`;
-    $("#archive-grid").innerHTML=archived.map(cardHTML).join("");
+  // "No longer available" + archived share the collapsed section below the grid
+  const tucked=[...unavailable, ...archived];
+  $("#archive-wrap").hidden=tucked.length===0;
+  if(tucked.length){
+    const bits=[];
+    if(unavailable.length) bits.push(`${unavailable.length} no longer available`);
+    if(archived.length) bits.push(`${archived.length} removed`);
+    $("#archive-summary").textContent=bits.join(" \u00b7 ");
+    $("#archive-grid").innerHTML=tucked.map(cardHTML).join("");
   }
 
   const cmp=$("#compare-section");
@@ -1496,7 +1561,7 @@ function renderBQ(){
     <ul>${p.brokerQuestions.map(q=>`<li>${q}</li>`).join("")}</ul></div>`).join("");
 }
 function renderStats(){
-  const active=PROPERTIES.filter(p=>!p.archived&&!p.offMarket);
+  const active=PROPERTIES.filter(p=>!p.archived&&!isUnavailable(p));
   const loved=PROPERTIES.filter(p=>!p.archived&&loveCount(p)>0).length;
   const strong=active.filter(p=>getScore(p)>=7 && (p.building_rating||"unknown")!=="caution").length;
   const nNew=newToMeCount();
