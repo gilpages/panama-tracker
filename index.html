@@ -51,10 +51,15 @@
   .fitbadge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:#fff;background:#7a4fa0;border-radius:99px;padding:3px 10px;margin-bottom:8px}
   .fitbadge .fb-x{font-weight:500;opacity:.85;font-size:10.5px}
   .controls-row{display:flex;gap:10px 12px;flex-wrap:wrap;align-items:flex-end}
+  .filter-row{margin-bottom:11px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+  .view-row{align-items:flex-end}
+  .filter-row .field{flex:1 1 0;min-width:110px}
+  .filter-row .f-search-field{flex:2 1 0;min-width:160px}
+  .view-row .field{flex:0 0 auto;min-width:150px}
+  .view-row #clear{margin-left:auto}
   .field{display:flex;flex-direction:column;gap:4px}
   .field label{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
-  .controls select,.controls input[type=search]{font:inherit;font-size:13px;padding:6px 9px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}
-  .controls input[type=search]{min-width:150px}
+  .controls select,.controls input[type=search]{font:inherit;font-size:13px;padding:6px 9px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink);width:100%}
   .controls select{min-width:0}
   .field label{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
   select,input[type=search]{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);min-width:130px}
@@ -296,9 +301,13 @@
     .controls-row{display:none;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;
       background:var(--sand-card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:14px}
     .controls.open .controls-row{display:grid}
+    .filter-row{margin-bottom:0;padding-bottom:14px;border-bottom:1px solid var(--line)}
+    .controls.open .view-row{margin-top:10px}
     .field{min-width:0}
-    .field:first-child{grid-column:1 / -1}            /* search spans full width */
+    .filter-row .field,.view-row .field{flex:none;min-width:0}
+    .filter-row .f-search-field{grid-column:1 / -1}   /* search spans full width */
     .controls select,.controls input[type=search]{width:100%;font-size:14px;padding:9px 10px}
+    .view-row #clear{margin-left:0}
     .clear{grid-column:1 / -1;justify-self:stretch;text-align:center;border:1px solid var(--line);border-radius:8px;padding:10px;margin:0;background:#fff}
   }
 </style>
@@ -847,8 +856,8 @@ const PROPERTIES = [
       <span><i class="ti"></i> Filters &amp; sort<span class="badge-count" id="filter-count" hidden>0</span></span>
       <span id="filter-toggle-state">Show</span>
     </button>
-    <div class="controls-row">
-      <div class="field"><label for="f-search">Search</label><input id="f-search" type="search" placeholder="Building, area&hellip;"></div>
+    <div class="controls-row filter-row">
+      <div class="field f-search-field"><label for="f-search">Search</label><input id="f-search" type="search" placeholder="Building, area&hellip;"></div>
       <div class="field"><label for="f-area">Area</label><select id="f-area"><option value="">All areas</option></select></div>
       <div class="field"><label for="f-price">Price</label><select id="f-price">
         <option value="">Any price</option>
@@ -869,10 +878,12 @@ const PROPERTIES = [
         <option value="">Any</option><option value="good">Looks good</option>
         <option value="caution">Has concerns</option><option value="unknown">Unrated</option>
       </select></div>
+    </div>
+    <div class="controls-row view-row">
       <div class="field"><label for="f-new">Show</label><select id="f-new">
         <option value="">Everything</option><option value="new">New to me only</option>
       </select></div>
-      <div class="field"><label for="f-lovedby"><span class="lbl-heart">\u2764</span> Loved by</label><select id="f-lovedby">
+      <div class="field"><label for="f-lovedby"><span class="lbl-heart">♥</span> Loved by</label><select id="f-lovedby">
         <option value="">Anyone</option>
       </select></div>
       <div class="field"><label for="f-sort">Sort by</label><select id="f-sort">
