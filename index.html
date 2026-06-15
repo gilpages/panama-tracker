@@ -291,7 +291,16 @@
   /* filter toggle button - hidden on desktop */
   .filter-toggle{display:none}
 
+  .mobile-pills{display:none}
+  .qpill{font:inherit;font-size:13px;font-weight:600;color:var(--ink);background:var(--sand-card);border:1px solid var(--line);border-radius:99px;padding:8px 15px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
+  .qpill .qp-spark{font-size:12px}
+  .qpill .qp-heart{color:#d4537e;font-size:13px}
+  .qpill[data-active="true"]{background:var(--bay);border-color:var(--bay);color:#fff}
+  .qpill[data-active="true"] .qp-heart{color:#fff}
+  #qpill-new[data-active="true"]{background:#caa53a;border-color:#caa53a;color:#3a2e08}
+
   @media(max-width:760px){
+    .mobile-pills{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:10px}
     .controls{position:static;padding:0;border:none;box-shadow:none;background:transparent;margin:14px auto 18px}
     .filter-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;
       font:inherit;font-size:14px;font-weight:600;color:var(--ink);background:var(--sand-card);
@@ -852,6 +861,10 @@ const PROPERTIES = [
 <div class="wrap">
 
   <div class="controls" id="controls">
+    <div class="mobile-pills" id="mobile-pills">
+      <button class="qpill" id="qpill-new" data-active="false" hidden><span class="qp-spark">✨</span> <span id="qpill-new-label">New</span></button>
+      <button class="qpill" id="qpill-loved" data-active="false"><span class="qp-heart">♥</span> Loved</button>
+    </div>
     <button class="filter-toggle" id="filter-toggle" aria-expanded="false">
       <span><i class="ti"></i> Filters &amp; sort<span class="badge-count" id="filter-count" hidden>0</span></span>
       <span id="filter-toggle-state">Show</span>
@@ -970,6 +983,8 @@ const ppm=p=>(num(p.price)&&num(p.size_m2)&&p.size_m2>0)?Math.round(p.price/p.si
 const getScore=p=>num(p.overallScore)?p.overallScore:(num(p.overall_score)?p.overall_score:-1);
 let sortKey="score";
 let priorities=[];  // active priority chips, e.g. ["family","walk"]
+let mobileNewActive=false;   // mobile "New" quick-pill toggled on
+let mobileLovedActive=false; // mobile "Loved" quick-pill toggled on
 
 // Personalized "fit" score (0-10) derived from data already on each card,
 // weighted by the viewer's selected priorities. Honest: it reweights the
@@ -1224,12 +1239,14 @@ function applyFilters(src){
   const area=$("#f-area").value,beds=$("#f-beds").value;
   const price=$("#f-price").value,verd=$("#f-verdict").value;
   const bldg=$("#f-bldg").value;
-  const newOnly=$("#f-new")?$("#f-new").value:"";
+  const newSel=$("#f-new")?$("#f-new").value:"";
+  const newOnly = newSel==="new" || mobileNewActive;
   const lovedBy=$("#f-lovedby")?$("#f-lovedby").value:"";
   let list=src.filter(p=>{
     if(q){const hay=`${p.building} ${p.area} ${p.summary} ${p.view} ${(p.badges||[]).join(" ")}`.toLowerCase();if(!hay.includes(q))return false;}
-    if(newOnly==="new"&&!isNewToMe(p))return false;
+    if(newOnly&&!isNewToMe(p))return false;
     if(lovedBy&&!loversOf(p).includes(lovedBy))return false;
+    if(mobileLovedActive&&loveCount(p)<1)return false;
     if(area&&p.area!==area)return false;
     if(beds&&!(num(p.beds)&&p.beds>=+beds))return false;
     if(price){const[lo,hi]=price.split("-").map(Number);if(!(num(p.price)&&p.price>=lo&&p.price<=hi))return false;}
@@ -1354,6 +1371,18 @@ function renderStats(){
   // clicking the New stat filters to just the new items
   const sn=$("#stat-new");
   if(sn)sn.addEventListener("click",()=>{const sel=$("#f-new");if(sel){sel.value="new";render();sn.scrollIntoView({behavior:"smooth",block:"start"});}});
+  syncMobilePills();
+}
+function syncMobilePills(){
+  const nNew=newToMeCount();
+  const np=$("#qpill-new"), nl=$("#qpill-new-label");
+  if(np){
+    np.hidden = nNew<1;                 // only show when something is new to this viewer
+    if(nl) nl.textContent = nNew>0 ? `${nNew} new` : "New";
+    np.dataset.active = mobileNewActive ? "true" : "false";
+  }
+  const lp=$("#qpill-loved");
+  if(lp) lp.dataset.active = mobileLovedActive ? "true" : "false";
 }
 function initFilters(){
   [...new Set(PROPERTIES.map(p=>p.area).filter(Boolean))].sort()
@@ -1363,6 +1392,20 @@ function initFilters(){
   document.addEventListener("input",e=>{if(e.target.id===id){if(id==="f-sort")sortKey=$("#f-sort").value;render();}});
 });
 document.addEventListener("change",e=>{if(e.target.id==="f-sort"){sortKey=$("#f-sort").value;render();}});
+
+// mobile quick-pills
+if($("#qpill-new")){
+  $("#qpill-new").addEventListener("click",()=>{
+    mobileNewActive=!mobileNewActive;
+    syncMobilePills(); render();
+  });
+}
+if($("#qpill-loved")){
+  $("#qpill-loved").addEventListener("click",()=>{
+    mobileLovedActive=!mobileLovedActive;
+    syncMobilePills(); render();
+  });
+}
 
 // priority chips
 function paintPriorities(){
@@ -1402,6 +1445,7 @@ document.addEventListener("change",updateFilterCount);
 $("#clear").addEventListener("click",()=>{
   ["f-search","f-area","f-price","f-beds","f-verdict","f-new","f-lovedby","f-bldg"].forEach(id=>{const el=$("#"+id);if(el)el.value="";});
   $("#f-sort").value="score";sortKey="score";
+  mobileNewActive=false; mobileLovedActive=false; syncMobilePills();
   render();
 });
 
