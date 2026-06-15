@@ -90,6 +90,12 @@
   .thumb .viewphotos:hover{background:#fff}
   .thumb .ph-hint{color:var(--muted);font-size:12.5px}
 
+  /* investment-memo lines */
+  .thesis{font-size:13.5px;line-height:1.5;color:#234a40;background:#eef4f1;border-left:3px solid var(--bay);border-radius:0 8px 8px 0;padding:7px 11px;margin:2px 0 8px}
+  .thesis b{font-weight:700;color:var(--bay);font-size:11px;letter-spacing:.04em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .killer{font-size:13px;line-height:1.5;color:#7a2a23;background:var(--red-bg);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:7px 11px;margin:0 0 10px}
+  .killer b{font-weight:700;color:var(--red);font-size:11px;letter-spacing:.04em;text-transform:uppercase;display:block;margin-bottom:1px}
+
   /* compact building one-liner */
   .bldg1{display:flex;align-items:center;gap:7px;font-size:12.5px;padding:6px 0}
   .bldg1 .d{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
@@ -328,6 +334,8 @@ const PROPERTIES = [
     view:"Unknown (balcony present)", status:"Ask Broker",
     overallScore:7.4,
     verdict:"Solid Option",
+    thesis:"Large fully-remodeled Paitilla 2BR+maid (lives like a 3BR) at a notably low $/m\u00b2 \u2014 strong space-for-money if the building holds up.",
+    dealKiller:"The below-market price likely reflects an older, unrated building \u2014 if reserves/management are weak, the bargain evaporates.",
     grades:{neighborhood:"B", home:"A", value:"A"},
     badges:["Good Value"],
     summary:"Fully remodeled 147 m\u00b2 with 2 en-suite bedrooms plus a maid's room usable as a 3rd bedroom or office, two side-by-side parking spaces, and on-floor storage. Only two units per floor; pool, gym, sauna. At about $1,461/m\u00b2 it's roughly 36% under the typical Punta Paitilla range \u2014 an unusually low price that's most likely explained by an older building.",
@@ -357,6 +365,8 @@ const PROPERTIES = [
     view:"Unknown (balcony present)", status:"Interested",
     overallScore:7.2,
     verdict:"Solid Option",
+    thesis:"Move-in-ready furnished 2BR+den+maid two blocks off Av Balboa in a well-reviewed building \u2014 the most turnkey option in the set.",
+    dealKiller:"Top of budget, and the stated 4 parking spaces for a 2BR look wrong \u2014 if it's really 1\u20132 deeded, value softens.",
     grades:{neighborhood:"A", home:"B", value:"C"},
     badges:["Furnished","Low HOA"],
     summary:"Furnished, move-in-ready 2BR + den (den converts to a 3rd bedroom) + maid\u2019s quarters in a newer, well-kept building two blocks off Av. Balboa. HOA confirmed at $219/mo \u2014 reasonable. At $2,461/m\u00b2 it\u2019s fairly priced for the area. Three full bathrooms, smart home, 1 storage unit, and 4 parking spaces (verify \u2014 may be a listing error). The building reviews well and it\u2019s the most move-in-complete option in the set.",
@@ -388,6 +398,8 @@ const PROPERTIES = [
     view:"Panoramic city (stated)", status:"Shortlist",
     overallScore:7.6,
     verdict:"Caution",
+    thesis:"The biggest, best-laid-out unit on the board \u2014 true 3BR+family room, 188 m\u00b2, remodeled, EV charging \u2014 at strong Obarrio value.",
+    dealKiller:"Building reviews allege noise, weak management and police visits \u2014 if true, no layout makes up for living there.",
     grades:{neighborhood:"A", home:"A", value:"A"},
     badges:["Good Value"],
     summary:"The biggest and best-laid-out unit so far: a true 3-bedroom with a separate family room across 188 m\u00b2, remodeled (granite kitchen, marble/porcelain floors), panoramic city-view balcony, 2 parking plus an EV charger, in an amenity-rich Obarrio tower. At $1,750/m\u00b2 it's strong value for the area. Excellent on paper \u2014 but check the building before falling for it.",
@@ -419,6 +431,8 @@ const PROPERTIES = [
     view:"Unknown (low-density, balcony)", status:"Interested",
     overallScore:5.7,
     verdict:"Fair",
+    thesis:"A sleek brand-new micro-2BR one block from the metro \u2014 works as a city base or rental play.",
+    dealKiller:"Too small for family use (57 m\u00b2), parking is a $17k add-on, and all-in $/m\u00b2 is above area norm \u2014 not a family home.",
     grades:{neighborhood:"A", home:"D", value:"C"},
     badges:["Brand New","Small Unit"],
     summary:"A brand-new (2025\u201326 delivery) 2BR in a heavily-amenitied Bella Vista development one block from the metro and Cinta Costera. Walkability is superb. But it's small \u2014 just 57 m\u00b2 for a 2BR \u2014 and parking is a $17k extra, pushing the real all-in to about $228k (~$4,000/m\u00b2, above the area norm). Reads as a sleek city base or rental play, not a comfortable family home.",
@@ -450,6 +464,8 @@ const PROPERTIES = [
     view:"Unknown (dense area; likely city)", status:"Interested",
     overallScore:7.2,
     verdict:"Solid Option",
+    thesis:"Well-reviewed luxury El Cangrejo tower with the building's only open-kitchen unit, fairly priced, unbeatable walkability.",
+    dealKiller:"It's a 2BR (less flexible for visits) and the HOA is undisclosed \u2014 a high amenity fee would dent the value.",
     grades:{neighborhood:"A", home:"B", value:"B"},
     badges:["Good Value","Walkable"],
     summary:"A 93 m\u00b2 2BR in a well-regarded luxury El Cangrejo tower, with the building's only open-concept kitchen (its main draw \u2014 brighter, more modern than the typical closed layouts). Parking included, strong amenities, and unbeatable walkability: top-rated caf\u00e9s on V\u00eda Argentina and the metro are a 3\u20136 min stroll. Fairly priced at $2,570/m\u00b2 and in a building that actually reviews well.",
@@ -480,6 +496,8 @@ const PROPERTIES = [
     view:"Unknown (terrace; quiet cul-de-sac)", status:"Interested",
     overallScore:7.0,
     verdict:"Caution",
+    thesis:"The cheapest per-meter on the board \u2014 a big 157 m\u00b2 unit with a private terrace on a quiet cul-de-sac, freshly remodeled.",
+    dealKiller:"1978 building: the remodel is cosmetic \u2014 if plumbing/electrical/fa\u00e7ade/reserves are weak, this is a money pit, not a bargain.",
     grades:{neighborhood:"A", home:"A", value:"A"},
     badges:["Good Value","Big + Terrace"],
     summary:"The most space-for-money yet: a big 157 m\u00b2 apartment that 'lives like a house' \u2014 spacious living/dining, maid's room, and a private 20 m\u00b2 terrace \u2014 on a quiet cul-de-sac steps from Calle 50, freshly remodeled in 2024. At $1,305/m\u00b2 it's the cheapest per-meter on the board. The catch is honest and disclosed: it's a 1978 building, so the bargain hinges entirely on the building's structural health.",
@@ -510,6 +528,8 @@ const PROPERTIES = [
     view:"City / Parque Metropolitano (15th floor)", status:"Interested",
     overallScore:7.4,
     verdict:"Solid Option",
+    thesis:"Furnished, move-in-ready 2BR on a high floor in Bella Vista's best-reviewed building (4.8\u2605), fairly priced with great views.",
+    dealKiller:"HOA is undisclosed on an amenity-heavy building \u2014 a steep fee is the one thing that could undercut an otherwise clean pick.",
     grades:{neighborhood:"A", home:"B", value:"B"},
     badges:["Furnished","High Floor"],
     summary:"A fully furnished, move-in-ready 2BR on the 15th floor of Bella Vista\u2019s best-reviewed building (4.8\u2605, 18 reviews). At $2,481/m\u00b2 it\u2019s in the lower half of the area band \u2014 fair price for what you get. Reviews specifically mention beautiful views of Parque Metropolitano, great security, and proximity to Parque Urrac\u00e1 and Av. Balboa. The one meaningful unknown is the HOA fee; on a furnished amenity building with a pool, gym, co-working and (reportedly) a tennis court, it could be meaningful.",
@@ -541,6 +561,8 @@ const PROPERTIES = [
     view:"Unknown (18-story tower \u2014 floor dependent)", status:"Interested",
     overallScore:7.6,
     verdict:"Solid Option",
+    thesis:"The best family layout in El Cangrejo \u2014 true 3BR+maid, Mallol-designed tower, top walkability \u2014 at the lowest $/m\u00b2 in the area.",
+    dealKiller:"The price gap likely reflects building age, and year-built + HOA are unknown \u2014 the whole case rests on building diligence.",
     grades:{neighborhood:"A", home:"A", value:"A"},
     badges:["Good Value","Big Layout"],
     summary:"The best family-use layout in El Cangrejo: a true 3BR + maid\u2019s room across 145 m\u00b2 in a Mallol & Mallol-designed 18-story tower, with 2 parking and El Cangrejo\u2019s top-tier walkability at your door. At $1,924/m\u00b2 it\u2019s the lowest $/m\u00b2 in the area \u2014 the gap likely reflects building age. It\u2019s a \u2018special layout model\u2019 (larger than standard units), which is rare but makes resale comps harder to find. Building diligence is the whole ballgame: if the year built and HOA come back clean, this is a strong Shortlist candidate.",
@@ -571,6 +593,8 @@ const PROPERTIES = [
     view:"Floor/orientation dependent \u2014 verify", status:"Interested",
     overallScore:6.3,
     verdict:"Fair",
+    thesis:"A brand-new 3BR near Parque Omar for the family members who prefer new construction; strong amenities and location.",
+    dealKiller:"~19% above the area band, an 18-month wait to end-2027, and an unproven building \u2014 you pay the appreciation premium upfront.",
     grades:{neighborhood:"A", home:"B", value:"C"},
     badges:["New Build","Pre-Sale"],
     summary:"A brand-new 3BR (106 m\u00b2) in a heavily-amenitied San Francisco tower near Parque Omar \u2014 included here because some of the family lean toward new builds. The honest math: at $3,100/m\u00b2 it\u2019s ~19% above the area band, it\u2019s a pre-sale that won\u2019t deliver until end of 2027 (~18 months), and the building doesn\u2019t exist yet so there\u2019s no track record to check. You\u2019d be paying the appreciation premium upfront rather than getting a presale discount. Good amenities and location; the trade-off is price, wait, and uncertainty.",
@@ -606,6 +630,8 @@ const PROPERTIES = [
     view:"Corner unit \u2014 Parque Omar potential; verify", status:"Interested",
     overallScore:6.9,
     verdict:"Fair",
+    thesis:"The best family layout of the Aurora pre-sales \u2014 120 m\u00b2 corner 3BR+maid, brand-new near Parque Omar.",
+    dealKiller:"~17% above band, delivers end-2027, only 1 parking for a 120 m\u00b2 3BR, and no track record \u2014 a pricing/appreciation bet.",
     grades:{neighborhood:"A", home:"B", value:"C"},
     badges:["New Build","Pre-Sale"],
     summary:"The biggest, best-laid-out Aurora unit: a brand-new 120 m\u00b2 corner 3BR + 2.5 bath + maid\u2019s quarters in San Francisco near Parque Omar \u2014 included for the family members who prefer new construction. As a family layout it\u2019s excellent. The catch is the same as the smaller Aurora unit: $3,050/m\u00b2 is ~17% above the area band, it\u2019s a pre-sale delivering end of 2027, and the building is unproven. A strong new-build option if the family values new over move-in-ready value, but the pricing is an appreciation bet.",
@@ -641,6 +667,8 @@ const PROPERTIES = [
     view:"Floor/orientation dependent \u2014 verify", status:"Interested",
     overallScore:6.0,
     verdict:"Fair",
+    thesis:"The most budget-friendly Aurora unit and the cleanest fit for your price band \u2014 the entry point into the new-build option.",
+    dealKiller:"Highest $/m\u00b2 of the Auroras, above the area band, 80 m\u00b2 is tight for hosting, and it's a pre-sale to end-2027.",
     grades:{neighborhood:"A", home:"C", value:"C"},
     badges:["New Build","Pre-Sale"],
     summary:"The most budget-friendly Aurora unit and the one that fits your price range best: a brand-new 80 m\u00b2 2BR at $256,000 (the real available price \u2014 lower than the $281k the marketing quotes). A 2BR works for you, and this is the entry point into the new-build option some of the family prefer. The honest catch is the same as the other Aurora units: $3,200/m\u00b2 is the highest per-meter of the three (small units cost more per m\u00b2), it\u2019s above the area band, and it\u2019s a pre-sale delivering end of 2027.",
@@ -675,6 +703,8 @@ const PROPERTIES = [
     view:"Panoramic city (10th floor balcony)", status:"Interested",
     overallScore:8.4,
     verdict:"Great Find",
+    thesis:"Best value and highest score in the tracker \u2014 a true 3BR/3BA in El Cangrejo below the area average, in an established 2012 building that reviews 5.0\u2605.",
+    dealKiller:"HOA is undisclosed and the review base is thin (6) \u2014 a surprise fee or management issue is the only thing that would knock it off the top spot.",
     grades:{neighborhood:"A", home:"A", value:"A"},
     badges:["Good Value","Big Layout"],
     summary:"The best value and the highest score in the whole tracker: a 155 m\u00b2 true 3BR/3BA in the heart of El Cangrejo at $1,626/m\u00b2 \u2014 below the area average ($1,923) and below the band floor. It\u2019s a 2012 building (established, with a track record), floor 10 with panoramic city views and a balcony, master ensuite, breakfast-bar kitchen, 2 parking, and a pool/gym/24-7-security building that reviews 5.0\u2605. The only open item is the HOA fee. This is the strongest fit yet on the numbers \u2014 confirm the HOA and it\u2019s a serious front-runner.",
@@ -706,6 +736,8 @@ const PROPERTIES = [
     view:"Bay / sea view", status:"Interested",
     overallScore:7.2,
     verdict:"Caution",
+    thesis:"A big, well-remodeled Paitilla unit \u2014 173 m\u00b2, 2BR+study+maid, bay views, confirmed HOA \u2014 at good per-meter value.",
+    dealKiller:"1989 building (37 yrs): a remodeled interior doesn't fix aging systems, and the building's track record couldn't be confirmed.",
     grades:{neighborhood:"B", home:"A", value:"B"},
     badges:["Good Value","Building Age"],
     summary:"A big, comfortable, well-remodeled unit \u2014 173 m\u00b2, 2BR + study (optional 3rd bedroom) + maid\u2019s quarters, European kitchen, bar with wine cellar, bay views, 2 parking, HOA confirmed at $294. On the unit alone it\u2019s strong value at $1,821/m\u00b2 (below the Paitilla average). The catch, and it\u2019s a real one: the building dates to 1989 (37 years old). A remodeled apartment doesn\u2019t fix an old building \u2014 plumbing, electrical, elevators and the reserve fund are what matter at this age, and I couldn\u2019t confirm this specific building\u2019s track record. Added because it clears the bar on the unit, but flagged: verify the building before getting attached.",
@@ -730,6 +762,39 @@ const PROPERTIES = [
     topPick:false,
     archived:false,
     brokerQuestions:["1989 building \u2014 what major systems have been updated (plumbing risers, electrical, elevators, fa\u00e7ade, water tanks)?","Reserve fund balance and any planned or recent special assessments?","Exact building name and address (to verify the building\u2019s history)?","Which floor, and is the bay view unobstructed?"]
+  },
+  {
+    id:"P-014", building:"PH Element (Element Tower)", area:"Avenida Balboa",
+    price:255000, beds:2, baths:2, parking:1, size_m2:104,
+    view:"Ocean view (confirmed from photos)", status:"Interested",
+    overallScore:7.4,
+    verdict:"Solid Option",
+    thesis:"High-floor 2BR with confirmed ocean views in Element Tower \u2014 the best-reviewed building in your set (4.1\u2605/27), right on Av Balboa.",
+    dealKiller:"Bank-owned at a market (not discount) price \u2014 likely sold as-is, so condition and handover terms are the real risk to verify.",
+    grades:{neighborhood:"A", home:"B", value:"B"},
+    badges:["High Floor","Sea View"],
+    summary:"A high-floor 2BR/2BA in Element Tower, right on Avenida Balboa \u2014 ocean views, modern kitchen, and a building that reviews well (4.1\u2605 across 27 reviews, the deepest review base in your set): \u201Cbeautiful place to live, heart of Av Balboa, best for the price,\u201D with a renovated gym and rooftop Sky Bar. It\u2019s bank-owned, which is the thing to weigh carefully: the price ($2,452/m\u00b2) is essentially at the Av Balboa average, so this isn\u2019t a deep discount \u2014 and bank sales are usually as-is, so condition and handover need checking. At 104 m\u00b2 with one parking space it\u2019s a comfortable couple/small-family unit rather than a full-family layout.",
+    redFlags:"Bank-owned \u2014 likely sold as-is; verify condition and occupancy/handover. HOA, year built, and exact floor undisclosed. Only 1 parking space. (Ocean view confirmed from the photos.)",
+    considerations:[
+      "Bank-owned doesn\u2019t mean cheap here \u2014 at $2,452/m\u00b2 it\u2019s priced at the Av Balboa average, so treat the \u201Cbank sale\u201D as a condition/process flag, not a bargain. Confirm whether it\u2019s sold as-is and what shape it\u2019s in.",
+      "The building is the strong point: 4.1\u2605 over 27 reviews (your best-documented building), ocean views, renovated gym and Sky Bar. Minor gripes were a small pool and parking access.",
+      "104 m\u00b2 with 1 parking is fine for a couple or small family; for full family use it\u2019s on the tighter side \u2014 worth seeing in person.",
+      "Ask the floor and whether the ocean view is unobstructed \u2014 the listing says high-floor but doesn\u2019t confirm exposure.",
+      "One online review is a specific landlord/deposit dispute, not a building issue \u2014 I didn\u2019t let it affect the building rating.",
+      "Facts from the listing detail page and building reviews; HOA and year are unconfirmed."
+    ],
+    building_rating:"good",
+    building_note:"Element Tower 4.1\u2605 over 27 reviews \u2014 the deepest review base in the tracker. \u201CBeautiful, heart of Av Balboa, ocean views, best for the price.\u201D Renovated gym and rooftop Sky Bar. Minor: small pool, parking access.",
+    datePosted:"2026-06-14",
+    lastVerified:"2026-06-14",
+    thumbnail:"",
+    lat:8.9664123, lng:-79.5340754,
+    walk:[{to:"Cinta Costera waterfront",min:3},{to:"Bella Vista amenities",min:8}],
+    listingUrl:"https://www.encuentra24.com/panama-en/real-estate-for-sale-apartments-condos/bank-owned-apartment-for-sale-in-ph-element-avenida-balboa-dv/32478280",
+    mapLink:"https://maps.google.com/?q=8.9664123,-79.5340754",
+    topPick:false,
+    archived:false,
+    brokerQuestions:["What is the monthly HOA/maintenance fee?","Bank sale \u2014 is it sold as-is, what\u2019s the current condition, and the occupancy/handover terms?","Which floor is the unit on?","Year built, and is a second parking space available?"]
   },
 ];
 </script>
@@ -1044,6 +1109,8 @@ function cardHTML(p){
       <div class="badges">${badges}${statusBadge}</div>
       <h3>${p.building||"Unknown building"}</h3>
       ${p.view?`<div class="area">${p.view}</div>`:""}
+      ${p.thesis?`<div class="thesis"><b>Thesis</b>${p.thesis}</div>`:""}
+      ${p.dealKiller?`<div class="killer"><b>What could kill it</b>${p.dealKiller}</div>`:""}
       ${grades}
       ${buildingLine(p)}
       ${body}
