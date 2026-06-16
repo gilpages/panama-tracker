@@ -173,7 +173,7 @@
   .st-replied{background:#e9f5ee;color:#1d7a4d}
   .st-viewing{background:#fdf0e0;color:#a8671a}
   .st-gone{background:#e4ded1;color:#6a6254}
-  .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15}
+  .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.15;height:44px;overflow:hidden;display:flex;align-items:flex-start}
   .area{font-size:13px;color:var(--muted)}
   .price{font-family:'Fraunces',serif;font-size:23px;font-weight:600;color:var(--bay-deep)}
 
@@ -244,6 +244,10 @@
   .card-foot{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:auto;padding-top:11px;border-top:1px solid var(--line)}
   .card-foot a{font-size:13px;font-weight:600;text-decoration:none}
   .card-foot a:hover{text-decoration:underline}
+  .foot-left{display:inline-flex;align-items:center;gap:14px}
+  .foot-share{font:inherit;font-size:13px;font-weight:600;color:var(--bay);background:none;border:none;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:4px}
+  .foot-share:hover{text-decoration:underline}
+  .foot-share.shared{color:var(--green,#1d8a5f)}
   .foot-listing{color:var(--bay);display:inline-flex;align-items:center;gap:4px}
   .foot-listing .ext{font-size:12px}
   .foot-right{display:inline-flex;align-items:center;gap:12px}
@@ -328,6 +332,7 @@
   #qpill-new[data-active="true"]{background:#caa53a;border-color:#caa53a;color:#3a2e08}
 
   @media(max-width:760px){
+    .card h3{height:auto;display:block}
     .thesis{height:auto}
     .killer{height:auto}
     .walkline{height:auto}
@@ -1457,7 +1462,10 @@ function cardHTML(p){
       </div>
       ${OWNER_MODE?`<div class="owner-status"><span class="os-label">Status</span><select class="os-select" data-status="${p.id}"><option value=""${!p.status?" selected":""}>\u2014 none \u2014</option>${STATUS_ORDER.map(s=>`<option value="${s}"${p.status===s?" selected":""}>${s}</option>`).join("")}</select></div>`:""}
       <div class="card-foot">
-        ${p.listingUrl?`<a class="foot-listing" href="${p.listingUrl}" target="_blank" rel="noopener">View listing <span class="ext">\u2197</span></a>`:""}
+        <span class="foot-left">
+          ${p.listingUrl?`<a class="foot-listing" href="${p.listingUrl}" target="_blank" rel="noopener">View listing <span class="ext">\u2197</span></a>`:""}
+          <button class="foot-share" data-share="${p.id}" type="button">\u2197\uFE0E Share</button>
+        </span>
         <span class="foot-right">
           ${verified}
           ${p.archived
@@ -1910,6 +1918,49 @@ function wireCopyQ(){
 }
 
 
+function shareTextFor(p){
+  const bits=[];
+  const head=[p.building||"Apartment", p.area].filter(Boolean).join(" \u2014 ");
+  const specs=[
+    p.price?("$"+Number(p.price).toLocaleString()):null,
+    (p.beds?p.beds+"BR":null),
+    (p.size_m2?p.size_m2+"m\u00b2":null)
+  ].filter(Boolean).join(" \u00b7 ");
+  bits.push(head + (specs?("  \u00b7  "+specs):""));
+  if(p.summary) bits.push(p.summary);
+  if(p.listingUrl) bits.push("Listing: "+p.listingUrl);
+  return bits.join("\n\n");
+}
+function wireShare(){
+  document.querySelectorAll("[data-share]").forEach(btn=>{
+    if(btn._wired) return; btn._wired=true;
+    btn.addEventListener("click",async()=>{
+      const pid=btn.dataset.share;
+      const p=PROPERTIES.find(x=>x.id===pid);
+      if(!p) return;
+      const text=shareTextFor(p);
+      const title=(p.building||"Apartment")+(p.area?(" \u2014 "+p.area):"");
+      // Native share sheet on mobile/supported browsers
+      if(navigator.share){
+        try{ await navigator.share({title, text}); return; }
+        catch(e){ if(e && e.name==="AbortError") return; /* else fall through to copy */ }
+      }
+      // Fallback: copy to clipboard
+      try{
+        await navigator.clipboard.writeText(text);
+      }catch(e){
+        const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();
+        try{document.execCommand("copy");}catch(_){}
+        document.body.removeChild(ta);
+      }
+      const orig=btn.innerHTML;
+      btn.classList.add("shared"); btn.innerHTML="\u2713 Copied";
+      setTimeout(()=>{btn.classList.remove("shared"); btn.innerHTML=orig;},1800);
+    });
+  });
+}
+
+
 async function loadSuggestions(){
   const listEl=document.getElementById("sg-list");
   if(!VOTE_SHARED){ if(listEl) listEl.innerHTML=`<div class="sg-empty">Suggestions need the shared database to be set up.</div>`; return; }
@@ -1979,7 +2030,7 @@ function wireSuggestDelete(){
 
 // re-wire & paint after every render
 const _origRender=render;
-render=function(){ _origRender(); wireVotes(); wireRemove(); wireJumps(); wireCopyQ(); wireStatus(); paintVotes(); };
+render=function(){ _origRender(); wireVotes(); wireRemove(); wireJumps(); wireCopyQ(); wireStatus(); wireShare(); paintVotes(); };
 
 function wireStatus(){
   if(!OWNER_MODE) return;
