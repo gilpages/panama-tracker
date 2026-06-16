@@ -74,6 +74,11 @@
   .sec-head{display:flex;align-items:baseline;gap:12px;margin:34px 0 16px}
   .sec-head h2{font-family:'Fraunces',serif;font-weight:500;font-size:24px}
   .sec-head .meta{font-size:13px;color:var(--muted)}
+  .new-banner{display:block;width:100%;text-align:left;font:inherit;font-size:14px;color:#7a5a00;background:rgba(255,213,74,.18);border:1px solid rgba(255,213,74,.55);border-radius:10px;padding:10px 14px;margin:0 0 16px;cursor:pointer;transition:background .15s}
+  .new-banner:hover{background:rgba(255,213,74,.30)}
+  .new-banner b{font-weight:700}
+  .new-banner .nb-spark{margin-right:4px}
+  .new-banner .nb-cta{text-decoration:underline;font-weight:600}
   .rule{height:1px;background:var(--line);flex:1}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px;align-items:stretch}
@@ -1035,7 +1040,7 @@ async function loadProperties(){
   <div class="wrap header-inner">
     <div class="header-left">
       <div class="eyebrow">Panama City &middot; Apartments &amp; Condos</div>
-      <h1>Gil's Panama Property Tracker</h1>
+      <h1>Panama Property Tracker</h1>
     </div>
     <div class="stats" id="stats"></div>
   </div>
@@ -1109,6 +1114,7 @@ async function loadProperties(){
 
   <section>
     <div class="sec-head"><h2>All properties</h2><span class="meta" id="count"></span><span class="rule"></span></div>
+    <button class="new-banner" id="new-banner" hidden></button>
     <div class="grid" id="grid"></div>
     <div class="empty" id="empty" hidden>
       <b>No properties yet</b>
@@ -1154,7 +1160,7 @@ async function loadProperties(){
 </div>
 
 <footer>
-  Gil's Panama Property Tracker &middot; Facts shown are taken from listings; anything unconfirmed is marked &ldquo;Unknown.&rdquo;<br>
+  Panama Property Tracker &middot; Facts shown are taken from listings; anything unconfirmed is marked &ldquo;Unknown.&rdquo;<br>
   Walk times are approximate. Verdict &amp; grades are our own assessment, not the seller's. Listings can sell or expire &mdash; check the freshness label.
 </footer>
 
@@ -1589,19 +1595,23 @@ function renderStats(){
   const active=PROPERTIES.filter(p=>!p.archived&&!isUnavailable(p));
   const loved=PROPERTIES.filter(p=>!p.archived&&loveCount(p)>0).length;
   const strong=active.filter(p=>getScore(p)>=7 && (p.building_rating||"unknown")!=="caution").length;
-  const nNew=newToMeCount();
-  const newStat=nNew>0
-    ? `<div class="stat stat-new" id="stat-new" title="Added since you last visited (${lastVisitLabel()})"><div class="n">${nNew}</div><div class="l">New since ${lastVisitLabel()}</div></div>`
-    : "";
   $("#stats").innerHTML=`
     <div class="stat"><div class="n">${active.length}</div><div class="l">Properties tracked</div></div>
     <div class="stat" title="Properties with at least one Love vote"><div class="n">${loved}</div><div class="l">Loved</div></div>
-    <div class="stat" title="Score 7+ and no building concern"><div class="n">${strong}</div><div class="l">Strong fits</div></div>
-    ${newStat}`;
-  // clicking the New stat filters to just the new items
-  const sn=$("#stat-new");
-  if(sn)sn.addEventListener("click",()=>{const sel=$("#f-new");if(sel){sel.value="new";render();sn.scrollIntoView({behavior:"smooth",block:"start"});}});
+    <div class="stat" title="Score 7+ and no building concern"><div class="n">${strong}</div><div class="l">Strong fits</div></div>`;
+  renderNewBanner();
   syncMobilePills();
+}
+function renderNewBanner(){
+  const el=$("#new-banner"); if(!el) return;
+  const n=newToMeCount();
+  if(n<1){ el.hidden=true; return; }
+  el.hidden=false;
+  el.innerHTML=`<span class="nb-spark">\u2728</span> <b>${n}</b> new since your last visit (${lastVisitLabel()}) \u2014 <span class="nb-cta">show ${n===1?"it":"them"}</span>`;
+  if(!el._wired){
+    el._wired=true;
+    el.addEventListener("click",()=>{ const sel=$("#f-new"); if(sel){ sel.value="new"; render(); } });
+  }
 }
 function syncMobilePills(){
   const nNew=newToMeCount();
