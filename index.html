@@ -75,6 +75,7 @@
   .sec-head h2{font-family:'Fraunces',serif;font-weight:500;font-size:24px}
   .sec-head .meta{font-size:13px;color:var(--muted)}
   .new-banner{display:block;width:100%;text-align:left;font:inherit;font-size:14px;color:#7a5a00;background:rgba(255,213,74,.18);border:1px solid rgba(255,213,74,.55);border-radius:10px;padding:10px 14px;margin:0 0 16px;cursor:pointer;transition:background .15s}
+  .new-banner[hidden]{display:none}
   .new-banner:hover{background:rgba(255,213,74,.30)}
   .new-banner b{font-weight:700}
   .new-banner .nb-spark{margin-right:4px}
@@ -104,9 +105,9 @@
   .thumb .ph-hint{color:var(--muted);font-size:12.5px}
 
   /* investment-memo lines */
-  .thesis{font-size:13.5px;line-height:1.5;color:#234a40;background:#eef4f1;border-left:3px solid var(--bay);border-radius:0 8px 8px 0;padding:7px 11px;margin:2px 0 8px;min-height:62px;box-sizing:border-box}
+  .thesis{font-size:13.5px;line-height:1.5;color:#234a40;background:#eef4f1;border-left:3px solid var(--bay);border-radius:0 8px 8px 0;padding:7px 11px;margin:2px 0 8px;min-height:116px;box-sizing:border-box}
   .thesis b{font-weight:700;color:var(--bay);font-size:11px;letter-spacing:.04em;text-transform:uppercase;display:block;margin-bottom:1px}
-  .killer{font-size:13px;line-height:1.5;color:#7a2a23;background:var(--red-bg);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:7px 11px;margin:0 0 10px;min-height:60px;box-sizing:border-box}
+  .killer{font-size:13px;line-height:1.5;color:#7a2a23;background:var(--red-bg);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:7px 11px;margin:0 0 10px;min-height:95px;box-sizing:border-box}
   .killer b{font-weight:700;color:var(--red);font-size:11px;letter-spacing:.04em;text-transform:uppercase;display:block;margin-bottom:1px}
 
   /* compact building one-liner */
@@ -326,6 +327,8 @@
   #qpill-new[data-active="true"]{background:#caa53a;border-color:#caa53a;color:#3a2e08}
 
   @media(max-width:760px){
+    .thesis{min-height:0}
+    .killer{min-height:0}
     .sec-head{flex-direction:column;align-items:flex-start;gap:3px;margin:28px 0 14px}
     .sec-head h2{font-size:21px;white-space:nowrap}
     .sec-head .meta{font-size:12.5px}
