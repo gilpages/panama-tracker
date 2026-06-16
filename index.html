@@ -105,9 +105,11 @@
   .thumb .ph-hint{color:var(--muted);font-size:12.5px}
 
   /* investment-memo lines */
-  .thesis{font-size:13.5px;line-height:1.5;color:#234a40;background:#eef4f1;border-left:3px solid var(--bay);border-radius:0 8px 8px 0;padding:7px 11px;margin:2px 0 8px;min-height:116px;box-sizing:border-box}
+  .thesis{font-size:13.5px;line-height:1.5;color:#234a40;background:#eef4f1;border-left:3px solid var(--bay);border-radius:0 8px 8px 0;padding:7px 11px;margin:2px 0 8px;box-sizing:border-box}
   .thesis b{font-weight:700;color:var(--bay);font-size:11px;letter-spacing:.04em;text-transform:uppercase;display:block;margin-bottom:1px}
-  .killer{font-size:13px;line-height:1.5;color:#7a2a23;background:var(--red-bg);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:7px 11px;margin:0 0 10px;min-height:95px;box-sizing:border-box}
+  .killer{font-size:13px;line-height:1.5;color:#7a2a23;background:var(--red-bg);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:7px 11px;margin:0 0 10px;box-sizing:border-box}
+  .card-precis{min-height:300px;display:flex;flex-direction:column}
+  .card-precis .killer{margin-bottom:0}
   .killer b{font-weight:700;color:var(--red);font-size:11px;letter-spacing:.04em;text-transform:uppercase;display:block;margin-bottom:1px}
 
   /* compact building one-liner */
@@ -327,8 +329,7 @@
   #qpill-new[data-active="true"]{background:#caa53a;border-color:#caa53a;color:#3a2e08}
 
   @media(max-width:760px){
-    .thesis{min-height:0}
-    .killer{min-height:0}
+    .card-precis{min-height:0}
     .sec-head{flex-direction:column;align-items:flex-start;gap:3px;margin:28px 0 14px}
     .sec-head h2{font-size:21px;white-space:nowrap}
     .sec-head .meta{font-size:12.5px}
@@ -1437,9 +1438,11 @@ function cardHTML(p){
       <div class="badges">${badges}${statusBadge}</div>
       <h3>${p.building||"Unknown building"}</h3>
       <div class="sub-line">${p.view?`<span class="area">${p.view}</span>`:"<span></span>"}${mapTop}</div>
+      <div class="card-precis">
       ${p.walkLine?`<div class="walkline"><span class="wl-icon">\u{1F6B6}</span><span>${p.walkLine}</span></div>`:""}
       ${p.thesis?`<div class="thesis"><b>Thesis</b>${p.thesis}</div>`:""}
       ${p.dealKiller?`<div class="killer"><b>What could kill it</b>${p.dealKiller}</div>`:""}
+      </div>
       ${grades}
       ${buildingLine(p)}
       ${body}
